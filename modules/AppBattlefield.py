@@ -7,29 +7,8 @@ from PyQt5.QtGui import *
 
 import math
 
-from modules.AppCharacters import AppCharacters
 
-
-class AppBattlefield(QGraphicsView):
-
-    def __init__(self, *args):
-        super(AppBattlefield, self).__init__(*args)
-
-        self.active = None
-
-        self.setGeometry(QRect(130, 10, 371, 221))
-
-        self.scene = QGraphicsScene(self)
-        self.setScene(self.scene)
-
-        self.scene.addItem(QRegularPolygon(point=QPointF(50.0, 50.0), parent=self))
-        self.scene.addItem(QRegularPolygon(point=QPointF(126.0, 94.0), parent=self))
-
-        char_1 = AppCharacters(point=QPointF(126.0, 94.0), radius=25, parent=self)
-        self.scene.addItem(char_1)
-
-
-class QRegularPolygon(QGraphicsPolygonItem):
+class AppBattkeHex(QGraphicsPolygonItem):
     """
     Regular polygon of N sides
     Функция написанна не мною а найдена на просторах интерната и модифицированна
@@ -44,7 +23,7 @@ class QRegularPolygon(QGraphicsPolygonItem):
             center -- QPointF containing the center
             angle -- угол смещения вершин в радианах
         """
-        super(QRegularPolygon, self).__init__()
+        super(AppBattkeHex, self).__init__()
 
         self._parent = parent
 

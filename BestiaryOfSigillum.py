@@ -8,6 +8,16 @@ from modules.AppBattlefield import AppBattkeHex
 from modules.AppCharacters import AppCharacters
 
 
+battle_field = {
+    "field_1": {
+        "point": QPointF(50.0, 50.0),
+    },
+    "field_2": {
+        "point": QPointF(126.0, 94.0),
+    }
+}
+
+
 class AppStart(QMainWindow):
     """ Главный виджет """
 
@@ -24,8 +34,8 @@ class AppStart(QMainWindow):
         self.scene = QGraphicsScene(self)
         self.field.setScene(self.scene)
 
-        self.scene.addItem(AppBattkeHex(point=QPointF(50.0, 50.0), parent=self))
-        self.scene.addItem(AppBattkeHex(point=QPointF(126.0, 94.0), parent=self))
+        for key, value in battle_field.items():
+            self.scene.addItem(AppBattkeHex(point=value['point'], parent=self))
 
         char_1 = AppCharacters(point=QPointF(126.0, 94.0), radius=25, parent=self)
 

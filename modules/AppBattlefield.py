@@ -21,9 +21,9 @@ class AppBattlefield(QGraphicsView):
         self.setScene(self.scene)
 
         self.scene.addItem(QRegularPolygon(point=QPointF(50.0, 50.0)))
-        self.scene.addItem(QRegularPolygon(point=QPointF(100.0, 100.0)))
+        self.scene.addItem(QRegularPolygon(point=QPointF(126.0, 94.0)))
 
-        self.scene.addItem(AppCharacters(point=QPointF(100.0, 100.0), radius=25))
+        self.scene.addItem(AppCharacters(point=QPointF(126.0, 94.0), radius=25))
 
 
 class QRegularPolygon(QGraphicsPolygonItem):
@@ -46,7 +46,7 @@ class QRegularPolygon(QGraphicsPolygonItem):
         self._sides = sides
         self._radius = radius
 
-        # self.setPen(QPen(QColor("green"), 2))
+        self.setPen(QPen(QColor("black"), 2))
 
         self.setBrush(QColor("gray"))
 

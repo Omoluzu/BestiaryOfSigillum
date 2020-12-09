@@ -12,6 +12,7 @@ class AppStart(QMainWindow):
     def __init__(self):
         super().__init__()
         self.resize(600, 300)
+        self.setWindowTitle("Бестиарий Сигиллума")
 
         self.field = AppBattlefield(self)
 

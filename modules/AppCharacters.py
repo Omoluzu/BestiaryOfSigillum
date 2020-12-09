@@ -25,6 +25,7 @@ class AppCharacters(QGraphicsPolygonItem):
         self._sides = sides
         self._radius = radius
 
+        self.setPen(QPen(QColor("black"), 1))
         self.setBrush(QColor("green"))
 
         self._angle = angle if angle else 0.0
@@ -45,7 +46,9 @@ class AppCharacters(QGraphicsPolygonItem):
         if self._parent.active:
             if self._parent.active == self:
                 self._parent.active = None
+                self.setPen(QPen(QColor("black"), 1))
         else:
             self._parent.active = self
+            self.setPen(QPen(QColor("red"), 6))
 
         print(self._parent.active)

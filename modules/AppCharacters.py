@@ -7,31 +7,8 @@ from PyQt5.QtGui import *
 
 import math
 
-from modules.AppCharacters import AppCharacters
 
-
-class AppBattlefield(QGraphicsView):
-
-    def __init__(self, *args):
-        super(AppBattlefield, self).__init__(*args)
-
-        self.setGeometry(QRect(130, 10, 371, 221))
-
-        self.scene = QGraphicsScene(self)
-        self.setScene(self.scene)
-
-        self.scene.addItem(QRegularPolygon(point=QPointF(50.0, 50.0)))
-        self.scene.addItem(QRegularPolygon(point=QPointF(100.0, 100.0)))
-
-        self.scene.addItem(AppCharacters(point=QPointF(100.0, 100.0), radius=25))
-
-
-class QRegularPolygon(QGraphicsPolygonItem):
-    """
-    Regular polygon of N sides
-    Функция написанна не мною а найдена на просторах интерната и модифицированна
-    Взято отсюда: https://stackoverflow.com/questions/18463854/hex-grid-map-with-pyqt4/18871784
-    """
+class AppCharacters(QGraphicsPolygonItem):
 
     def __init__(self, point, sides=6, radius=50, angle=None, parent=None):
         """
@@ -41,14 +18,14 @@ class QRegularPolygon(QGraphicsPolygonItem):
             center -- QPointF containing the center
             angle -- угол смещения вершин в радианах
         """
-        super(QRegularPolygon, self).__init__(parent)
+        super(AppCharacters, self).__init__(parent)
 
         self._sides = sides
         self._radius = radius
 
         # self.setPen(QPen(QColor("green"), 2))
 
-        self.setBrush(QColor("gray"))
+        self.setBrush(QColor("green"))
 
         self._angle = angle if angle else 0.0
 

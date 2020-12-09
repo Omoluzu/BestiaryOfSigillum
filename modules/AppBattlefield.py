@@ -54,3 +54,6 @@ class QRegularPolygon(QGraphicsPolygonItem):
             points.append(QPointF(x, y))
 
         self.setPolygon(QPolygonF(points))
+
+    def mousePressEvent(self, e):
+        print(self)

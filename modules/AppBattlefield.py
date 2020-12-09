@@ -71,6 +71,6 @@ class QRegularPolygon(QGraphicsPolygonItem):
     def mousePressEvent(self, e):
         if self._parent.active:
             self._parent.active.move(self._center)
-            self._parent.active = None
+            self._parent.active.deactivate()
         else:
             print("Действией нет")

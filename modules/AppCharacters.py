@@ -44,12 +44,15 @@ class AppCharacters(QGraphicsPolygonItem):
 
         self.setPolygon(QPolygonF(points))
 
+    def deactivate(self):
+        self._parent.active = None
+        self.setPen(QPen(QColor("black"), 1))
+
     def mousePressEvent(self, e):
 
         if self._parent.active:
             if self._parent.active == self:
-                self._parent.active = None
-                self.setPen(QPen(QColor("black"), 1))
+                self.deactivate()
         else:
             self._parent.active = self
             self.setPen(QPen(QColor("red"), 6))

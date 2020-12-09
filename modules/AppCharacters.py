@@ -18,12 +18,12 @@ class AppCharacters(QGraphicsPolygonItem):
             center -- QPointF containing the center
             angle -- угол смещения вершин в радианах
         """
-        super(AppCharacters, self).__init__(parent)
+        super(AppCharacters, self).__init__()
+
+        self._parent = parent
 
         self._sides = sides
         self._radius = radius
-
-        # self.setPen(QPen(QColor("green"), 2))
 
         self.setBrush(QColor("green"))
 
@@ -41,4 +41,11 @@ class AppCharacters(QGraphicsPolygonItem):
         self.setPolygon(QPolygonF(points))
 
     def mousePressEvent(self, e):
-        print(self)
+
+        if self._parent.active:
+            if self._parent.active == self:
+                self._parent.active = None
+        else:
+            self._parent.active = self
+
+        print(self._parent.active)

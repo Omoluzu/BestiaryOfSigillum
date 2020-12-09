@@ -15,6 +15,8 @@ class AppBattlefield(QGraphicsView):
     def __init__(self, *args):
         super(AppBattlefield, self).__init__(*args)
 
+        self.active = None
+
         self.setGeometry(QRect(130, 10, 371, 221))
 
         self.scene = QGraphicsScene(self)
@@ -23,7 +25,8 @@ class AppBattlefield(QGraphicsView):
         self.scene.addItem(QRegularPolygon(point=QPointF(50.0, 50.0)))
         self.scene.addItem(QRegularPolygon(point=QPointF(126.0, 94.0)))
 
-        self.scene.addItem(AppCharacters(point=QPointF(126.0, 94.0), radius=25))
+        char_1 = AppCharacters(point=QPointF(126.0, 94.0), radius=25, parent=self)
+        self.scene.addItem(char_1)
 
 
 class QRegularPolygon(QGraphicsPolygonItem):
@@ -64,4 +67,4 @@ class QRegularPolygon(QGraphicsPolygonItem):
         self.setPolygon(QPolygonF(points))
 
     def mousePressEvent(self, e):
-        print(self)
+        print(self.isActive())

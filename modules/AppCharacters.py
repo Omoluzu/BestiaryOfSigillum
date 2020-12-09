@@ -32,11 +32,14 @@ class AppCharacters(QGraphicsPolygonItem):
 
         self._center = point
 
+        self.move()
+
+    def move(self):
         points = list()
         for s in range(self._sides):
-            angle = self._angle + (2 * math.pi * s/self._sides)
-            x = self._center.x() + (radius * math.cos(angle))
-            y = self._center.y() + (radius * math.sin(angle))
+            angle = self._angle + (2 * math.pi * s / self._sides)
+            x = self._center.x() + (self._radius * math.cos(angle))
+            y = self._center.y() + (self._radius * math.sin(angle))
             points.append(QPointF(x, y))
 
         self.setPolygon(QPolygonF(points))

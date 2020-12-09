@@ -22,8 +22,8 @@ class AppBattlefield(QGraphicsView):
         self.scene = QGraphicsScene(self)
         self.setScene(self.scene)
 
-        self.scene.addItem(QRegularPolygon(point=QPointF(50.0, 50.0)))
-        self.scene.addItem(QRegularPolygon(point=QPointF(126.0, 94.0)))
+        self.scene.addItem(QRegularPolygon(point=QPointF(50.0, 50.0), parent=self))
+        self.scene.addItem(QRegularPolygon(point=QPointF(126.0, 94.0), parent=self))
 
         char_1 = AppCharacters(point=QPointF(126.0, 94.0), radius=25, parent=self)
         self.scene.addItem(char_1)
@@ -44,7 +44,9 @@ class QRegularPolygon(QGraphicsPolygonItem):
             center -- QPointF containing the center
             angle -- угол смещения вершин в радианах
         """
-        super(QRegularPolygon, self).__init__(parent)
+        super(QRegularPolygon, self).__init__()
+
+        self._parent = parent
 
         self._sides = sides
         self._radius = radius
@@ -67,4 +69,8 @@ class QRegularPolygon(QGraphicsPolygonItem):
         self.setPolygon(QPolygonF(points))
 
     def mousePressEvent(self, e):
-        print(self.isActive())
+        if self._parent.active:
+            self._parent.active.move(self._center)
+            self._parent.active = None
+        else:
+            print("Действией нет")

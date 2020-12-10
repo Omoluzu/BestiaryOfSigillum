@@ -33,9 +33,9 @@ class AppStart(QMainWindow):
         for key, value in reserve_field.items():
             self.scene.addItem(AppReserveHex(radius=field_radius, parent=self, data=value, name=key))
 
-        self.scene.addItem(AppCharacters(point=QPointF(200.0, 50.0), parent=self))
-        self.scene.addItem(AppCharacters(point=QPointF(200.0, 150.0), parent=self, brush="yellow"))
-        self.scene.addItem(AppCharacters(point=QPointF(200.0, 250.0), parent=self, brush="violet"))
+        self.scene.addItem(AppCharacters(point=QPointF(200.0, 50.0), parent=self, pen='Lavender'))
+        self.scene.addItem(AppCharacters(point=QPointF(200.0, 150.0), parent=self, brush="yellow", pen='Lavender'))
+        self.scene.addItem(AppCharacters(point=QPointF(200.0, 250.0), parent=self, brush="violet", pen='Lavender'))
 
         self.scene.addItem(AppCharacters(point=QPointF(70.0, 50.0), parent=self))
         self.scene.addItem(AppCharacters(point=QPointF(70.0, 150.0), parent=self, brush="yellow"))

@@ -27,6 +27,7 @@ battle_field = {
         "point_y": lambda y, r: y / 2,
         "type": {
             "tower": True,
+            "field": True
         }
     },
     "tower_2": {
@@ -216,9 +217,23 @@ class AppBattleHex(QGraphicsPolygonItem):
         self._sides = 6
         self._radius = radius
         self._angle = angle if angle else 0.0
+        self._type = data['type']  # Тип данного поля
 
         self.setPen(QPen(QColor("black"), 2))
-        self.setBrush(QColor("gray"))
+
+        if self._type.get('water'):
+            brush = "Turquoise"
+        elif self._type.get('forest'):
+            brush = "DarkGreen"
+        elif self._type.get('mountain'):
+            brush = "DimGrey"
+        elif self._type.get('field'):
+            brush = "OliveDrab"
+        elif self._type.get('castle'):
+            brush = "Teal"
+        else:
+            brush = "Gray"
+        self.setBrush(QColor(brush))
 
         point_x = (data['point_x'](self._parent.field.width(), radius))
         point_y = (data['point_y'](self._parent.field.height(), radius))
@@ -238,7 +253,7 @@ class AppBattleHex(QGraphicsPolygonItem):
             self._parent.active.move(self._point)
             self._parent.active.deactivate()
         else:
-            print(f"Имя поля: {self._name}")
+            print(f"Имя поля: {self._name} \nТип поля: {self._type}")
 
 
 class AppReserveHex(QGraphicsPolygonItem):

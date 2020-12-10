@@ -4,7 +4,7 @@
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 
-from modules.AppBattlefield import AppBattleHex, battle_field
+from modules.AppBattlefield import AppBattleHex, AppReserveHex, battle_field, reserve_field
 from modules.AppCharacters import AppCharacters
 
 
@@ -29,6 +29,9 @@ class AppStart(QMainWindow):
 
         for key, value in battle_field.items():
             self.scene.addItem(AppBattleHex(radius=field_radius, parent=self, data=value, name=key))
+
+        for key, value in reserve_field.items():
+            self.scene.addItem(AppReserveHex(radius=field_radius, parent=self, data=value, name=key))
 
         char_1 = AppCharacters(point=QPointF(126.0, 94.0), radius=25, parent=self)
         self.scene.addItem(char_1)

@@ -87,6 +87,35 @@ battle_field = {
 }
 
 
+reserve_field = {
+    "reserve_1_1": {
+        "point_x": lambda x, r: x / 2 - r * 5.8,
+        "point_y": lambda y, r: y / 2 + r * 3.7,
+    },
+    "reserve_1_2": {
+        "point_x": lambda x, r: x / 2 - r * 4.5,
+        "point_y": lambda y, r: y / 2 + r * 3.7,
+    },
+    "reserve_1_3": {
+        "point_x": lambda x, r: x / 2 - r * 3.2,
+        "point_y": lambda y, r: y / 2 + r * 3.7,
+    },
+
+    "reserve_2_1": {
+        "point_x": lambda x, r: x / 2 + r * 5.8,
+        "point_y": lambda y, r: y / 2 - r * 3.7,
+    },
+    "reserve_2_2": {
+        "point_x": lambda x, r: x / 2 + r * 4.5,
+        "point_y": lambda y, r: y / 2 - r * 3.7,
+    },
+    "reserve_2_3": {
+        "point_x": lambda x, r: x / 2 + r * 3.2,
+        "point_y": lambda y, r: y / 2 - r * 3.7,
+    },
+}
+
+
 class AppBattleHex(QGraphicsPolygonItem):
     """
     Regular polygon of N sides
@@ -121,7 +150,7 @@ class AppBattleHex(QGraphicsPolygonItem):
 
         points = list()
         for s in range(self._sides):
-            angle = self._angle + (2 * math.pi * s/self._sides)
+            angle = self._angle + (2 * math.pi * s / self._sides)
             x = self._point.x() + (radius * math.cos(angle))
             y = self._point.y() + (radius * math.sin(angle))
             points.append(QPointF(x, y))
@@ -158,7 +187,7 @@ class AppReserveHex(QGraphicsPolygonItem):
         self._name = name
 
         self._sides = 6
-        self._radius = radius
+        self._radius = radius / 3
         self._angle = angle if angle else 0.0
 
         self.setPen(QPen(QColor("black"), 2))
@@ -170,9 +199,9 @@ class AppReserveHex(QGraphicsPolygonItem):
 
         points = list()
         for s in range(self._sides):
-            angle = self._angle + (2 * math.pi * s/self._sides)
-            x = self._point.x() + (radius * math.cos(angle))
-            y = self._point.y() + (radius * math.sin(angle))
+            angle = self._angle + (2 * math.pi * s / self._sides)
+            x = self._point.x() + (self._radius * math.cos(angle))
+            y = self._point.y() + (self._radius * math.sin(angle))
             points.append(QPointF(x, y))
 
         self.setPolygon(QPolygonF(points))

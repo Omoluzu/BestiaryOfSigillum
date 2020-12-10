@@ -3,6 +3,7 @@
 
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
+from PyQt5.QtGui import *
 
 from modules.AppBattlefield import AppBattleHex, AppReserveHex, battle_field, reserve_field
 from modules.AppCharacters import AppCharacters
@@ -26,6 +27,11 @@ class AppStart(QMainWindow):
         self.field.setScene(self.scene)
 
         field_radius = int(self.field.height() / 9)
+
+        self.pixmap = QGraphicsPixmapItem(QPixmap('images/field.jpg'))
+        self.scene.addItem(self.pixmap)
+        self.pixmap.setScale(2.30)
+        self.pixmap.setPos(230, 10)
 
         for key, value in battle_field.items():
             self.scene.addItem(AppBattleHex(radius=field_radius, parent=self, data=value, name=key))

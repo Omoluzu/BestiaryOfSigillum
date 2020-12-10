@@ -94,7 +94,7 @@ class AppBattleHex(QGraphicsPolygonItem):
     Взято отсюда: https://stackoverflow.com/questions/18463854/hex-grid-map-with-pyqt4/18871784
     """
 
-    def __init__(self, data, radius=50, angle=None, parent=None):
+    def __init__(self, data, radius=50, angle=None, parent=None, name=None):
         """
         Initializes an hexagon of the given radius.
             sides -- sides of the regular polygon
@@ -106,6 +106,7 @@ class AppBattleHex(QGraphicsPolygonItem):
 
         self._parent = parent
         self._data = data
+        self._name = name
 
         self._sides = 6
         self._radius = radius
@@ -134,4 +135,4 @@ class AppBattleHex(QGraphicsPolygonItem):
             self._parent.active.move(self._point)
             self._parent.active.deactivate()
         else:
-            print("Действией нет")
+            print(f"Имя поля: {self._name}")

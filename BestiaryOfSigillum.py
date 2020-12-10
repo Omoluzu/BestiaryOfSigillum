@@ -28,10 +28,7 @@ class AppStart(QMainWindow):
         field_radius = int(self.field.height() / 9)
 
         for key, value in battle_field.items():
-            point_x = (value['point_x'](self.field.width(), field_radius))
-            point_y = (value['point_y'](self.field.height(), field_radius))
-            point = QPointF(point_x, point_y)
-            self.scene.addItem(AppBattleHex(point=point, radius=field_radius, parent=self))
+            self.scene.addItem(AppBattleHex(radius=field_radius, parent=self, data=value))
 
         char_1 = AppCharacters(point=QPointF(126.0, 94.0), radius=25, parent=self)
         self.scene.addItem(char_1)

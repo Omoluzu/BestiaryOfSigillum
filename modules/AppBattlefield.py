@@ -94,7 +94,7 @@ class AppBattleHex(QGraphicsPolygonItem):
     Взято отсюда: https://stackoverflow.com/questions/18463854/hex-grid-map-with-pyqt4/18871784
     """
 
-    def __init__(self, point, sides=6, radius=50, angle=None, parent=None):
+    def __init__(self, data, radius=50, angle=None, parent=None):
         """
         Initializes an hexagon of the given radius.
             sides -- sides of the regular polygon
@@ -105,8 +105,9 @@ class AppBattleHex(QGraphicsPolygonItem):
         super(AppBattleHex, self).__init__()
 
         self._parent = parent
+        self._data = data
 
-        self._sides = sides
+        self._sides = 6
         self._radius = radius
 
         self.setPen(QPen(QColor("black"), 2))
@@ -115,20 +116,22 @@ class AppBattleHex(QGraphicsPolygonItem):
 
         self._angle = angle if angle else 0.0
 
-        self._center = point
+        point_x = (data['point_x'](self._parent.field.width(), radius))
+        point_y = (data['point_y'](self._parent.field.height(), radius))
+        self._point = QPointF(point_x, point_y)
 
         points = list()
         for s in range(self._sides):
             angle = self._angle + (2 * math.pi * s/self._sides)
-            x = self._center.x() + (radius * math.cos(angle))
-            y = self._center.y() + (radius * math.sin(angle))
+            x = self._point.x() + (radius * math.cos(angle))
+            y = self._point.y() + (radius * math.sin(angle))
             points.append(QPointF(x, y))
 
         self.setPolygon(QPolygonF(points))
 
     def mousePressEvent(self, e):
         if self._parent.active:
-            self._parent.active.move(self._center)
+            self._parent.active.move(self._point)
             self._parent.active.deactivate()
         else:
             print("Действией нет")

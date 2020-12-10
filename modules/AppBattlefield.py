@@ -110,12 +110,59 @@ class AppBattleHex(QGraphicsPolygonItem):
 
         self._sides = 6
         self._radius = radius
+        self._angle = angle if angle else 0.0
 
         self.setPen(QPen(QColor("black"), 2))
-
         self.setBrush(QColor("gray"))
 
+        point_x = (data['point_x'](self._parent.field.width(), radius))
+        point_y = (data['point_y'](self._parent.field.height(), radius))
+        self._point = QPointF(point_x, point_y)
+
+        points = list()
+        for s in range(self._sides):
+            angle = self._angle + (2 * math.pi * s/self._sides)
+            x = self._point.x() + (radius * math.cos(angle))
+            y = self._point.y() + (radius * math.sin(angle))
+            points.append(QPointF(x, y))
+
+        self.setPolygon(QPolygonF(points))
+
+    def mousePressEvent(self, e):
+        if self._parent.active:
+            self._parent.active.move(self._point)
+            self._parent.active.deactivate()
+        else:
+            print(f"Имя поля: {self._name}")
+
+
+class AppReserveHex(QGraphicsPolygonItem):
+    """
+    Regular polygon of N sides
+    Функция написанна не мною а найдена на просторах интерната и модифицированна
+    Взято отсюда: https://stackoverflow.com/questions/18463854/hex-grid-map-with-pyqt4/18871784
+    """
+
+    def __init__(self, data, radius=50, angle=None, parent=None, name=None):
+        """
+        Initializes an hexagon of the given radius.
+            sides -- sides of the regular polygon
+            radius -- radius of the external circle
+            center -- QPointF containing the center
+            angle -- угол смещения вершин в радианах
+        """
+        super(AppReserveHex, self).__init__()
+
+        self._parent = parent
+        self._data = data
+        self._name = name
+
+        self._sides = 6
+        self._radius = radius
         self._angle = angle if angle else 0.0
+
+        self.setPen(QPen(QColor("black"), 2))
+        self.setBrush(QColor("blue"))
 
         point_x = (data['point_x'](self._parent.field.width(), radius))
         point_y = (data['point_y'](self._parent.field.height(), radius))

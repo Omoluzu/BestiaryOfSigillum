@@ -11,78 +11,136 @@ battle_field = {
     "castle_1": {
         "point_x": lambda x, r: x / 2,
         "point_y": lambda y, r: y / 2 + r * 4 - r * 0.5,
+        "type": {
+            "castle": True,
+        }
     },
     "castle_2": {
         "point_x": lambda x, r: x / 2,
         "point_y": lambda y, r: y / 2 - r * 4 + r * 0.5,
+        "type": {
+            "castle": True,
+        }
     },
     "tower_1": {
         "point_x": lambda x, r: x / 2 - r * 3,
         "point_y": lambda y, r: y / 2,
+        "type": {
+            "tower": True,
+        }
     },
     "tower_2": {
         "point_x": lambda x, r: x / 2 + r * 3,
         "point_y": lambda y, r: y / 2,
+        "type": {
+            "tower": True,
+            "mountain": True,
+        }
     },
     "water_1": {
         "point_x": lambda x, r: x / 2,
         "point_y": lambda y, r: y / 2,
+        "type": {
+            "water": True
+        }
     },
     "water_2": {
         "point_x": lambda x, r: x / 2 + r * 2 - r * 0.5,
         "point_y": lambda y, r: y / 2 - r + r * 0.13,
+        "type": {
+            "water": True
+        }
     },
     "water_3": {
         "point_x": lambda x, r: x / 2 + r * 2 - r * 0.5,
         "point_y": lambda y, r: y / 2 + r - r * 0.13,
+        "type": {
+            "water": True
+        }
     },
     "forest_1": {
         "point_x": lambda x, r: x / 2 + r * 2 - r * 0.5,
         "point_y": lambda y, r: y / 2 + r * 3 - r * 0.38,
+        "type": {
+            "forest": True
+        }
     },
     "forest_2": {
         "point_x": lambda x, r: x / 2 - r * 3,
         "point_y": lambda y, r: y / 2 + r * 2 - r * 0.25,
+        "type": {
+            "forest": True
+        }
     },
     "forest_3": {
         "point_x": lambda x, r: x / 2 - r * 2 + r * 0.5,
         "point_y": lambda y, r: y / 2 - r + r * 0.13,
+        "type": {
+            "forest": True
+        }
     },
     "forest_4": {
         "point_x": lambda x, r: x / 2 + r * 3,
         "point_y": lambda y, r: y / 2 - r * 2 + r * 0.25,
+        "type": {
+            "forest": True
+        }
     },
     "mountain_1": {
         "point_x": lambda x, r: x / 2 - r * 2 + r * 0.5,
         "point_y": lambda y, r: y / 2 + r - r * 0.13,
+        "type": {
+            "mountain": True
+        }
     },
     "mountain_2": {
         "point_x": lambda x, r: x / 2 - r * 3,
         "point_y": lambda y, r: y / 2 - r * 2 + r * 0.25,
+        "type": {
+            "mountain": True
+        }
     },
     "field_1": {
         "point_x": lambda x, r: x / 2 - r * 2 + r * 0.5,
         "point_y": lambda y, r: y / 2 + r * 3 - r * 0.38,
+        "type": {
+            "field": True
+        }
     },
     "field_2": {
         "point_x": lambda x, r: x / 2,
         "point_y": lambda y, r: y / 2 + r*2 - r * 0.25,
+        "type": {
+            "field": True
+        }
     },
     "field_3": {
         "point_x": lambda x, r: x / 2 + r * 3,
         "point_y": lambda y, r: y / 2 + r * 2 - r * 0.25,
+        "type": {
+            "field": True
+        }
     },
     "field_4": {
         "point_x": lambda x, r: x / 2,
         "point_y": lambda y, r: y / 2 - r*2 + r * 0.25,
+        "type": {
+            "field": True
+        }
     },
     "field_5": {
         "point_x": lambda x, r: x / 2 - r*2 + r * 0.5,
         "point_y": lambda y, r: y / 2 - r*3 + r * 0.38,
+        "type": {
+            "field": True
+        }
     },
     "field_6": {
         "point_x": lambda x, r: x / 2 + r*2 - r * 0.5,
         "point_y": lambda y, r: y / 2 - r*3 + r * 0.38,
+        "type": {
+            "field": True
+        }
     },
 }
 
@@ -91,27 +149,45 @@ reserve_field = {
     "reserve_1_1": {
         "point_x": lambda x, r: x / 2 - r * 5.8,
         "point_y": lambda y, r: y / 2 + r * 3.7,
+        "type": {
+            "reserve": True
+        }
     },
     "reserve_1_2": {
         "point_x": lambda x, r: x / 2 - r * 4.5,
         "point_y": lambda y, r: y / 2 + r * 3.7,
+        "type": {
+            "reserve": True
+        }
     },
     "reserve_1_3": {
         "point_x": lambda x, r: x / 2 - r * 3.2,
         "point_y": lambda y, r: y / 2 + r * 3.7,
+        "type": {
+            "reserve": True
+        }
     },
 
     "reserve_2_1": {
         "point_x": lambda x, r: x / 2 + r * 5.8,
         "point_y": lambda y, r: y / 2 - r * 3.7,
+        "type": {
+            "reserve": True
+        }
     },
     "reserve_2_2": {
         "point_x": lambda x, r: x / 2 + r * 4.5,
         "point_y": lambda y, r: y / 2 - r * 3.7,
+        "type": {
+            "reserve": True
+        }
     },
     "reserve_2_3": {
         "point_x": lambda x, r: x / 2 + r * 3.2,
         "point_y": lambda y, r: y / 2 - r * 3.7,
+        "type": {
+            "reserve": True
+        }
     },
 }
 

@@ -219,21 +219,7 @@ class AppBattleHex(QGraphicsPolygonItem):
         self._angle = angle if angle else 0.0
         self._type = data['type']  # Тип данного поля
 
-        self.setPen(QPen(QColor("black"), 2))
-
-        if self._type.get('water'):
-            brush = "Turquoise"
-        elif self._type.get('forest'):
-            brush = "DarkGreen"
-        elif self._type.get('mountain'):
-            brush = "DimGrey"
-        elif self._type.get('field'):
-            brush = "OliveDrab"
-        elif self._type.get('castle'):
-            brush = "Teal"
-        else:
-            brush = "Gray"
-        self.setBrush(QColor(brush))
+        # self.setPen(QPen(QColor("black"), 0))
 
         point_x = (data['point_x'](self._parent.field.width(), radius))
         point_y = (data['point_y'](self._parent.field.height(), radius))

@@ -33,10 +33,13 @@ class AppStart(QMainWindow):
         for key, value in reserve_field.items():
             self.scene.addItem(AppReserveHex(radius=field_radius, parent=self, data=value, name=key))
 
-        char_1 = AppCharacters(point=QPointF(126.0, 94.0), radius=25, parent=self)
-        self.scene.addItem(char_1)
-        char_2 = AppCharacters(point=QPointF(200.0, 200.0), radius=25, parent=self)
-        self.scene.addItem(char_2)
+        self.scene.addItem(AppCharacters(point=QPointF(200.0, 50.0), parent=self))
+        self.scene.addItem(AppCharacters(point=QPointF(200.0, 150.0), parent=self, brush="yellow"))
+        self.scene.addItem(AppCharacters(point=QPointF(200.0, 250.0), parent=self, brush="violet"))
+
+        self.scene.addItem(AppCharacters(point=QPointF(70.0, 50.0), parent=self))
+        self.scene.addItem(AppCharacters(point=QPointF(70.0, 150.0), parent=self, brush="yellow"))
+        self.scene.addItem(AppCharacters(point=QPointF(70.0, 250.0), parent=self, brush="violet"))
 
         self.log = QTextEdit(self)
         self.log.setGeometry(QRect(int(width * 0.1), int(height * 0.7 + 12), int(width * 0.6), int(height * 0.2)))

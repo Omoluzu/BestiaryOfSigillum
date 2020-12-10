@@ -32,11 +32,17 @@ class AppStart(QMainWindow):
 
         self.active = None
 
-        self.layout = QVBoxLayout()
+        self.general_layout = QHBoxLayout()
+
+        self.field_layout = QVBoxLayout()
+        self.general_layout.addLayout(self.field_layout)
+
+        self.h_layout = QVBoxLayout()
+        self.general_layout.addLayout(self.h_layout)
 
         self.field = QGraphicsView(self)
         # self.field.setGeometry(QRect(130, 10, 600, 300))
-        self.layout.addWidget(self.field)
+        self.field_layout.addWidget(self.field)
 
         self.scene = QGraphicsScene(self)
         self.field.setScene(self.scene)
@@ -51,11 +57,11 @@ class AppStart(QMainWindow):
         self.scene.addItem(char_1)
 
         self.bt_close = QPushButton('Close')
-        self.layout.addWidget(self.bt_close)
+        self.h_layout.addWidget(self.bt_close)
         self.bt_close.clicked.connect(self.action_close)
 
         widget = QWidget()
-        widget.setLayout(self.layout)
+        widget.setLayout(self.general_layout)
 
         self.setCentralWidget(widget)
 

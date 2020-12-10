@@ -11,15 +11,25 @@ from modules.AppCharacters import AppCharacters
 
 battle_field = {
     "field_1": {
-        "point": QPointF(50, 50),
-        "point_x": lambda x: x / 2,
-        "point_y": lambda y: y / 2,
+        "point_x": lambda x, r: x / 2,
+        "point_y": lambda y, r: y / 2,
     },
     "field_2": {
-        "point": QPointF(126.0, 94.0),
-        "point_x": lambda x: x / 3,
-        "point_y": lambda y: y / 3,
-    }
+        "point_x": lambda x, r: x / 2,
+        "point_y": lambda y, r: y / 2 + r*2 - r * 0.25,
+    },
+    "field_3": {
+        "point_x": lambda x, r: x / 2,
+        "point_y": lambda y, r: y / 2 - r*2 + r * 0.25,
+    },
+    "field_4": {
+        "point_x": lambda x, r: x / 2,
+        "point_y": lambda y, r: y / 2 - r*4 + r * 0.5,
+    },
+    "field_5": {
+        "point_x": lambda x, r: x / 2,
+        "point_y": lambda y, r: y / 2 + r*4 - r * 0.5,
+    },
 }
 
 
@@ -40,11 +50,13 @@ class AppStart(QMainWindow):
         self.scene = QGraphicsScene(self)
         self.field.setScene(self.scene)
 
+        field_radius = int(self.field.height() / 9)
+
         for key, value in battle_field.items():
-            point_x = (value['point_x'](self.field.width()))
-            point_y = (value['point_y'](self.field.height()))
+            point_x = (value['point_x'](self.field.width(), field_radius))
+            point_y = (value['point_y'](self.field.height(), field_radius))
             point = QPointF(point_x, point_y)
-            self.scene.addItem(AppBattleHex(point=point, parent=self))
+            self.scene.addItem(AppBattleHex(point=point, radius=field_radius, parent=self))
 
         char_1 = AppCharacters(point=QPointF(126.0, 94.0), radius=25, parent=self)
         self.scene.addItem(char_1)

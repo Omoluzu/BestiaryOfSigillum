@@ -30,6 +30,22 @@ battle_field = {
         "point_x": lambda x, r: x / 2,
         "point_y": lambda y, r: y / 2 + r*4 - r * 0.5,
     },
+    "field_6": {
+        "point_x": lambda x, r: x / 2 + r*2 - r * 0.5,
+        "point_y": lambda y, r: y / 2 + r - r * 0.13,
+    },
+    "field_7": {
+        "point_x": lambda x, r: x / 2 - r*2 + r * 0.5,
+        "point_y": lambda y, r: y / 2 + r - r * 0.13,
+    },
+    "field_8": {
+        "point_x": lambda x, r: x / 2 + r*2 - r * 0.5,
+        "point_y": lambda y, r: y / 2 - r + r * 0.13,
+    },
+    "field_9": {
+        "point_x": lambda x, r: x / 2 - r*2 + r * 0.5,
+        "point_y": lambda y, r: y / 2 - r + r * 0.13,
+    },
 }
 
 

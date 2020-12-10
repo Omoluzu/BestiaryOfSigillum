@@ -3,90 +3,9 @@
 
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
-# from PyQt5.Q
 
-from modules.AppBattlefield import AppBattleHex
+from modules.AppBattlefield import AppBattleHex, battle_field
 from modules.AppCharacters import AppCharacters
-
-
-battle_field = {
-    "field_1": {
-        "point_x": lambda x, r: x / 2,
-        "point_y": lambda y, r: y / 2,
-    },
-    "field_2": {
-        "point_x": lambda x, r: x / 2,
-        "point_y": lambda y, r: y / 2 + r*2 - r * 0.25,
-    },
-    "field_3": {
-        "point_x": lambda x, r: x / 2,
-        "point_y": lambda y, r: y / 2 - r*2 + r * 0.25,
-    },
-    "field_4": {
-        "point_x": lambda x, r: x / 2,
-        "point_y": lambda y, r: y / 2 - r*4 + r * 0.5,
-    },
-    "field_5": {
-        "point_x": lambda x, r: x / 2,
-        "point_y": lambda y, r: y / 2 + r*4 - r * 0.5,
-    },
-    "field_6": {
-        "point_x": lambda x, r: x / 2 + r*2 - r * 0.5,
-        "point_y": lambda y, r: y / 2 + r - r * 0.13,
-    },
-    "field_7": {
-        "point_x": lambda x, r: x / 2 - r*2 + r * 0.5,
-        "point_y": lambda y, r: y / 2 + r - r * 0.13,
-    },
-    "field_8": {
-        "point_x": lambda x, r: x / 2 + r*2 - r * 0.5,
-        "point_y": lambda y, r: y / 2 - r + r * 0.13,
-    },
-    "field_9": {
-        "point_x": lambda x, r: x / 2 - r*2 + r * 0.5,
-        "point_y": lambda y, r: y / 2 - r + r * 0.13,
-    },
-    "field_10": {
-        "point_x": lambda x, r: x / 2 - r*2 + r * 0.5,
-        "point_y": lambda y, r: y / 2 - r*3 + r * 0.38,
-    },
-    "field_11": {
-        "point_x": lambda x, r: x / 2 + r*2 - r * 0.5,
-        "point_y": lambda y, r: y / 2 - r*3 + r * 0.38,
-    },
-    "field_12": {
-        "point_x": lambda x, r: x / 2 - r*2 + r * 0.5,
-        "point_y": lambda y, r: y / 2 + r*3 - r * 0.38,
-    },
-    "field_13": {
-        "point_x": lambda x, r: x / 2 + r*2 - r * 0.5,
-        "point_y": lambda y, r: y / 2 + r*3 - r * 0.38,
-    },
-    "field_14": {
-        "point_x": lambda x, r: x / 2 + r*3,
-        "point_y": lambda y, r: y / 2,
-    },
-    "field_15": {
-        "point_x": lambda x, r: x / 2 + r*3,
-        "point_y": lambda y, r: y / 2 + r*2 - r * 0.25,
-    },
-    "field_16": {
-        "point_x": lambda x, r: x / 2 + r*3,
-        "point_y": lambda y, r: y / 2 - r*2 + r * 0.25,
-    },
-    "field_17": {
-        "point_x": lambda x, r: x / 2 - r*3,
-        "point_y": lambda y, r: y / 2,
-    },
-    "field_18": {
-        "point_x": lambda x, r: x / 2 - r*3,
-        "point_y": lambda y, r: y / 2 + r*2 - r * 0.25,
-    },
-    "field_19": {
-        "point_x": lambda x, r: x / 2 - r*3,
-        "point_y": lambda y, r: y / 2 - r*2 + r * 0.25,
-    },
-}
 
 
 class AppStart(QMainWindow):

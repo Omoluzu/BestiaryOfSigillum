@@ -36,7 +36,7 @@ class AppStart(QMainWindow):
         self.active = None
 
         self.field = QGraphicsView(self)
-        self.field.setGeometry(QRect(130, 10, 600, 300))
+        self.field.setGeometry(QRect(int(width * 0.1), 10, int(width * 0.6), int(height * 0.7)))
         self.scene = QGraphicsScene(self)
         self.field.setScene(self.scene)
 
@@ -50,8 +50,7 @@ class AppStart(QMainWindow):
         self.scene.addItem(char_1)
 
         self.log = QTextEdit(self)
-        self.log.move(300, 200)
-        self.log.resize(300, 200)
+        self.log.setGeometry(QRect(int(width * 0.1), int(height * 0.7 + 12), int(width * 0.6), int(height * 0.2)))
 
         self.showMaximized()
         self.show()

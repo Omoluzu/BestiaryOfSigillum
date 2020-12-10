@@ -8,7 +8,7 @@ from PyQt5.QtGui import *
 import math
 
 
-class AppBattkeHex(QGraphicsPolygonItem):
+class AppBattleHex(QGraphicsPolygonItem):
     """
     Regular polygon of N sides
     Функция написанна не мною а найдена на просторах интерната и модифицированна
@@ -23,7 +23,7 @@ class AppBattkeHex(QGraphicsPolygonItem):
             center -- QPointF containing the center
             angle -- угол смещения вершин в радианах
         """
-        super(AppBattkeHex, self).__init__()
+        super(AppBattleHex, self).__init__()
 
         self._parent = parent
 

@@ -32,6 +32,8 @@ class AppStart(QMainWindow):
 
         char_1 = AppCharacters(point=QPointF(126.0, 94.0), radius=25, parent=self)
         self.scene.addItem(char_1)
+        char_2 = AppCharacters(point=QPointF(200.0, 200.0), radius=25, parent=self)
+        self.scene.addItem(char_2)
 
         self.log = QTextEdit(self)
         self.log.setGeometry(QRect(int(width * 0.1), int(height * 0.7 + 12), int(width * 0.6), int(height * 0.2)))

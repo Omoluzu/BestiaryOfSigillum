@@ -28,13 +28,14 @@ class AppStart(QMainWindow):
 
         field_radius = int(self.field.height() / 9)
 
+        for key, value in battle_field.items():
+            self.scene.addItem(AppBattleHex(radius=field_radius, parent=self, data=value, name=key))
+
         self.pixmap = QGraphicsPixmapItem(QPixmap('images/field.jpg'))
         self.scene.addItem(self.pixmap)
         self.pixmap.setScale(2.30)
         self.pixmap.setPos(230, 10)
 
-        for key, value in battle_field.items():
-            self.scene.addItem(AppBattleHex(radius=field_radius, parent=self, data=value, name=key))
 
         for key, value in reserve_field.items():
             self.scene.addItem(AppReserveHex(radius=field_radius, parent=self, data=value, name=key))

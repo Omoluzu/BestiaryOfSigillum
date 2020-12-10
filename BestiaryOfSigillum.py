@@ -46,6 +46,22 @@ battle_field = {
         "point_x": lambda x, r: x / 2 - r*2 + r * 0.5,
         "point_y": lambda y, r: y / 2 - r + r * 0.13,
     },
+    "field_10": {
+        "point_x": lambda x, r: x / 2 - r*2 + r * 0.5,
+        "point_y": lambda y, r: y / 2 - r*3 + r * 0.38,
+    },
+    "field_11": {
+        "point_x": lambda x, r: x / 2 + r*2 - r * 0.5,
+        "point_y": lambda y, r: y / 2 - r*3 + r * 0.38,
+    },
+    "field_12": {
+        "point_x": lambda x, r: x / 2 - r*2 + r * 0.5,
+        "point_y": lambda y, r: y / 2 + r*3 - r * 0.38,
+    },
+    "field_13": {
+        "point_x": lambda x, r: x / 2 + r*2 - r * 0.5,
+        "point_y": lambda y, r: y / 2 + r*3 - r * 0.38,
+    },
 }
 
 
@@ -74,8 +90,8 @@ class AppStart(QMainWindow):
             point = QPointF(point_x, point_y)
             self.scene.addItem(AppBattleHex(point=point, radius=field_radius, parent=self))
 
-        char_1 = AppCharacters(point=QPointF(126.0, 94.0), radius=25, parent=self)
-        self.scene.addItem(char_1)
+        # char_1 = AppCharacters(point=QPointF(126.0, 94.0), radius=25, parent=self)
+        # self.scene.addItem(char_1)
 
         self.log = QTextEdit(self)
         self.log.setGeometry(QRect(int(width * 0.1), int(height * 0.7 + 12), int(width * 0.6), int(height * 0.2)))

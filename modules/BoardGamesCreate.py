@@ -16,10 +16,14 @@ class BoardGamesCreate(QMainWindow):
 
         self.create_bestiary = QPushButton("Бестиарий Сигиллума")
         self.general_layout.addWidget(self.create_bestiary)
+        self.create_bestiary.clicked.connect(self.action_create_bestiary)
 
         widget = QWidget()
         widget.setLayout(self.general_layout)
 
         self.setCentralWidget(widget)
+
+    def action_create_bestiary(self):
+        self.close()
 
 

@@ -11,6 +11,8 @@ from asyncqt import QEventLoop
 
 import settings
 
+from modules.BoardGamesCreate import BoardGamesCreate
+
 
 class ClientProtocol(asyncio.Protocol):
     transport: asyncio.transports.Transport
@@ -48,6 +50,8 @@ class AppStart(QMainWindow):
         super().__init__()
         self.setWindowTitle("BoardGames")
 
+        self.create_boardgames = BoardGamesCreate(parent=self)
+
         self.general_layout = QHBoxLayout()
 
         self.game_layout = QVBoxLayout()
@@ -61,6 +65,7 @@ class AppStart(QMainWindow):
 
         self.push_new_game = QPushButton("Создать ИГРУ")
         self.game_layout.addWidget(self.push_new_game)
+        self.push_new_game.clicked.connect(self.action_create_game)
 
         self.chat_layout = QVBoxLayout()
         self.general_layout.addLayout(self.chat_layout)
@@ -81,6 +86,11 @@ class AppStart(QMainWindow):
         widget = QWidget()
         widget.setLayout(self.general_layout)
         self.setCentralWidget(widget)
+
+    def action_create_game(self):
+        """ Запусе окна на создание игры """
+        self.create_boardgames.show()
+
 
     def action_push_message(self):
         """ Отправка сообщения """

@@ -12,6 +12,7 @@ from modules.BoardGamesCreate import BoardGamesCreate
 
 
 class BoardgamesList(QMainWindow):
+    user: str
 
     def __init__(self, client):
         super().__init__()
@@ -76,7 +77,7 @@ class BoardgamesList(QMainWindow):
         data = {
             "type": "message",
             "message": self.message.text(),
-            "user": settings.USERNAME
+            "user": self.client.user
         }
 
         self.message.clear()
@@ -88,5 +89,6 @@ class BoardgamesList(QMainWindow):
 
     def start(self):
         print("Перехватываю управление")
+
         self.show()
         self.client.action = self

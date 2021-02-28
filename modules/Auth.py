@@ -51,6 +51,7 @@ class GuiAuth(QMainWindow):
             MessageInformation(message)
 
             self.close()
+            self.client.user = data['login']
             self.client.boardgames_list.start()
 
 

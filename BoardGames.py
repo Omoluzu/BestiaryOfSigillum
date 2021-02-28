@@ -17,6 +17,7 @@ from modules.BoardGamesList import BoardgamesList
 class ClientProtocol(asyncio.Protocol):
     transport: asyncio.transports.Transport
     window: 'AppStart'
+    user: str = None  # Имя авторизированного пользователя
 
     def __init__(self, chat: 'AppStart'):
         self.window = chat

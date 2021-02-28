@@ -11,6 +11,8 @@ from asyncqt import QEventLoop
 
 import settings
 
+from modules.Auth import GuiAuth
+
 from modules.BoardGamesCreate import BoardGamesCreate
 
 
@@ -24,10 +26,8 @@ class ClientProtocol(asyncio.Protocol):
     def data_received(self, data: bytes):
         """ Принимает сообщение """
         data_json = json.loads(data.decode())
-        if data_json['type'] == "message":
-            self.window.append_text(data_json)
-        else:
-            print("Необрабатываемый тип сообщения")
+
+        self.window.action.data_received(data_json)
 
     def send_data(self, message: str):
         """ Отправляет сообщение """
@@ -43,78 +43,28 @@ class ClientProtocol(asyncio.Protocol):
         pass
 
 
-class AppStart(QMainWindow):
+class AppStart:
     protocol: ClientProtocol
+    auth: GuiAuth
 
     def __init__(self):
-        super().__init__()
-        self.setWindowTitle("BoardGames")
+        self.message = None
 
-        self.create_boardgames = BoardGamesCreate(parent=self)
+        self.action = None
 
-        self.general_layout = QHBoxLayout()
-
-        self.game_layout = QVBoxLayout()
-        self.general_layout.addLayout(self.game_layout)
-
-        self.text_list_boardgames = QLabel("Список Открытых Игр:")
-        self.game_layout.addWidget(self.text_list_boardgames)
-
-        self.list_boardgames = QListWidget()
-        self.game_layout.addWidget(self.list_boardgames)
-
-        self.push_new_game = QPushButton("Создать ИГРУ")
-        self.game_layout.addWidget(self.push_new_game)
-        self.push_new_game.clicked.connect(self.action_create_game)
-
-        self.chat_layout = QVBoxLayout()
-        self.general_layout.addLayout(self.chat_layout)
-
-        self.text_chat = QLabel("Чат: ")
-        self.chat_layout.addWidget(self.text_chat)
-
-        self.chat = QTextEdit()
-        self.chat_layout.addWidget(self.chat)
-
-        self.message = QLineEdit()
-        self.chat_layout.addWidget(self.message)
-
-        self.push_message = QPushButton("Отправить сообщение")
-        self.chat_layout.addWidget(self.push_message)
-        self.push_message.clicked.connect(self.action_push_message)
-
-        widget = QWidget()
-        widget.setLayout(self.general_layout)
-        self.setCentralWidget(widget)
-
-    def action_create_game(self):
-        """ Запусе окна на создание игры """
-        self.create_boardgames.show()
-
-
-    def action_push_message(self):
-        """ Отправка сообщения """
-
-        data = {
-            "type": "message",
-            "message": self.message.text(),
-            "user": settings.USERNAME
-        }
-
-        self.message.clear()
-        self.protocol.send_data(json.dumps(data))
-
-    def append_text(self, content: json):
-        """ Печать сообщения в чат """
-        self.chat.append(f"{content['user']} >> {content['message']}")
+        self.auth = GuiAuth(client=self)  # Экземпляр приложения авторизации
 
     def build_protocol(self):
         self.protocol = ClientProtocol(self)
         return self.protocol
 
+    def send_data(self, data: dict):
+        """ Отправка сообщения на сервер """
+        self.protocol.send_data(json.dumps(data))
+
     async def start(self):
         """ Запускаем приложение """
-        self.show()
+        self.auth.show()
 
         event_loop = asyncio.get_running_loop()
         coroutine = event_loop.create_connection(self.build_protocol, settings.SERVER, settings.PORT)
@@ -127,10 +77,19 @@ if __name__ == "__main__":
     loop = QEventLoop(app)
     asyncio.set_event_loop(loop)
 
-    window = AppStart()
+    client = AppStart()
 
-    loop.create_task(window.start())
+    loop.create_task(client.start())
     loop.run_forever()
+
+    # app = QApplication([])
+    # loop = QEventLoop(app)
+    # asyncio.set_event_loop(loop)
+    #
+    # window = AppStart()
+    #
+    # loop.create_task(window.start())
+    # loop.run_forever()
 
 
 

@@ -3,15 +3,21 @@
 
 from PyQt5.QtWidgets import *
 
+from modules.Registration import Registration
+
 
 class GuiAuth(QMainWindow):
     """ Главный виджет """
+    client: 'Client'
+    register: Registration
 
     def __init__(self, client):
         super().__init__()
 
         self.client = client
         self.client.action = self
+
+        self.register = Registration()
 
         self.setWindowTitle("Авторизация")
         self.setGeometry(700, 450, 300, 100)
@@ -29,6 +35,10 @@ class GuiAuth(QMainWindow):
         self.general_layout.addWidget(self.btn_auth)
         self.btn_auth.clicked.connect(self.action_get_auth)
 
+        self.btn_register = QPushButton("Регистрация")
+        self.general_layout.addWidget(self.btn_register)
+        self.btn_register.clicked.connect(self.action_get_redister)
+
         widget = QWidget()
         widget.setLayout(self.general_layout)
         self.setCentralWidget(widget)
@@ -43,6 +53,10 @@ class GuiAuth(QMainWindow):
         }
 
         self.client.send_data(data)
+
+    def action_get_redister(self):
+        """ Вывод поля для регистрации пользователя """
+        self.register.show()
 
     def data_received(self, data: dict):
         if data['auth']:

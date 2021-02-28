@@ -42,7 +42,7 @@ class ClientProtocol(asyncio.Protocol):
         pass
 
 
-class AppStart:
+class Client:
     protocol: ClientProtocol
     auth: GuiAuth
     boardgames_list: BoardgamesList
@@ -78,7 +78,7 @@ if __name__ == "__main__":
     loop = QEventLoop(app)
     asyncio.set_event_loop(loop)
 
-    client = AppStart()
+    client = Client()
 
     loop.create_task(client.start())
     loop.run_forever()

@@ -46,4 +46,19 @@ class GuiAuth(QMainWindow):
 
     def data_received(self, data: dict):
         if data['auth']:
-            print("Авторизация прошла успешно")
+
+            message = f"Добро пожаловать в виртуальный мир настольных игр, {data['login']}\nМожете входить."
+            MessageInformation(message)
+
+            self.close()
+            self.client.boardgames_list.start()
+
+
+class MessageInformation(QMessageBox):
+
+    def __init__(self, text):
+        super().__init__()
+        self.setIcon(QMessageBox.Information)
+        self.setText(text)
+        self.setWindowTitle("Information")
+        self.exec_()

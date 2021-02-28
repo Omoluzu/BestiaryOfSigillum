@@ -5,49 +5,19 @@ import json
 import asyncio
 
 from PyQt5.QtWidgets import *
-from PyQt5.QtCore import *
-from PyQt5.QtGui import *
-from asyncqt import QEventLoop
 
 import settings
 
 from modules.BoardGamesCreate import BoardGamesCreate
 
 
-class ClientProtocol(asyncio.Protocol):
-    transport: asyncio.transports.Transport
-    window: 'AppStart'
+class BoardgamesList(QMainWindow):
 
-    def __init__(self, chat: 'AppStart'):
-        self.window = chat
-
-    def data_received(self, data: bytes):
-        """ Принимает сообщение """
-        data_json = json.loads(data.decode())
-        if data_json['type'] == "message":
-            self.window.append_text(data_json)
-        else:
-            print("Необрабатываемый тип сообщения")
-
-    def send_data(self, message: str):
-        """ Отправляет сообщение """
-        encoded = message.encode()
-        self.transport.write(encoded)
-
-    def connection_made(self, transport: asyncio.transports.Transport):
-        # self.window.append_text("Подключенно")
-        self.transport = transport
-
-    def connection_lost(self, exception):
-        # self.window.append_text("Отключенно")
-        pass
-
-
-class AppStart(QMainWindow):
-    protocol: ClientProtocol
-
-    def __init__(self):
+    def __init__(self, client):
         super().__init__()
+
+        self.client = client
+
         self.setWindowTitle("BoardGames")
 
         self.create_boardgames = BoardGamesCreate(parent=self)
@@ -107,29 +77,7 @@ class AppStart(QMainWindow):
         """ Печать сообщения в чат """
         self.chat.append(f"{content['user']} >> {content['message']}")
 
-    def build_protocol(self):
-        self.protocol = ClientProtocol(self)
-        return self.protocol
-
-    async def start(self):
-        """ Запускаем приложение """
+    def start(self):
+        print("Перехватываю управление")
         self.show()
-
-        event_loop = asyncio.get_running_loop()
-        coroutine = event_loop.create_connection(self.build_protocol, settings.SERVER, settings.PORT)
-        await asyncio.wait_for(coroutine, 1000)
-
-
-if __name__ == "__main__":
-
-    app = QApplication([])
-    loop = QEventLoop(app)
-    asyncio.set_event_loop(loop)
-
-    window = AppStart()
-
-    loop.create_task(window.start())
-    loop.run_forever()
-
-
-
+        self.client.action = self

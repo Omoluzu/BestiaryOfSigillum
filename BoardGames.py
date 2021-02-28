@@ -13,7 +13,8 @@ import settings
 
 from modules.Auth import GuiAuth
 
-from modules.BoardGamesCreate import BoardGamesCreate
+# from modules.BoardGamesCreate import BoardGamesCreate
+from modules.BoardGames import BoardgamesList
 
 
 class ClientProtocol(asyncio.Protocol):
@@ -46,6 +47,7 @@ class ClientProtocol(asyncio.Protocol):
 class AppStart:
     protocol: ClientProtocol
     auth: GuiAuth
+    boardgames_list: BoardgamesList
 
     def __init__(self):
         self.message = None
@@ -53,6 +55,7 @@ class AppStart:
         self.action = None
 
         self.auth = GuiAuth(client=self)  # Экземпляр приложения авторизации
+        self.boardgames_list = BoardgamesList(client=self)
 
     def build_protocol(self):
         self.protocol = ClientProtocol(self)

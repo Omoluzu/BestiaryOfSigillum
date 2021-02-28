@@ -4,17 +4,14 @@
 import json
 import asyncio
 
-from PyQt5.QtWidgets import *
-from PyQt5.QtCore import *
-from PyQt5.QtGui import *
+from PyQt5.QtWidgets import QApplication
 from asyncqt import QEventLoop
 
 import settings
 
 from modules.Auth import GuiAuth
 
-# from modules.BoardGamesCreate import BoardGamesCreate
-from modules.BoardGames import BoardgamesList
+from modules.BoardGamesList import BoardgamesList
 
 
 class ClientProtocol(asyncio.Protocol):
@@ -84,15 +81,3 @@ if __name__ == "__main__":
 
     loop.create_task(client.start())
     loop.run_forever()
-
-    # app = QApplication([])
-    # loop = QEventLoop(app)
-    # asyncio.set_event_loop(loop)
-    #
-    # window = AppStart()
-    #
-    # loop.create_task(window.start())
-    # loop.run_forever()
-
-
-

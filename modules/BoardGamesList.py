@@ -57,6 +57,15 @@ class BoardgamesList(QMainWindow):
         widget.setLayout(self.general_layout)
         self.setCentralWidget(widget)
 
+    def data_received(self, data: dict):
+        """ Получение информации с сервера """
+        if data['message']:
+            self.append_text(data)
+        else:
+            print("Необработанное сообщение")
+            print(data)
+            print(" ")
+
     def action_create_game(self):
         """ Запусе окна на создание игры """
         self.create_boardgames.show()
@@ -71,9 +80,9 @@ class BoardgamesList(QMainWindow):
         }
 
         self.message.clear()
-        self.protocol.send_data(json.dumps(data))
+        self.client.send_data(data)
 
-    def append_text(self, content: json):
+    def append_text(self, content: dict):
         """ Печать сообщения в чат """
         self.chat.append(f"{content['user']} >> {content['message']}")
 

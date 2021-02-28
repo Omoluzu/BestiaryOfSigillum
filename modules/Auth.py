@@ -1,8 +1,6 @@
 #! /usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import json
-
 from PyQt5.QtWidgets import *
 
 
@@ -47,11 +45,5 @@ class GuiAuth(QMainWindow):
         self.client.send_data(data)
 
     def data_received(self, data: dict):
-        print(data)
-
-
-if __name__ == "__main__":
-
-    app = QApplication([])
-    window = GuiAuth()
-    app.exec_()
+        if data['auth']:
+            print("Авторизация прошла успешно")

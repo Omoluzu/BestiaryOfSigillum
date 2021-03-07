@@ -10,7 +10,7 @@ from asyncqt import QEventLoop
 import settings
 
 from modules.Auth import GuiAuth
-
+from modules.Registration import GuiRegistration
 from modules.BoardGamesList import BoardgamesList
 
 
@@ -45,6 +45,7 @@ class ClientProtocol(asyncio.Protocol):
 class Client:
     protocol: ClientProtocol
     auth: GuiAuth
+    register: GuiRegistration
     boardgames_list: BoardgamesList
 
     def __init__(self):
@@ -53,6 +54,7 @@ class Client:
         self.action = None
 
         self.auth = GuiAuth(client=self)  # Экземпляр приложения авторизации
+        self.register = GuiRegistration(client=self)  # Экземпляр приложения реистрации
         self.boardgames_list = BoardgamesList(client=self)
 
     def build_protocol(self):

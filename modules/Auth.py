@@ -3,21 +3,19 @@
 
 from PyQt5.QtWidgets import *
 
-from modules.Registration import Registration
+# from modules.Registration import Registration
 
 
 class GuiAuth(QMainWindow):
     """ Главный виджет """
     client: 'Client'
-    register: Registration
+    register: 'Registration'
 
     def __init__(self, client):
         super().__init__()
 
         self.client = client
         self.client.action = self
-
-        self.register = Registration(parent=self)
 
         self.setWindowTitle("Авторизация")
         self.setGeometry(700, 450, 300, 100)
@@ -69,7 +67,7 @@ class GuiAuth(QMainWindow):
     def action_get_redister(self):
         """ Вывод поля для регистрации пользователя """
         self.hide()
-        self.register.show()
+        self.client.register.show()
 
     def data_received(self, data: dict):
         if data['auth']:

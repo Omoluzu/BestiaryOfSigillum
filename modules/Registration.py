@@ -4,13 +4,13 @@
 from PyQt5.QtWidgets import *
 
 
-class Registration(QMainWindow):
+class GuiRegistration(QMainWindow):
     """ Главный виджет """
 
-    def __init__(self, parent):
+    def __init__(self, client):
         super().__init__()
 
-        self.auth = parent
+        self.client = client
 
         self.setWindowTitle("Регистрация")
         self.setGeometry(700, 450, 300, 100)
@@ -41,4 +41,4 @@ class Registration(QMainWindow):
 
     def action_return(self):
         self.close()
-        self.auth.show()
+        self.client.auth.show()

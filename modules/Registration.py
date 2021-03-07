@@ -17,15 +17,30 @@ class GuiRegistration(QMainWindow):
 
         self.general_layout = QVBoxLayout()
 
+        self.layout_login = QHBoxLayout()
+        self.general_layout.addLayout(self.layout_login)
+
+        self.layout_login.addWidget(QLabel(" ЛОГИН: "))
+
         self.login = QLineEdit()
-        self.general_layout.addWidget(self.login)
+        self.layout_login.addWidget(self.login)
+
+        self.layout_password_one = QHBoxLayout()
+        self.general_layout.addLayout(self.layout_password_one)
+
+        self.layout_password_one.addWidget(QLabel("ПАРОЛЬ:"))
 
         self.password_one = QLineEdit()
-        self.general_layout.addWidget(self.password_one)
+        self.layout_password_one.addWidget(self.password_one)
         self.password_one.setEchoMode(QLineEdit.Password)
 
+        self.layout_password_two = QHBoxLayout()
+        self.general_layout.addLayout(self.layout_password_two)
+
+        self.layout_password_two.addWidget(QLabel("ПАРОЛЬ:"))
+
         self.password_two = QLineEdit()
-        self.general_layout.addWidget(self.password_two)
+        self.layout_password_two.addWidget(self.password_two)
         self.password_two.setEchoMode(QLineEdit.Password)
 
         self.btn_register = QPushButton("Зарегистрироваться")

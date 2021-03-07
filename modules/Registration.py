@@ -39,6 +39,12 @@ class GuiRegistration(QMainWindow):
         widget.setLayout(self.general_layout)
         self.setCentralWidget(widget)
 
+    def start(self):
+        """ Запуск приложения """
+
+        self.show()
+        self.client.action = self
+
     def action_return(self):
         self.close()
-        self.client.auth.show()
+        self.client.auth.start()

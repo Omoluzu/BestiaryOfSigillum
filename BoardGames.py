@@ -67,7 +67,7 @@ class Client:
 
     async def start(self):
         """ Запускаем приложение """
-        self.auth.show()
+        self.auth.start()
 
         event_loop = asyncio.get_running_loop()
         coroutine = event_loop.create_connection(self.build_protocol, settings.SERVER, settings.PORT)

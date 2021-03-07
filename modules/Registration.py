@@ -67,5 +67,21 @@ class GuiRegistration(QMainWindow):
 
     def action_registration(self):
         """ Регистрация нового пользователя """
-        print(self.password_one.text())
-        print(self.password_two.text())
+        if self.password_one.text() == self.password_two.text():
+            if self.login.text():
+                print("Password True")
+            else:
+                MessageInformation(text="Вы ввели пустой Логин")
+        else:
+            MessageInformation(text="Пароли не совпадаю. Попробуйте еще раз")
+
+
+class MessageInformation(QMessageBox):
+
+    def __init__(self, text):
+        super().__init__()
+        self.setIcon(QMessageBox.Warning)
+        self.setText(text)
+        self.setWindowTitle("Information")
+        self.exec_()
+

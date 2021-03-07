@@ -45,6 +45,7 @@ class GuiRegistration(QMainWindow):
 
         self.btn_register = QPushButton("Зарегистрироваться")
         self.general_layout.addWidget(self.btn_register)
+        self.btn_register.clicked.connect(self.action_registration)
 
         self.btn_return = QPushButton("Вернуться")
         self.general_layout.addWidget(self.btn_return)
@@ -56,10 +57,15 @@ class GuiRegistration(QMainWindow):
 
     def start(self):
         """ Запуск приложения """
-
         self.show()
         self.client.action = self
 
     def action_return(self):
+        """ Возвращение на авторизацию """
         self.close()
         self.client.auth.start()
+
+    def action_registration(self):
+        """ Регистрация нового пользователя """
+        print(self.password_one.text())
+        print(self.password_two.text())

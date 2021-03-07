@@ -55,6 +55,12 @@ class GuiRegistration(QMainWindow):
         widget.setLayout(self.general_layout)
         self.setCentralWidget(widget)
 
+    def data_received(self, data: dict):
+        """ Возвращаемые сообщения с сервера """
+        if data['register']:
+            MessageInformation(text="Вы успешно зарегистрировались")
+            self.action_return()
+
     def start(self):
         """ Запуск приложения """
         self.show()
@@ -69,7 +75,12 @@ class GuiRegistration(QMainWindow):
         """ Регистрация нового пользователя """
         if self.password_one.text() == self.password_two.text():
             if self.login.text():
-                print("Password True")
+                data = {
+                    "type": "register",
+                    "login": self.login.text(),
+                    "password": self.password_one.text()
+                }
+                self.client.send_data(data)
             else:
                 MessageInformation(text="Вы ввели пустой Логин")
         else:

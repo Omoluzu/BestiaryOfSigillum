@@ -7,8 +7,10 @@ from PyQt5.QtWidgets import *
 class Registration(QMainWindow):
     """ Главный виджет """
 
-    def __init__(self):
+    def __init__(self, parent):
         super().__init__()
+
+        self.auth = parent
 
         self.setWindowTitle("Регистрация")
         self.setGeometry(700, 450, 300, 100)
@@ -31,7 +33,12 @@ class Registration(QMainWindow):
 
         self.btn_return = QPushButton("Вернуться")
         self.general_layout.addWidget(self.btn_return)
+        self.btn_return.clicked.connect(self.action_return)
 
         widget = QWidget()
         widget.setLayout(self.general_layout)
         self.setCentralWidget(widget)
+
+    def action_return(self):
+        self.close()
+        self.auth.show()

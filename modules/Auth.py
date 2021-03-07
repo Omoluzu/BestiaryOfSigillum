@@ -17,18 +17,30 @@ class GuiAuth(QMainWindow):
         self.client = client
         self.client.action = self
 
-        self.register = Registration()
+        self.register = Registration(parent=self)
 
         self.setWindowTitle("Авторизация")
         self.setGeometry(700, 450, 300, 100)
 
         self.general_layout = QVBoxLayout()
 
+        self.layout_login = QHBoxLayout()
+        self.general_layout.addLayout(self.layout_login)
+
+        self.text_login = QLabel(" ЛОГИН:  ")
+        self.layout_login.addWidget(self.text_login)
+
         self.login = QLineEdit()
-        self.general_layout.addWidget(self.login)
+        self.layout_login.addWidget(self.login)
+
+        self.layout_password = QHBoxLayout()
+        self.general_layout.addLayout(self.layout_password)
+
+        self.text_password = QLabel("ПАРОЛЬ: ")
+        self.layout_password.addWidget(self.text_password)
 
         self.password = QLineEdit()
-        self.general_layout.addWidget(self.password)
+        self.layout_password.addWidget(self.password)
         self.password.setEchoMode(QLineEdit.Password)
 
         self.btn_auth = QPushButton("Авторизоваться")
@@ -56,12 +68,13 @@ class GuiAuth(QMainWindow):
 
     def action_get_redister(self):
         """ Вывод поля для регистрации пользователя """
+        self.hide()
         self.register.show()
 
     def data_received(self, data: dict):
         if data['auth']:
 
-            message = f"Добро пожаловать в виртуальный мир настольных игр, {data['login']}\nМожете входить."
+            message = f"Welcome, {data['login']}\n"
             MessageInformation(message)
 
             self.close()

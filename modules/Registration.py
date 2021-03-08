@@ -1,6 +1,7 @@
 #! /usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+import base64
 from PyQt5.QtWidgets import *
 
 
@@ -78,7 +79,7 @@ class GuiRegistration(QMainWindow):
                 data = {
                     "type": "register",
                     "login": self.login.text(),
-                    "password": self.password_one.text()
+                    "password": (base64.b64encode(self.password_one.text().encode())).decode()
                 }
                 self.client.send_data(data)
             else:

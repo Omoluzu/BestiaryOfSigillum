@@ -61,6 +61,8 @@ class GuiRegistration(QMainWindow):
         if data['register']:
             MessageInformation(text="Вы успешно зарегистрировались")
             self.action_return()
+        else:
+            MessageInformation(text=data['exception'])
 
     def start(self):
         """ Запуск приложения """

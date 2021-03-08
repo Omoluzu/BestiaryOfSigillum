@@ -1,6 +1,7 @@
 #! /usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+import base64
 from PyQt5.QtWidgets import *
 
 
@@ -62,7 +63,7 @@ class GuiAuth(QMainWindow):
         data = {
             "type": "auth",
             "login": self.login.text(),
-            "password": self.password.text()
+            "password": (base64.b64encode(self.password.text().encode())).decode()
         }
 
         self.client.send_data(data)
@@ -81,6 +82,9 @@ class GuiAuth(QMainWindow):
             self.close()
             self.client.user = data['login']
             self.client.boardgames_list.start()
+
+        else:
+            MessageInformation(data['exception'])
 
 
 class MessageInformation(QMessageBox):

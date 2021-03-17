@@ -3,6 +3,7 @@
 
 import base64
 from PyQt5.QtWidgets import *
+from PyQt5.QtGui import QKeySequence
 
 
 class GuiAuth(QMainWindow):
@@ -17,6 +18,9 @@ class GuiAuth(QMainWindow):
 
         self.setWindowTitle("Авторизация")
         self.setGeometry(700, 450, 300, 100)
+
+        self.key_enter = QShortcut(QKeySequence('Return'), self)
+        self.key_enter.activated.connect(self.action_get_auth)
 
         self.general_layout = QVBoxLayout()
 

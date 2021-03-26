@@ -22,6 +22,9 @@ class ClientProtocol(asyncio.Protocol):
     def __init__(self, chat: 'AppStart'):
         self.window = chat
 
+    def __repr__(self):
+        return f"{self.__class__.__name__} ({self.user})"
+
     def data_received(self, data: bytes):
         """ Принимает сообщение """
         data_json = json.loads(data.decode())
@@ -56,6 +59,9 @@ class Client:
         self.auth = GuiAuth(client=self)  # Экземпляр приложения авторизации
         self.register = GuiRegistration(client=self)  # Экземпляр приложения реистрации
         self.boardgames_list = BoardgamesList(client=self)
+
+    def __repr__(self):
+        return self.__class__.__name__
 
     def build_protocol(self):
         self.protocol = ClientProtocol(self)

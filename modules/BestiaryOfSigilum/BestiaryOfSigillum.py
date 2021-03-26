@@ -10,8 +10,8 @@ from PyQt5.QtGui import *
 from asyncqt import QEventLoop
 
 import settings
-from modules.AppBattlefield import AppBattleHex, AppReserveHex, battle_field, reserve_field
-from modules.AppCharacters import AppCharacters
+from modules.BestiaryOfSigilum.AppBattlefield import AppBattleHex, AppReserveHex, battle_field, reserve_field
+from modules.BestiaryOfSigilum.AppCharacters import AppCharacters
 
 
 class ClientProtocol(asyncio.Protocol):
@@ -63,7 +63,7 @@ class AppStart(QMainWindow):
         for key, value in battle_field.items():
             self.scene.addItem(AppBattleHex(radius=field_radius, parent=self, data=value, name=key))
 
-        self.pixmap = QGraphicsPixmapItem(QPixmap('images/field.jpg'))
+        self.pixmap = QGraphicsPixmapItem(QPixmap('../../images/field.jpg'))
         self.scene.addItem(self.pixmap)
         self.pixmap.setScale(2.30)
         self.pixmap.setPos(230, 10)

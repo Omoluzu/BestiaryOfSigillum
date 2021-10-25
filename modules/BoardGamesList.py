@@ -4,6 +4,7 @@
 import json
 import asyncio
 
+from wrapperQWidget5.WrapperWidget import wrapper_widget
 from PyQt5.QtWidgets import *
 
 import settings
@@ -11,57 +12,50 @@ import settings
 from modules.BoardGamesCreate import BoardGamesCreate
 
 
-class BoardgamesList(QMainWindow):
-    user: str
+class BoardgamesList(QDialog):
 
+    @wrapper_widget
     def __init__(self, client):
         super().__init__()
-
         self.client = client
 
-        self.setWindowTitle("BoardGames")
+        self.config = {
+            "title": "BoardGames"
+        }
 
         self.create_boardgames = BoardGamesCreate(parent=self)
 
-        self.general_layout = QHBoxLayout()
-
-        self.game_layout = QVBoxLayout()
-        self.general_layout.addLayout(self.game_layout)
-
-        self.text_list_boardgames = QLabel("Список Открытых Игр:")
-        self.game_layout.addWidget(self.text_list_boardgames)
-
         self.list_boardgames = QListWidget()
-        self.game_layout.addWidget(self.list_boardgames)
-
-        self.push_new_game = QPushButton("Создать ИГРУ")
-        self.game_layout.addWidget(self.push_new_game)
-        self.push_new_game.clicked.connect(self.action_create_game)
-
-        self.chat_layout = QVBoxLayout()
-        self.general_layout.addLayout(self.chat_layout)
-
-        self.text_chat = QLabel("Чат: ")
-        self.chat_layout.addWidget(self.text_chat)
+        push_new_game = QPushButton("Создать ИГРУ")
+        push_new_game.clicked.connect(self.action_create_game)
 
         self.chat = QTextEdit()
-        self.chat_layout.addWidget(self.chat)
-
         self.message = QLineEdit()
-        self.chat_layout.addWidget(self.message)
+        push_message = QPushButton("Отправить сообщение")
+        push_message.clicked.connect(self.action_push_message)
 
-        self.push_message = QPushButton("Отправить сообщение")
-        self.chat_layout.addWidget(self.push_message)
-        self.push_message.clicked.connect(self.action_push_message)
+        self.layouts = {
+            "hbox": [
+                {"vbox": [
+                    QLabel("Список Открытых Игр:"),
+                    self.list_boardgames,
+                    push_new_game,
+                ]},
+                {"vbox": [
+                    QLabel("Чат: "),
+                    self.chat,
+                    self.message,
+                    push_message
+                ]}
+            ]
+        }
 
-        widget = QWidget()
-        widget.setLayout(self.general_layout)
-        self.setCentralWidget(widget)
-
-    def data_received(self, data: dict):
+    def data_received(self, data: dict) -> None:
         """ Получение информации с сервера """
         if data['type'] == "message":
             self.append_text(data)
+        elif data['type'] == "create_games":
+            print(f"Запрос на создание игры {data}")
         else:
             print("Необработанное сообщение")
             print(data)

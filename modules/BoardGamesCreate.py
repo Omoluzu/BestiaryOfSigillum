@@ -14,21 +14,21 @@ class BoardGamesCreate(QMainWindow):
 
         self.general_layout = QVBoxLayout()
 
-        self.create_bestiary = QPushButton("Бестиарий Сигиллума")
-        self.general_layout.addWidget(self.create_bestiary)
-        self.create_bestiary.clicked.connect(self.action_create_bestiary)
+        # self.create_bestiary = QPushButton("Бестиарий Сигиллума")
+        # self.general_layout.addWidget(self.create_bestiary)
+        # self.create_bestiary.clicked.connect(self.action_create_bestiary)
 
         self.create_war_chest = QPushButton("Сундук Войны")
         self.general_layout.addWidget(self.create_war_chest)
         self.create_war_chest.clicked.connect(self.action_create_war_chest)
 
-        self.create_undaunted = QPushButton("Неустрашимые")
-        self.general_layout.addWidget(self.create_undaunted)
-        self.create_undaunted.clicked.connect(self.action_create_undaunted)
-
-        self.create_dice_throne = QPushButton("Трон Кубов")
-        self.general_layout.addWidget(self.create_dice_throne)
-        self.create_dice_throne.clicked.connect(self.action_create_dice_throne)
+        # self.create_undaunted = QPushButton("Неустрашимые")
+        # self.general_layout.addWidget(self.create_undaunted)
+        # self.create_undaunted.clicked.connect(self.action_create_undaunted)
+        #
+        # self.create_dice_throne = QPushButton("Трон Кубов")
+        # self.general_layout.addWidget(self.create_dice_throne)
+        # self.create_dice_throne.clicked.connect(self.action_create_dice_throne)
 
         widget = QWidget()
         widget.setLayout(self.general_layout)
@@ -39,7 +39,11 @@ class BoardGamesCreate(QMainWindow):
         self.close()
 
     def action_create_war_chest(self):
+        from modules.WarChest.CreateGames import CreateGamesWarChest
         self.close()
+
+        games = CreateGamesWarChest()
+        games.exec_()
 
     def action_create_undaunted(self):
         self.close()

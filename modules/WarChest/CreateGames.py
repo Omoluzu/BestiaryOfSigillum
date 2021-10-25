@@ -30,6 +30,7 @@ class CreateGamesWarChest(QDialog):
     @wrapper_widget
     def __init__(self):
         super().__init__()
+        self.game_settings = None
 
         self.config = {
             "title": "BoardGames - Create - Сундук Войны"
@@ -41,6 +42,7 @@ class CreateGamesWarChest(QDialog):
         self.layout_select_players = QHBoxLayout()
         self.select_players.setLayout(self.layout_select_players)
         self.combo_select_players = QComboBox(self)
+        self.combo_select_players.setEnabled(False)
         self.layout_select_players.addWidget(self.combo_select_players)
         self.combo_select_players.addItems(list(SELECT_PLAYERS.keys()))
 
@@ -48,6 +50,7 @@ class CreateGamesWarChest(QDialog):
         self.layout_select_unit = QHBoxLayout()
         self.select_unit.setLayout(self.layout_select_unit)
         self.combo_select_unit = QComboBox(self)
+        self.combo_select_unit.setEnabled(False)
         self.layout_select_unit.addWidget(self.combo_select_unit)
         self.combo_select_unit.addItems(list(SELECT_UNITS.keys()))
 
@@ -55,6 +58,7 @@ class CreateGamesWarChest(QDialog):
         self.layout_select_addition = QHBoxLayout()
         self.select_addition.setLayout(self.layout_select_addition)
         self.combo_select_addition = QComboBox(self)
+        self.combo_select_addition.setEnabled(False)
         self.layout_select_addition.addWidget(self.combo_select_addition)
         self.combo_select_addition.addItems(list(SELECT_ADDITION.keys()))
 
@@ -78,7 +82,9 @@ class CreateGamesWarChest(QDialog):
             "select_unit": SELECT_UNITS[self.combo_select_unit.currentText()],
             "select_addition": SELECT_ADDITION[self.combo_select_addition.currentText()],
         }
-        print(data)
+
+        self.game_settings = data
+        self.close()
 
 
 if __name__ == "__main__":

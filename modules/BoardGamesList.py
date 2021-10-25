@@ -60,7 +60,7 @@ class BoardgamesList(QMainWindow):
 
     def data_received(self, data: dict):
         """ Получение информации с сервера """
-        if data['message']:
+        if data['type'] == "message":
             self.append_text(data)
         else:
             print("Необработанное сообщение")
@@ -69,7 +69,12 @@ class BoardgamesList(QMainWindow):
 
     def action_create_game(self):
         """ Запусе окна на создание игры """
-        self.create_boardgames.show()
+        self.create_boardgames.exec_()
+
+        data = self.create_boardgames.game_settings
+        data['user'] = self.client.user
+
+        self.client.send_data(data)
 
     def action_push_message(self):
         """ Отправка сообщения """
@@ -88,7 +93,5 @@ class BoardgamesList(QMainWindow):
         self.chat.append(f"{content['user']} >> {content['message']}")
 
     def start(self):
-        print("Перехватываю управление")
-
         self.show()
         self.client.action = self

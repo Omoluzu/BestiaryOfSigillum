@@ -1,49 +1,51 @@
 #! /usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+from wrapperQWidget5.WrapperWidget import wrapper_widget
 from PyQt5.QtWidgets import *
 
 
-class BoardGamesCreate(QMainWindow):
+class BoardGamesCreate(QDialog):
 
+    @wrapper_widget
     def __init__(self, parent):
         super().__init__()
         self.parent = parent
+        self.game_settings = None
 
-        self.setWindowTitle("BoardGames - Create")
-
-        self.general_layout = QVBoxLayout()
+        self.config = {
+            "title": "BoardGames - Create"
+        }
 
         # self.create_bestiary = QPushButton("Бестиарий Сигиллума")
-        # self.general_layout.addWidget(self.create_bestiary)
         # self.create_bestiary.clicked.connect(self.action_create_bestiary)
 
         self.create_war_chest = QPushButton("Сундук Войны")
-        self.general_layout.addWidget(self.create_war_chest)
         self.create_war_chest.clicked.connect(self.action_create_war_chest)
 
         # self.create_undaunted = QPushButton("Неустрашимые")
-        # self.general_layout.addWidget(self.create_undaunted)
         # self.create_undaunted.clicked.connect(self.action_create_undaunted)
-        #
+
         # self.create_dice_throne = QPushButton("Трон Кубов")
-        # self.general_layout.addWidget(self.create_dice_throne)
         # self.create_dice_throne.clicked.connect(self.action_create_dice_throne)
 
-        widget = QWidget()
-        widget.setLayout(self.general_layout)
-
-        self.setCentralWidget(widget)
+        self.layouts = {
+            "vbox": [
+                self.create_war_chest
+            ]
+        }
 
     def action_create_bestiary(self):
         self.close()
 
     def action_create_war_chest(self):
         from modules.WarChest.CreateGames import CreateGamesWarChest
-        self.close()
 
         games = CreateGamesWarChest()
         games.exec_()
+
+        self.game_settings = games.game_settings
+        self.close()
 
     def action_create_undaunted(self):
         self.close()

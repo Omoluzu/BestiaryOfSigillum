@@ -2,58 +2,57 @@
 # -*- coding: utf-8 -*-
 
 import base64
+
+from wrapperQWidget5.WrapperWidget import wrapper_widget
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import QKeySequence
 
 
-class GuiAuth(QMainWindow):
+class GuiAuth(QDialog):
     """ Главный виджет """
     client: 'Client'
     register: 'Registration'
 
+    @wrapper_widget
     def __init__(self, client):
         super().__init__()
 
         self.client = client
 
-        self.setWindowTitle("Авторизация")
+        self.config = {
+            "title": "Авторизация"
+        }
+
         self.setGeometry(700, 450, 300, 100)
 
-        self.key_enter = QShortcut(QKeySequence('Return'), self)
-        self.key_enter.activated.connect(self.action_get_auth)
-
-        self.general_layout = QVBoxLayout()
-
-        self.layout_login = QHBoxLayout()
-        self.general_layout.addLayout(self.layout_login)
-
-        self.text_login = QLabel(" ЛОГИН:  ")
-        self.layout_login.addWidget(self.text_login)
+        key_enter = QShortcut(QKeySequence('Return'), self)
+        key_enter.activated.connect(self.action_get_auth)
 
         self.login = QLineEdit()
-        self.layout_login.addWidget(self.login)
-
-        self.layout_password = QHBoxLayout()
-        self.general_layout.addLayout(self.layout_password)
-
-        self.text_password = QLabel("ПАРОЛЬ: ")
-        self.layout_password.addWidget(self.text_password)
 
         self.password = QLineEdit()
-        self.layout_password.addWidget(self.password)
         self.password.setEchoMode(QLineEdit.Password)
 
-        self.btn_auth = QPushButton("Авторизоваться")
-        self.general_layout.addWidget(self.btn_auth)
-        self.btn_auth.clicked.connect(self.action_get_auth)
+        btn_auth = QPushButton("Авторизоваться")
+        btn_auth.clicked.connect(self.action_get_auth)
 
-        self.btn_register = QPushButton("Регистрация")
-        self.general_layout.addWidget(self.btn_register)
-        self.btn_register.clicked.connect(self.action_get_register)
+        btn_register = QPushButton("Регистрация")
+        btn_register.clicked.connect(self.action_get_register)
 
-        widget = QWidget()
-        widget.setLayout(self.general_layout)
-        self.setCentralWidget(widget)
+        self.layouts = {
+            "vbox": [
+                {"hbox": [
+                    QLabel(" ЛОГИН:  "),
+                    self.login
+                ]},
+                {"hbox": [
+                    QLabel("ПАРОЛЬ: "),
+                    self.password
+                ]},
+                btn_auth,
+                btn_register
+            ]
+        }
 
     def start(self):
         """ Запус приложения """
@@ -96,6 +95,7 @@ class GuiAuth(QMainWindow):
             self.client.send_data(data)
 
         else:
+            self.password.setText("")
             MessageInformation(data['exception'])
 
 

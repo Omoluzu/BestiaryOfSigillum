@@ -1,15 +1,11 @@
 #! /usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import json
-import asyncio
-
 from wrapperQWidget5.WrapperWidget import wrapper_widget
 from PyQt5.QtWidgets import *
 
-import settings
-
-from modules.BoardGamesCreate import BoardGamesCreate
+from .BoardGamesCreate import BoardGamesCreate
+from .ListCreateGames import ListCreateGames
 
 
 class BoardgamesList(QDialog):
@@ -25,7 +21,12 @@ class BoardgamesList(QDialog):
 
         self.create_boardgames = BoardGamesCreate(parent=self)
 
-        self.list_boardgames = QListWidget()
+        self.list_boardgames = ListCreateGames()
+
+        scroll = QScrollArea()
+        scroll.setWidget(self.list_boardgames)
+        scroll.setWidgetResizable(True)
+
         push_new_game = QPushButton("Создать ИГРУ")
         push_new_game.clicked.connect(self.action_create_game)
 
@@ -38,7 +39,7 @@ class BoardgamesList(QDialog):
             "hbox": [
                 {"vbox": [
                     QLabel("Список Открытых Игр:"),
-                    self.list_boardgames,
+                    scroll,
                     push_new_game,
                 ]},
                 {"vbox": [
@@ -53,16 +54,20 @@ class BoardgamesList(QDialog):
     def data_received(self, data: dict) -> None:
         """ Получение информации с сервера """
         if data['type'] == "message":
+            """ Отправка сообщения в чат """
             self.append_text(data)
+
         elif data['type'] == "create_games":
-            print(f"Запрос на создание игры {data}")
+            """ Запрос на создание новой игры"""
+            self.list_boardgames.create_new_games(data)
+
         else:
             print("Необработанное сообщение")
             print(data)
             print(" ")
 
     def action_create_game(self):
-        """ Запусе окна на создание игры """
+        """ Запуск окна на создание игры """
         self.create_boardgames.exec_()
 
         data = self.create_boardgames.game_settings

@@ -24,6 +24,7 @@ class BoardgamesList(QDialog):
         self.list_boardgames = ListCreateGames()
 
         scroll = QScrollArea()
+        scroll.setFixedWidth(320)
         scroll.setWidget(self.list_boardgames)
         scroll.setWidgetResizable(True)
 
@@ -89,7 +90,7 @@ class BoardgamesList(QDialog):
 
     def append_text(self, content: dict):
         """ Печать сообщения в чат """
-        self.chat.append(f"{content['user']} >> {content['message']}")
+        self.chat.append(f"<html><b>{content['user']}</b> >> {content['message']}</html>")
 
     def start(self):
         self.show()

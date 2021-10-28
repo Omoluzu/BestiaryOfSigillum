@@ -6,6 +6,8 @@
 """
 
 from PyQt5.QtWidgets import QWidget, QVBoxLayout
+from PyQt5.QtCore import Qt
+
 from .Games import Games
 
 
@@ -17,7 +19,9 @@ class ListCreateGames(QWidget):
     def __init__(self):
         super().__init__()
 
+        self.setFixedWidth(310)
         self.layout = QVBoxLayout(self)
+        self.layout.setAlignment(Qt.AlignTop)
 
     def create_new_games(self, data: dict) -> None:
         """

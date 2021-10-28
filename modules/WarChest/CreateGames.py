@@ -78,6 +78,7 @@ class CreateGamesWarChest(QDialog):
         data = {
             "type": "create_games",
             "games": "war_chest",
+            "ru": "Сундук войны",
             "select_players": SELECT_PLAYERS[self.combo_select_players.currentText()],
             "select_unit": SELECT_UNITS[self.combo_select_unit.currentText()],
             "select_addition": SELECT_ADDITION[self.combo_select_addition.currentText()],

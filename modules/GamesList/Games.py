@@ -7,6 +7,7 @@
 
 from wrapperQWidget5.WrapperWidget import wrapper_widget
 from PyQt5.QtWidgets import QWidget, QLabel
+from PyQt5.QtGui import QColor
 
 
 class Games(QWidget):
@@ -20,9 +21,27 @@ class Games(QWidget):
         super().__init__()
 
         self.data = data
+        print(self.data)
+
+        p = self.palette()
+        p.setColor(self.backgroundRole(), QColor(200, 200, 200, 125))
+        self.setPalette(p)
+
+        self.setAutoFillBackground(True)
+        self.setFixedSize(310, 40)
 
         self.layouts = {
             "vbox": [
-                QLabel(self.data['games'])
+                {"config": {
+                    "margin": [10, 0, 10, 0]
+                }},
+                {"hbox": [
+                    QLabel(self.data['ru']),
+                    QLabel(f"Кол-во игровов: 1/2")
+                ]},
+                {"hbox": [
+                    QLabel(f"<html>Создал: <b>{self.data['user']}</b></html>")
+                ]}
             ]
+
         }

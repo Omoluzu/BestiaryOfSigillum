@@ -93,5 +93,11 @@ class BoardgamesList(QDialog):
         self.chat.append(f"<html><b>{content['user']}</b> >> {content['message']}</html>")
 
     def start(self):
+        """ Запуск стартового окна после успешной авторизации пользователя """
         self.show()
         self.client.action = self
+
+        self.client.send_data({
+            "command": "user_connect",
+            "user": self.client.user
+        })

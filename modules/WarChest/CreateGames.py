@@ -76,7 +76,7 @@ class CreateGamesWarChest(QDialog):
 
     def action_create(self):
         data = {
-            "type": "create_games",
+            "command": "create_games",
             "games": "war_chest",
             "ru": "Сундук войны",
             "games_config": {

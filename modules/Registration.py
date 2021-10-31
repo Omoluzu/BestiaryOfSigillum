@@ -79,7 +79,7 @@ class GuiRegistration(QMainWindow):
         if self.password_one.text() == self.password_two.text():
             if self.login.text():
                 data = {
-                    "type": "register",
+                    "command": "register",
                     "login": self.login.text(),
                     "password": (base64.b64encode(self.password_one.text().encode())).decode()
                 }

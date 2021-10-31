@@ -64,7 +64,7 @@ class GuiAuth(QDialog):
         """ Отправка логина и пароль на авторизацию """
 
         data = {
-            "type": "auth",
+            "command": "auth",
             "login": self.login.text(),
             "password": (base64.b64encode(self.password.text().encode())).decode()
         }
@@ -86,13 +86,13 @@ class GuiAuth(QDialog):
             self.client.user = data['login']
             self.client.boardgames_list.start()
 
-            data = {
-                "type": "message",
-                "message": f"{self.client.user} присоединился.",
-                "user": "System"
-            }
-
-            self.client.send_data(data)
+            # data = {
+            #     "command": "message",
+            #     "message": f"{self.client.user} присоединился.",
+            #     "user": "System"
+            # }
+            #
+            # self.client.send_data(data)
 
         else:
             self.password.setText("")

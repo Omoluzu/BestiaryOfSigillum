@@ -54,11 +54,11 @@ class BoardgamesList(QDialog):
 
     def data_received(self, data: dict) -> None:
         """ Получение информации с сервера """
-        if data['type'] == "message":
+        if data['command'] == "message":
             """ Отправка сообщения в чат """
             self.append_text(data)
 
-        elif data['type'] == "create_games":
+        elif data['command'] == "create_games":
             """ Запрос на создание новой игры"""
             self.list_boardgames.create_new_games(data)
 
@@ -80,7 +80,7 @@ class BoardgamesList(QDialog):
         """ Отправка сообщения """
 
         data = {
-            "type": "message",
+            "command": "message",
             "message": self.message.text(),
             "user": self.client.user
         }

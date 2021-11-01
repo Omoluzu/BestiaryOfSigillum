@@ -21,7 +21,6 @@ class Games(QWidget):
         super().__init__()
 
         self.data = data
-        print(self.data)
 
         p = self.palette()
         p.setColor(self.backgroundRole(), QColor(200, 200, 200, 125))
@@ -36,7 +35,7 @@ class Games(QWidget):
                     "margin": [10, 0, 10, 0]
                 }},
                 {"hbox": [
-                    QLabel(self.data['ru']),
+                    QLabel(self.data['games']),
                     QLabel(f"Кол-во игровов: 1/2")
                 ]},
                 {"hbox": [

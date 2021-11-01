@@ -30,3 +30,13 @@ class ListCreateGames(QWidget):
         :return:
         """
         self.layout.addWidget(Games(data))
+
+    def update_list_games(self, data: dict) -> None:
+        """
+
+        :param data:
+        :return:
+        """
+
+        for games in data['list_games']:
+            self.layout.addWidget(Games(games))

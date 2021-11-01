@@ -62,6 +62,10 @@ class BoardgamesList(QDialog):
             """ Запрос на создание новой игры"""
             self.list_boardgames.create_new_games(data)
 
+        elif data['command'] == "update_list_games":
+            """ Запрос на обновление списка текущих игр """
+            self.list_boardgames.update_list_games(data)
+
         else:
             print("Необработанное сообщение")
             print(data)

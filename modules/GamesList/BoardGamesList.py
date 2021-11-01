@@ -21,7 +21,7 @@ class BoardgamesList(QDialog):
 
         self.create_boardgames = BoardGamesCreate(parent=self)
 
-        self.list_boardgames = ListCreateGames()
+        self.list_boardgames = ListCreateGames(self.client)
 
         scroll = QScrollArea()
         scroll.setFixedWidth(320)

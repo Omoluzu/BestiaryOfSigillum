@@ -9,6 +9,8 @@ from wrapperQWidget5.WrapperWidget import wrapper_widget
 from PyQt5.QtWidgets import QWidget, QLabel
 from PyQt5.QtGui import QColor
 
+from modules.GamesList.GamesWidget import GamesWidget
+
 
 class Games(QWidget):
     """
@@ -17,10 +19,11 @@ class Games(QWidget):
     data: dict
 
     @wrapper_widget
-    def __init__(self, data):
+    def __init__(self, data, client):
         super().__init__()
 
         self.data = data
+        self.client = client
 
         p = self.palette()
         p.setColor(self.backgroundRole(), QColor(200, 200, 200, 125))
@@ -44,3 +47,19 @@ class Games(QWidget):
             ]
 
         }
+
+    def mouseDoubleClickEvent(self, event):
+        """
+        Обработка действия при двойном клике
+
+        ВЫзов текущего состояния создаваемой игры
+
+        :param event:
+        :return:
+        """
+
+        games = GamesWidget(self.data)
+        games.exec_()
+
+        if games.command:
+            self.client.send_data(games.command)

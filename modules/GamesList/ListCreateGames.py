@@ -16,8 +16,10 @@ class ListCreateGames(QWidget):
     Виджет вывода списка активных игр.
     """
 
-    def __init__(self):
+    def __init__(self, client):
         super().__init__()
+
+        self.client = client
 
         self.setFixedWidth(310)
         self.layout = QVBoxLayout(self)
@@ -39,4 +41,4 @@ class ListCreateGames(QWidget):
         """
 
         for games in data['list_games']:
-            self.layout.addWidget(Games(games))
+            self.layout.addWidget(Games(games, self.client))

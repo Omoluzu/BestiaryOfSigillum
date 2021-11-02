@@ -39,6 +39,8 @@ class ListCreateGames(QWidget):
         :param data:
         :return:
         """
+        for i in range(self.layout.count()):
+            self.layout.itemAt(i).widget().deleteLater()
 
         for games in data['list_games']:
             self.layout.addWidget(Games(games, self.client))

@@ -58,7 +58,7 @@ class Games(QWidget):
         :return:
         """
 
-        games = GamesWidget(self.data)
+        games = GamesWidget(self.data, self.client)
         games.exec_()
 
         if games.command:

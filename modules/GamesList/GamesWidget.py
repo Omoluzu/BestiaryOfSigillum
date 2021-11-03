@@ -13,23 +13,28 @@ class GamesWidget(QDialog):
     games_info: dict
 
     @wrapper_widget
-    def __init__(self, games_info):
+    def __init__(self, games_info, client):
         super(GamesWidget, self).__init__()
 
         self.command = {}
         self.games_info = games_info
+        self.client = client
 
         self.config = {
             "title": self.games_info['games']
         }
 
-        btn_canceled = QPushButton("Отмена игры")
-        btn_canceled.clicked.connect(self.action_game_canceled)
+        if client.user == self.games_info['user']:
+            btn = QPushButton("Отмена игры")
+            btn.clicked.connect(self.action_game_canceled)
+        else:
+            btn = QPushButton("Присоединится к игре")
+            btn.clicked.connect(self.action_game_join)
 
         self.layouts = {
             "vbox": [
                 QLabel("Ждем ожидания других игроков..."),
-                btn_canceled
+                btn
             ]
         }
 
@@ -43,7 +48,22 @@ class GamesWidget(QDialog):
         self.command = {
             "command": "game_canceled",
             "game_id": self.games_info['id'],
-            "user": self.games_info['user'],
+            "user": self.client.user,
+            "games": self.games_info['games']
+        }
+        self.close()
+
+    def action_game_join(self):
+        """
+        Активация действия для присоединения к игре
+
+        :return:
+        """
+
+        self.command = {
+            "command": "game_join",
+            "game_id": self.games_info['id'],
+            "user": self.client.user,
             "games": self.games_info['games']
         }
         self.close()

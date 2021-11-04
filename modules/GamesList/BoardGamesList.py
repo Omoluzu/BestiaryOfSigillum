@@ -3,6 +3,7 @@
 
 from wrapperQWidget5.WrapperWidget import wrapper_widget
 from PyQt5.QtWidgets import *
+from PyQt5.QtCore import Qt
 
 from .BoardGamesCreate import BoardGamesCreate
 from .ListCreateGames import ListCreateGames
@@ -32,8 +33,11 @@ class BoardgamesList(QDialog):
         push_new_game.clicked.connect(self.action_create_game)
 
         self.chat = QTextEdit()
+        self.chat.setEnabled(False)
+
         self.message = QLineEdit()
         push_message = QPushButton("Отправить сообщение")
+        push_message.setDefault(True)
         push_message.clicked.connect(self.action_push_message)
 
         self.layouts = {

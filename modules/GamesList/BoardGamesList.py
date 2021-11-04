@@ -80,9 +80,10 @@ class BoardgamesList(QDialog):
         self.create_boardgames.exec_()
 
         data = self.create_boardgames.game_settings
-        data['user'] = self.client.user
 
-        self.client.send_data(data)
+        if data:
+            data['user'] = self.client.user
+            self.client.send_data(data)
 
     def action_push_message(self):
         """ Отправка сообщения """

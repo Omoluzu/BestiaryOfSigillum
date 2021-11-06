@@ -43,4 +43,7 @@ class ListCreateGames(QWidget):
             self.layout.itemAt(i).widget().deleteLater()
 
         for games in data['list_games']:
+            if games['status'] == "Active" and self.client.user not in games['users']:
+                continue
+
             self.layout.addWidget(Games(games, self.client))

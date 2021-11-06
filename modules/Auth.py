@@ -33,11 +33,13 @@ class GuiAuth(QDialog):
         self.password = QLineEdit()
         self.password.setEchoMode(QLineEdit.Password)
 
-        btn_auth = QPushButton("Авторизоваться")
-        btn_auth.clicked.connect(self.action_get_auth)
+        self.btn_auth = QPushButton("Авторизоваться")
+        self.btn_auth.clicked.connect(self.action_get_auth)
+        self.btn_auth.setEnabled(False)
 
-        btn_register = QPushButton("Регистрация")
-        btn_register.clicked.connect(self.action_get_register)
+        self.btn_register = QPushButton("Регистрация")
+        self.btn_register.clicked.connect(self.action_get_register)
+        self.btn_register.setEnabled(False)
 
         self.layouts = {
             "vbox": [
@@ -49,8 +51,8 @@ class GuiAuth(QDialog):
                     QLabel("ПАРОЛЬ: "),
                     self.password
                 ]},
-                btn_auth,
-                btn_register
+                self.btn_auth,
+                self.btn_register
             ]
         }
 
@@ -59,6 +61,11 @@ class GuiAuth(QDialog):
 
         self.show()
         self.client.action = self
+
+    def connect(self):
+        """ Клиент успешно подключен к серверу """
+        self.btn_auth.setEnabled(True)
+        self.btn_register.setEnabled(True)
 
     def action_get_auth(self):
         """ Отправка логина и пароль на авторизацию """

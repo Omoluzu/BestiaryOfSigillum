@@ -81,6 +81,7 @@ class Client:
                 event_loop = asyncio.get_running_loop()
                 coroutine = event_loop.create_connection(self.build_protocol, settings.SERVER, settings.PORT)
                 await asyncio.wait_for(coroutine, 1000)
+                self.auth.connect()
                 connect = True
             except ConnectionRefusedError:
                 continue

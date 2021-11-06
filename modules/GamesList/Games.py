@@ -39,10 +39,10 @@ class Games(QWidget):
                 }},
                 {"hbox": [
                     QLabel(self.data['games']),
-                    QLabel(f"Кол-во игровов: 1/2")
+                    QLabel(f"Кол-во игровов: {len(self.data['users'])}/2")
                 ]},
                 {"hbox": [
-                    QLabel(f"<html>Создал: <b>{self.data['user']}</b></html>")
+                    QLabel(f"<html>Игроки: <b>{', '.join(self.data['users'])}</b></html>")
                 ]}
             ]
 

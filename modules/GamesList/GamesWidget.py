@@ -24,7 +24,7 @@ class GamesWidget(QDialog):
             "title": self.games_info['games']
         }
 
-        if client.user == self.games_info['user']:
+        if client.user == self.games_info['create_user']:
             btn = QPushButton("Отмена игры")
             btn.clicked.connect(self.action_game_canceled)
         else:

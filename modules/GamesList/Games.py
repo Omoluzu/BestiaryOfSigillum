@@ -4,6 +4,7 @@
 """
 Виджет игры для списка ListCreateGames
 """
+import json
 
 from wrapperQWidget5.WrapperWidget import wrapper_widget
 from PyQt5.QtWidgets import QWidget, QLabel
@@ -21,9 +22,10 @@ class Games(QWidget):
     @wrapper_widget
     def __init__(self, data, client):
         super().__init__()
+        self.client = client
 
         self.data = data
-        self.client = client
+        self.game_config = json.loads(self.data['games_config'])
 
         p = self.palette()
         p.setColor(self.backgroundRole(), QColor(200, 200, 200, 125))
@@ -39,13 +41,12 @@ class Games(QWidget):
                 }},
                 {"hbox": [
                     QLabel(self.data['games']),
-                    QLabel(f"Кол-во игровов: {len(self.data['users'])}/2")
+                    QLabel(f"Кол-во игровов: {len(self.data['users'])}/{str(self.game_config['select_players'])}")
                 ]},
                 {"hbox": [
                     QLabel(f"<html>Игроки: <b>{', '.join(self.data['users'])}</b></html>")
                 ]}
             ]
-
         }
 
     def mouseDoubleClickEvent(self, event):

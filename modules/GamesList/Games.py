@@ -59,8 +59,13 @@ class Games(QWidget):
         :return:
         """
 
-        games = GamesWidget(self.data, self.client)
-        games.exec_()
+        if self.data['status'] == "Active":
+            if self.data['games'] == "war_chest":
+                print("Запуск игры Сундук Войны")
 
-        if games.command:
-            self.client.send_data(games.command)
+        elif self.data['status'] == "Await":
+            games = GamesWidget(self.data, self.client)
+            games.exec_()
+
+            if games.command:
+                self.client.send_data(games.command)

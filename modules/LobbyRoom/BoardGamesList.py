@@ -3,7 +3,6 @@
 
 from wrapperQWidget5.WrapperWidget import wrapper_widget
 from PyQt5.QtWidgets import *
-from PyQt5.QtCore import Qt
 
 from .BoardGamesCreate import BoardGamesCreate
 from .ListCreateGames import ListCreateGames

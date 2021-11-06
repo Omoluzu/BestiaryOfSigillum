@@ -86,14 +86,6 @@ class GuiAuth(QDialog):
             self.client.user = data['login']
             self.client.boardgames_list.start()
 
-            # data = {
-            #     "command": "message",
-            #     "message": f"{self.client.user} присоединился.",
-            #     "user": "System"
-            # }
-            #
-            # self.client.send_data(data)
-
         else:
             self.password.setText("")
             MessageInformation(data['exception'])

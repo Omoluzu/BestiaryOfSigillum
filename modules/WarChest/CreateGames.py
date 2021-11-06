@@ -7,8 +7,8 @@ from wrapperQWidget5.WrapperWidget import wrapper_widget
 
 
 SELECT_PLAYERS = {
-    "2": 'two',
-    "4": 'four',
+    "2": 2,
+    "4": 4,
 }
 
 SELECT_UNITS = {

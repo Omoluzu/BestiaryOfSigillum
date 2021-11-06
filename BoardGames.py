@@ -75,9 +75,18 @@ class Client:
         """ Запускаем приложение """
         self.auth.start()
 
-        event_loop = asyncio.get_running_loop()
-        coroutine = event_loop.create_connection(self.build_protocol, settings.SERVER, settings.PORT)
-        await asyncio.wait_for(coroutine, 1000)
+        connect = False
+        while not connect:
+            try:
+                event_loop = asyncio.get_running_loop()
+                coroutine = event_loop.create_connection(self.build_protocol, settings.SERVER, settings.PORT)
+                await asyncio.wait_for(coroutine, 1000)
+                connect = True
+            except ConnectionRefusedError:
+                continue
+
+
+
 
 
 if __name__ == "__main__":

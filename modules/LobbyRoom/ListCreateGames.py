@@ -25,14 +25,6 @@ class ListCreateGames(QWidget):
         self.layout = QVBoxLayout(self)
         self.layout.setAlignment(Qt.AlignTop)
 
-    def create_new_games(self, data: dict) -> None:
-        """
-        Запрос на вывод новой игры в списке.
-        :param data:
-        :return:
-        """
-        self.layout.addWidget(Games(data))
-
     def update_list_games(self, data: dict) -> None:
         """
 

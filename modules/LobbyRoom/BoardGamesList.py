@@ -62,10 +62,6 @@ class BoardgamesList(QDialog):
             """ Отправка сообщения в чат """
             self.append_text(data)
 
-        elif data['command'] == "create_games":
-            """ Запрос на создание новой игры"""
-            self.list_boardgames.create_new_games(data)
-
         elif data['command'] == "update_list_games":
             """ Запрос на обновление списка текущих игр """
             self.list_boardgames.update_list_games(data)

@@ -10,7 +10,7 @@ from wrapperQWidget5.WrapperWidget import wrapper_widget
 from PyQt5.QtWidgets import QWidget, QLabel
 from PyQt5.QtGui import QColor
 
-from modules.GamesList.GamesWidget import GamesWidget
+from modules.LobbyRoom.GamesWidget import GamesWidget
 
 
 class Games(QWidget):

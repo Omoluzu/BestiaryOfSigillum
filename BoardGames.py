@@ -11,7 +11,7 @@ import settings
 
 from modules.Auth import GuiAuth
 from modules.Registration import GuiRegistration
-from modules.GamesList.BoardGamesList import BoardgamesList
+from modules.LobbyRoom.BoardGamesList import BoardgamesList
 
 
 class ClientProtocol(asyncio.Protocol):

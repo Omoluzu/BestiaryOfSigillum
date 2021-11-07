@@ -83,14 +83,15 @@ class BoardgamesList(QDialog):
     def action_push_message(self):
         """ Отправка сообщения """
 
-        data = {
-            "command": "message",
-            "message": self.message.text(),
-            "user": self.client.user
-        }
+        if self.message.text():
+            data = {
+                "command": "message",
+                "message": self.message.text(),
+                "user": self.client.user
+            }
 
-        self.message.clear()
-        self.client.send_data(data)
+            self.message.clear()
+            self.client.send_data(data)
 
     def append_text(self, content: dict):
         """ Печать сообщения в чат """

@@ -1,3 +1,6 @@
 [submodule "wrapperQWidget5"]
 	path = wrapperQWidget5
 	url = https://github.com/Omoluzu/wrapperQWidget5.git
+[submodule "modules/configControl"]
+	path = modules/configControl
+	url = https://github.com/Omoluzu/configControl.git

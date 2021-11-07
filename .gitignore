@@ -1,10 +1,11 @@
 probe.py
-settings.py
+settings_.py
 
+.idea
+images/брювус.png
 venv
 dist
 build
-
 *.xml
 *.iml
 *.jpg

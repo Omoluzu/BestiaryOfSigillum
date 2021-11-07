@@ -8,7 +8,7 @@ from PyQt5.QtWidgets import QApplication
 # from PyQt5.QtWidgets import *
 from asyncqt import QEventLoop
 
-import settings
+import settings_
 
 from modules.Auth import GuiAuth
 from modules.Registration import GuiRegistration
@@ -81,7 +81,7 @@ class Client:
         while not connect:
             try:
                 event_loop = asyncio.get_running_loop()
-                coroutine = event_loop.create_connection(self.build_protocol, settings.SERVER, settings.PORT)
+                coroutine = event_loop.create_connection(self.build_protocol, settings_.SERVER, settings_.PORT)
                 await asyncio.wait_for(coroutine, 1000)
                 self.auth.connect()
                 connect = True

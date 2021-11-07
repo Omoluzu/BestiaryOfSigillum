@@ -9,7 +9,7 @@ from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from asyncqt import QEventLoop
 
-import settings
+import settings_
 from modules.BestiaryOfSigilum.AppBattlefield import AppBattleHex, AppReserveHex, battle_field, reserve_field
 from modules.BestiaryOfSigilum.AppCharacters import AppCharacters
 
@@ -47,9 +47,9 @@ class AppStart(QMainWindow):
         self.setWindowTitle("Бестиарий Сигиллума")
 
         # width = QApplication.desktop().width()
-        width = settings.WIDTH
+        width = settings_.WIDTH
         # height = QApplication.desktop().height()
-        height = settings.HEIGHT
+        height = settings_.HEIGHT
 
         self.active = None
 
@@ -97,7 +97,7 @@ class AppStart(QMainWindow):
         data = {
             "type": "message",
             "message": self.message.text(),
-            "user": settings.USERNAME
+            "user": settings_.USERNAME
         }
 
         self.message.clear()
@@ -116,7 +116,7 @@ class AppStart(QMainWindow):
         # self.show()
 
         event_loop = asyncio.get_running_loop()
-        coroutine = event_loop.create_connection(self.build_protocol, settings.SERVER, settings.PORT)
+        coroutine = event_loop.create_connection(self.build_protocol, settings_.SERVER, settings_.PORT)
         await asyncio.wait_for(coroutine, 1000)
 
 

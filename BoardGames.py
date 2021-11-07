@@ -5,10 +5,7 @@ import json
 import asyncio
 
 from PyQt5.QtWidgets import QApplication
-# from PyQt5.QtWidgets import *
 from asyncqt import QEventLoop
-
-import settings_
 
 from modules.configControl.configControl import Config
 from modules.Auth import GuiAuth
@@ -81,8 +78,16 @@ class Client:
         connect = False
         while not connect:
             try:
+                _config = Config()
                 event_loop = asyncio.get_running_loop()
-                coroutine = event_loop.create_connection(self.build_protocol, settings_.SERVER, settings_.PORT)
+
+                coroutine = event_loop.create_connection(
+                    self.build_protocol,
+                    _config.get("SERVER", "address"),
+                    int(_config.get("SERVER", "port"))
+                )
+                del _config
+
                 await asyncio.wait_for(coroutine, 1000)
                 self.auth.connect()
                 connect = True

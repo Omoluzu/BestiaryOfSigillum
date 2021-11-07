@@ -10,6 +10,7 @@ from asyncqt import QEventLoop
 
 import settings_
 
+from modules.configControl.configControl import Config
 from modules.Auth import GuiAuth
 from modules.Registration import GuiRegistration
 from modules.CheckSettings import CheckSettings
@@ -92,6 +93,11 @@ class Client:
 
 
 if __name__ == "__main__":
+
+    config = Config()
+    config.check_config()
+    config.check_parameters()
+    del config
 
     app = QApplication([])
     loop = QEventLoop(app)

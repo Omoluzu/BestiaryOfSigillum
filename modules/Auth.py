@@ -41,6 +41,8 @@ class GuiAuth(QDialog):
         self.btn_register.clicked.connect(self.action_get_register)
         self.btn_register.setEnabled(False)
 
+        self.status_connect = QLabel("Ожинается подключение к серверу")
+
         self.layouts = {
             "vbox": [
                 {"hbox": [
@@ -52,7 +54,8 @@ class GuiAuth(QDialog):
                     self.password
                 ]},
                 self.btn_auth,
-                self.btn_register
+                self.btn_register,
+                self.status_connect
             ]
         }
 
@@ -66,6 +69,7 @@ class GuiAuth(QDialog):
         """ Клиент успешно подключен к серверу """
         self.btn_auth.setEnabled(True)
         self.btn_register.setEnabled(True)
+        self.status_connect.setText("К серверу успешно подключенно")
 
     def action_get_auth(self):
         """ Отправка логина и пароль на авторизацию """

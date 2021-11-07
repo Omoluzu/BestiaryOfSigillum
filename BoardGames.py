@@ -5,12 +5,14 @@ import json
 import asyncio
 
 from PyQt5.QtWidgets import QApplication
+# from PyQt5.QtWidgets import *
 from asyncqt import QEventLoop
 
 import settings
 
 from modules.Auth import GuiAuth
 from modules.Registration import GuiRegistration
+from modules.CheckSettings import CheckSettings
 from modules.LobbyRoom.BoardGamesList import BoardgamesList
 
 
@@ -84,10 +86,9 @@ class Client:
                 self.auth.connect()
                 connect = True
             except ConnectionRefusedError:
+                check = CheckSettings()
+                check.exec_()
                 continue
-
-
-
 
 
 if __name__ == "__main__":

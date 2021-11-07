@@ -4,6 +4,8 @@
 from PyQt5.QtWidgets import QDialog, QPushButton, QLabel
 from wrapperQWidget5.WrapperWidget import wrapper_widget
 
+from modules.Settings import Settings
+
 
 class CheckSettings(QDialog):
 
@@ -15,7 +17,7 @@ class CheckSettings(QDialog):
         btn_close.clicked.connect(self.action_close)
 
         btn_settings = QPushButton("Настройки")
-        btn_settings.clicked.connect(self.action_close)
+        btn_settings.clicked.connect(self.action_open_settings)
 
         self.layouts = {
             "vbox": [
@@ -31,3 +33,8 @@ class CheckSettings(QDialog):
     def action_close(self):
         """ закрытие информационного окна """
         self.close()
+
+    def action_open_settings(self):
+        """ Открыние файла настроек """
+        settings = Settings()
+        settings.exec_()

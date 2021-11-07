@@ -27,7 +27,7 @@ class Settings(QDialog):
         self.text_port = QLineEdit(self.settings.get("SERVER", "port"))
         layout_port.addWidget(self.text_port)
 
-        btn_save = QPushButton("Созранить")
+        btn_save = QPushButton("Сохранить")
         btn_save.clicked.connect(self.action_save_setting)
 
         self.layouts = {
@@ -40,4 +40,8 @@ class Settings(QDialog):
 
     def action_save_setting(self):
         """ активауия сохранения настроек """
-        print(" Настройки сохранены ")
+
+        self.settings.update("SERVER", "address", self.text_address.text())
+        self.settings.update("SERVER", "port", self.text_port.text())
+
+        self.close()

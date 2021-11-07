@@ -38,3 +38,5 @@ class CheckSettings(QDialog):
         """ Открыние файла настроек """
         settings = Settings()
         settings.exec_()
+
+        self.close()

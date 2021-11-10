@@ -106,3 +106,7 @@ class BoardgamesList(QDialog):
             "command": "user_connect",
             "user": self.client.user
         })
+
+    def close(self):
+        """ Cворачивание приложения """
+        self.hide()

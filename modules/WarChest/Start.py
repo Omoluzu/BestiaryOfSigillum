@@ -8,6 +8,7 @@
 from PyQt5.QtWidgets import *
 
 from wrapperQWidget5.WrapperWidget import wrapper_widget
+from modules.WarChest import *
 
 
 class Start(QDialog):
@@ -45,6 +46,11 @@ class Start(QDialog):
         """ Проверка игры на информацию """
         if not data['game_info']:
             print("Игра еще не создана")
+            unit = Crossbowman()
+            print(unit.name())
+
+    def game_created(self):
+        """ Создание игры """
 
     def action_close(self):
         """ Закрытие окна с игрой """

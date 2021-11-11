@@ -62,7 +62,7 @@ class Games(QWidget):
         if self.data['status'] == "Active":
             if self.data['games'] == "war_chest":
                 from modules.WarChest.Start import Start
-                war_chest = Start(self.client)
+                war_chest = Start(self.client, self.data)
                 war_chest.start()
 
         elif self.data['status'] == "Await":

@@ -13,10 +13,11 @@ from wrapperQWidget5.WrapperWidget import wrapper_widget
 class Start(QDialog):
 
     @wrapper_widget
-    def __init__(self, client):
+    def __init__(self, client, data):
         super().__init__()
 
         self.client = client
+        self.id = data['id']
 
         btn_close = QPushButton("Закрыть")
         btn_close.clicked.connect(self.action_close)
@@ -41,6 +42,11 @@ class Start(QDialog):
         """ Активация приложения """
         self.client.action = self
         self.client.boardgames_list.close()
+
+        self.client.send_data({
+            "command": "information_games",
+            "game_id": self.id
+        })
 
         self.exec_()
 

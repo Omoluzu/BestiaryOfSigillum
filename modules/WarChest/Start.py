@@ -4,6 +4,10 @@
 """
 Основное окно игры Сундук Войны
 """
+import copy
+import random
+
+from pprint import pprint
 
 from PyQt5.QtWidgets import *
 
@@ -18,6 +22,7 @@ class Start(QDialog):
         super().__init__()
 
         self.client = client
+        self.data = data
         self.id = data['id']
 
         btn_close = QPushButton("Закрыть")
@@ -46,9 +51,7 @@ class Start(QDialog):
         """ Проверка игры на информацию """
         if not data['game_info']:
             print("Игра еще не создана")
-
-            print(ListUnits)
-
+            create_games(self.data)
 
     def game_created(self):
         """ Создание игры """
@@ -69,4 +72,27 @@ class Start(QDialog):
         })
 
         self.exec_()
+
+
+def create_games(data):
+
+    users = copy.deepcopy(data['users'])
+    active_player = users.pop(random.randint(0, 1))
+
+    # print(ListUnits)
+
+    game_info = {
+        "active_player": active_player,
+        "initiative": active_player,
+        "player_1": {
+            "name": active_player,
+            "units": [],
+        },
+        "player_2": {
+            "name": users[0],
+            "units": []
+        }
+    }
+
+    pprint(game_info)
 

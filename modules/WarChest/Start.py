@@ -31,6 +31,12 @@ class Start(QDialog):
 
     def data_received(self, data: dict) -> None:
         """ Получение информации с сервера """
+        if data['command'] == "game_info":
+            self.check_game_info(data)
+        else:
+            print(f"Неопознаная клманда {data['command']}")
+
+    def check_game_info(self, data: dict):
         print(data)
 
     def action_close(self):

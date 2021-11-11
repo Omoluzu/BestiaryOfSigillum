@@ -46,8 +46,9 @@ class Start(QDialog):
         """ Проверка игры на информацию """
         if not data['game_info']:
             print("Игра еще не создана")
-            unit = Crossbowman()
-            print(unit.name())
+
+            print(ListUnits)
+
 
     def game_created(self):
         """ Создание игры """

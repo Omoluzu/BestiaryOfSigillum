@@ -19,6 +19,9 @@ class Units(ABC):
     def translate(self):
         return None
 
+    def __repr__(self):
+        return f"<class Units({self.__class__.__name__}) translate={self.translate} >"
+
 
 class Crossbowman(Units):
 
@@ -163,5 +166,24 @@ class Chaplain(Units):
     def translate(self):
         return "Капеланы"
 
+
+ListUnits = {
+    "Crossbowman": Crossbowman,
+    "RoyalGuard": RoyalGuard,
+    "Mercenaries": Mercenaries,
+    "Pikemen": Pikemen,
+    "Marshal": Marshal,
+    "Cavalry": Cavalry,
+    "Spearmen": Spearmen,
+    "StandardBearer": StandardBearer,
+    "LightCavalry": LightCavalry,
+    "Berserkers": Berserkers,
+    "Archers": Archers,
+    "Infantry": Infantry,
+    "Knights": Knights,
+    "Scouts": Scouts,
+    "Swordsmen": Swordsmen,
+    "Chaplain": Chaplain
+}
 
 

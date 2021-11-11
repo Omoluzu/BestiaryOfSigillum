@@ -95,7 +95,7 @@ class GuiAuth(QDialog):
 
             self.close()
             self.client.user = data['login']
-            self.client.boardgames_list.start()
+            self.client.boardgames_list.start(user_connect=True)
 
         else:
             self.password.setText("")

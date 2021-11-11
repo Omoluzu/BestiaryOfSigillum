@@ -97,15 +97,21 @@ class BoardgamesList(QDialog):
         """ Печать сообщения в чат """
         self.chat.append(f"<html><b>{content['user']}</b> >> {content['message']}</html>")
 
-    def start(self):
-        """ Запуск стартового окна после успешной авторизации пользователя """
+    def start(self, user_connect=False):
+        """ Запуск стартового окна после успешной авторизации пользователя и не только"""
         self.show()
         self.client.action = self
 
-        self.client.send_data({
-            "command": "user_connect",
-            "user": self.client.user
-        })
+        if not user_connect:
+            self.client.send_data({
+                "command": "update_list_games",
+                "user": self.client.user
+            })
+        else:
+            self.client.send_data({
+                "command": "user_connect",
+                "user": self.client.user
+            })
 
     def close(self):
         """ Cворачивание приложения """

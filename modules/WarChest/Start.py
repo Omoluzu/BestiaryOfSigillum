@@ -36,8 +36,15 @@ class Start(QDialog):
         else:
             print(f"Неопознаная клманда {data['command']}")
 
-    def check_game_info(self, data: dict):
-        print(data)
+    def check_game_info(self, data: dict) -> None:
+        """ Проверка соответсвия игры на игру с ИД """
+        if data['game_id'] == self.id:
+            self.check_game_created(data)
+
+    def check_game_created(self, data: dict) -> None:
+        """ Проверка игры на информацию """
+        if not data['game_info']:
+            print("Игра еще не создана")
 
     def action_close(self):
         """ Закрытие окна с игрой """

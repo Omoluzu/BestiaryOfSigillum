@@ -75,22 +75,31 @@ class Start(QDialog):
 
 
 def create_games(data):
+    def generated_units(units: list):
+        random.shuffle(units)
+        generated_list = []
+
+        while len(generated_list) != 4:
+            generated_list.append(units.pop(random.randint(0, len(units) - 1)))
+
+        return generated_list, units
 
     users = copy.deepcopy(data['users'])
     active_player = users.pop(random.randint(0, 1))
 
-    # print(ListUnits)
+    units_player1, unit = generated_units(units=list(ListUnits.keys()))
+    units_player2, _ = generated_units(units=unit)
 
     game_info = {
         "active_player": active_player,
         "initiative": active_player,
         "player_1": {
             "name": active_player,
-            "units": [],
+            "units": units_player1,
         },
         "player_2": {
             "name": users[0],
-            "units": []
+            "units": units_player2
         }
     }
 

@@ -8,11 +8,6 @@
 from ._Units import Units
 
 
-
 class Infantry(Units):
-
-    def name(self):
-        return "Infantry"
-
-    def translate(self):
-        return "Пехота"
+    name = "Infantry"
+    translate = "Пехота"

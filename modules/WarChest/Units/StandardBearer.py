@@ -9,9 +9,5 @@ from ._Units import Units
 
 
 class StandardBearer(Units):
-
-    def name(self):
-        return "StandardBearer"
-
-    def translate(self):
-        return "Знаменосец"
+    name = "StandardBearer"
+    translate = "Знаменосец"

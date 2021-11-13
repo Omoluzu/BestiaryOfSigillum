@@ -4,20 +4,12 @@
 """
 Юниты
 """
-from abc import ABC, abstractmethod
+from abc import ABC
 
 
 class Units(ABC):
-
-    @property
-    @abstractmethod
-    def name(self):
-        return None
-
-    @property
-    @abstractmethod
-    def translate(self):
-        return None
+    name = None  # Кодовое имя юнита
+    translate = None  # Имя юнита на русском языке
 
     def __repr__(self):
         return f"<class Units({self.__class__.__name__}) translate={self.translate} >"

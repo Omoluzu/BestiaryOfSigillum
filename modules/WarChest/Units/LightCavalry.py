@@ -9,9 +9,5 @@ from ._Units import Units
 
 
 class LightCavalry(Units):
-
-    def name(self):
-        return "LightCavalry"
-
-    def translate(self):
-        return "Легкая кавалерия"
+    name = "LightCavalry"
+    translate = "Легкая кавалерия"

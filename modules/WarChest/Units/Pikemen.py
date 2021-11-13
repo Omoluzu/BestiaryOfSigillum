@@ -9,9 +9,5 @@ from ._Units import Units
 
 
 class Pikemen(Units):
-
-    def name(self):
-        return "Pikemen"
-
-    def translate(self):
-        return "Пикинеры"
+    name = "Pikemen"
+    translate = "Пикинеры"

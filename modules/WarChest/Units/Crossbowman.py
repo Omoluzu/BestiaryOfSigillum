@@ -9,9 +9,5 @@ from ._Units import Units
 
 
 class Crossbowman(Units):
-
-    def name(self):
-        return "Crossbowman"
-
-    def translate(self):
-        return "Арбалетчики"
+    name = "Crossbowman"
+    translate = "Арбалетчики"

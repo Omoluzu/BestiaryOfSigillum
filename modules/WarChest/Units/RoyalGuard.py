@@ -9,9 +9,5 @@ from ._Units import Units
 
 
 class RoyalGuard(Units):
-
-    def name(self):
-        return "RoyalGuard"
-
-    def translate(self):
-        return "Королевская гвардия"
+    name = "RoyalGuard"
+    translate = "Королевская гвардия"

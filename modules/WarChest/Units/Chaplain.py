@@ -9,10 +9,6 @@ from ._Units import Units
 
 
 class Chaplain(Units):
-
-    def name(self):
-        return "Chaplain"
-
-    def translate(self):
-        return "Капеланы"
+    name = "Chaplain"
+    translate = "Капеланы"
 

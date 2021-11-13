@@ -9,9 +9,5 @@ from ._Units import Units
 
 
 class Swordsmen(Units):
-
-    def name(self):
-        return "Swordsmen"
-
-    def translate(self):
-        return "Мечники"
+    name = "Swordsmen"
+    translate = "Мечники"

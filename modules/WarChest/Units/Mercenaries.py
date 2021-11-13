@@ -9,9 +9,5 @@ from ._Units import Units
 
 
 class Mercenaries(Units):
-
-    def name(self):
-        return "Mercenaries"
-
-    def translate(self):
-        return "Наемники"
+    name = "Mercenaries"
+    translate = "Наемники"

@@ -65,6 +65,10 @@ class BoardgamesList(QDialog):
             """ Запрос на обновление списка текущих игр """
             self.list_boardgames.update_list_games(data)
 
+        elif data['command'] == 'game_info':
+            """ Запрос на подключение к игре """
+            self.command_game_connect(data)
+
         else:
             print("Необработанное сообщение")
             print(data)
@@ -96,6 +100,15 @@ class BoardgamesList(QDialog):
     def append_text(self, content: dict):
         """ Печать сообщения в чат """
         self.chat.append(f"<html><b>{content['user']}</b> >> {content['message']}</html>")
+
+    def command_game_connect(self, data):
+        """ Подключение к игре """
+        if not data['game_info']:
+            print(data)
+            if data['create_user'] == self.client.user:
+                print("Подтвердите подключение к игре")
+            else:
+                print("Ожидайте подтверждение игры")
 
     def start(self, user_connect=False):
         """ Запуск стартового окна после успешной авторизации пользователя и не только"""

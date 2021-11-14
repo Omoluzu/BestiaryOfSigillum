@@ -8,6 +8,6 @@
 from ._Units import Units
 
 
-class Spearmen(Units):
-    name = "Spearmen"
+class Spearman(Units):
+    name = "Spearman"
     translate = "Копейщики"

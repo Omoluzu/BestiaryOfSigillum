@@ -8,6 +8,6 @@
 from ._Units import Units
 
 
-class Marshal(Units):
-    name = "Marshal"
-    translate = "Маршалы"
+class Generals(Units):
+    name = "Generals"
+    translate = "Полководцы"

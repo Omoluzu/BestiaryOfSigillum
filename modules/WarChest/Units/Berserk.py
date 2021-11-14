@@ -8,6 +8,6 @@
 from ._Units import Units
 
 
-class Berserkers(Units):
-    name = "Berserkers"
+class Berserk(Units):
+    name = "Berserk"
     translate = "Берсерки"

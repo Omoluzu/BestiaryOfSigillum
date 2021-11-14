@@ -8,6 +8,16 @@ from pprint import pprint
 from modules.WarChest.Units import *
 
 
+"""
+Определения
+bag - мешок
+stock - Запас
+hand - рука
+field - поле
+discharge - Сброс
+"""
+
+
 def started_configuration(data):
     """
     Стартовая конфгурация игры
@@ -58,6 +68,7 @@ def creating_dict_units(units):
     for unit in units:
         dict_units[unit] = {
             "stock": ListUnitsAll[unit].count_units - 2,
+            "discharge": 0
         }
 
     return dict_units

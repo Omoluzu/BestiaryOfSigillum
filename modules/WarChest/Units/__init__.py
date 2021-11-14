@@ -3,11 +3,12 @@ from modules.WarChest.Units.Berserk import Berserk
 from modules.WarChest.Units.Pikemen import Pikemen
 from modules.WarChest.Units.Archers import Archers
 from modules.WarChest.Units.Knights import Knights
-from modules.WarChest.Units.Generals import Generals
 from modules.WarChest.Units.Cavalry import Cavalry
 from modules.WarChest.Units.Infantry import Infantry
 from modules.WarChest.Units.Chaplain import Chaplain
+from modules.WarChest.Units.Generals import Generals
 from modules.WarChest.Units.Swordsmen import Swordsmen
+from modules.WarChest.Units._RoyalShip import RoyalShip
 from modules.WarChest.Units.RoyalGuard import RoyalGuard
 from modules.WarChest.Units.Mercenaries import Mercenaries
 from modules.WarChest.Units.Crossbowman import Crossbowman
@@ -22,7 +23,7 @@ ListUnits = {
     "Pikeman": Pikemen,  # Пикинеры
     "Generals": Generals,  # Полководцы
     "HorseSpearman": HorseSpearman,  # Конные копейщики
-    "Cavalry": Cavalry,  # Копейщики
+    "Cavalry": Cavalry,  # Кавалерия
     "StandardBearer": StandardBearer,  # Знаменосец
     "LightCavalry": LightCavalry,  # Легкая кавалерия
     "Berserk": Berserk,  # Берсерки
@@ -34,3 +35,7 @@ ListUnits = {
     "Chaplain": Chaplain,  # Капелланы
 }
 
+ListUnitsAll = {
+    **ListUnits,
+    "RoyalShip": RoyalShip
+}

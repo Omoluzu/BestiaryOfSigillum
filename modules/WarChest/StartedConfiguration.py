@@ -60,6 +60,7 @@ def starting_bag(name_units: list) -> dict:
 
     units = list([u, u] for u in name_units)
     units = list(chain(*units))
+    units.append("RoyalShip")
     random.shuffle(units)
 
     return {

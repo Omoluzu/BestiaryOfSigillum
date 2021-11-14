@@ -2,6 +2,8 @@
 import copy
 import random
 
+from itertools import chain
+
 from pprint import pprint
 from modules.WarChest.Units import *
 
@@ -26,10 +28,12 @@ def started_configuration(data):
         "player_1": {
             "name": active_player,
             "units": units_player1,
+            "bag": starting_bag(units_player1),
         },
         "player_2": {
             "name": users[0],
-            "units": units_player2
+            "units": units_player2,
+            "bag": starting_bag(units_player2),
         }
     }
 
@@ -45,3 +49,21 @@ def generated_units(units: list):
         generated_list.append(units.pop(random.randint(0, len(units) - 1)))
 
     return generated_list, units
+
+
+def starting_bag(name_units: list) -> dict:
+    """
+    Получение стартового мешка
+    :param name_units:
+    :return:
+    """
+
+    units = list([u, u] for u in name_units)
+    units = list(chain(*units))
+    random.shuffle(units)
+
+    return {
+        "count": len(units),
+        "units": units
+    }
+

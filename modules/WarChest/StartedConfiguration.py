@@ -27,12 +27,12 @@ def started_configuration(data):
         "initiative": active_player,
         "player_1": {
             "name": active_player,
-            "units": units_player1,
+            "units": creating_dict_units(units_player1),
             "bag": starting_bag(units_player1),
         },
         "player_2": {
             "name": users[0],
-            "units": units_player2,
+            "units": creating_dict_units(units_player2),
             "bag": starting_bag(units_player2),
         }
     }
@@ -49,6 +49,18 @@ def generated_units(units: list):
         generated_list.append(units.pop(random.randint(0, len(units) - 1)))
 
     return generated_list, units
+
+
+def creating_dict_units(units):
+
+    dict_units = {}
+
+    for unit in units:
+        dict_units[unit] = {
+            "stock": ListUnitsAll[unit].count_units - 2,
+        }
+
+    return dict_units
 
 
 def starting_bag(name_units: list) -> dict:

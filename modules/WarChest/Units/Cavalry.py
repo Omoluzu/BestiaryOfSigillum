@@ -8,6 +8,7 @@
 from ._Units import Units
 
 
-class Spearman(Units):
-    name = "Spearman"
-    translate = "Копейщики"
+class Cavalry(Units):
+    name = "Cavalry"
+    translate = "Кавалерия"
+    count_units = 4

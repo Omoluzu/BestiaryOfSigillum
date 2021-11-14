@@ -11,4 +11,5 @@ from ._Units import Units
 class Chaplain(Units):
     name = "Chaplain"
     translate = "Капеланы"
+    count_units = 4
 

@@ -11,4 +11,5 @@ from ._Units import Units
 class Archers(Units):
     name = "Archers"
     translate = "Лучники"
+    count_units = 4
 

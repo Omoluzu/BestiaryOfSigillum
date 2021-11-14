@@ -11,3 +11,4 @@ from ._Units import Units
 class Pikemen(Units):
     name = "Pikemen"
     translate = "Пикинеры"
+    count_units = 4

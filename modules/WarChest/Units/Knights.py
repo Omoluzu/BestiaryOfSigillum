@@ -11,3 +11,4 @@ from ._Units import Units
 class Knights(Units):
     name = "Knights"
     translate = "Рыцари"
+    count_units = 4

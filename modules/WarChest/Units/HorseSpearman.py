@@ -11,3 +11,4 @@ from ._Units import Units
 class HorseSpearman (Units):
     name = "HorseSpearman"
     translate = "Конныйе копейщики"
+    count_units = 4

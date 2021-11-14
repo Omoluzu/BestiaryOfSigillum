@@ -13,8 +13,9 @@ from modules.WarChest.Units import *
 bag - мешок
 stock - Запас
 hand - рука
-field - поле
+mobilized - Мобилизированная фишка
 discharge - Сброс
+remote - Удаленная фишка 
 """
 
 
@@ -67,8 +68,9 @@ def creating_dict_units(units):
 
     for unit in units:
         dict_units[unit] = {
-            "stock": ListUnitsAll[unit].count_units - 2,
-            "discharge": 0
+            "stock": ListUnitsAll[unit].count_units - 2,  # Кол-во фишек в запасе
+            "discharge": 0,  # Кол-во фишек в сбросе
+            "remote": 0,  # Кол-во удаленных фишек из игры
         }
 
     return dict_units

@@ -39,12 +39,12 @@ def started_configuration(data):
         "player_1": {
             "name": active_player,
             "units": creating_dict_units(units_player1),
-            "bag": starting_bag(units_player1),
+            **starting_bag(units_player1),
         },
         "player_2": {
             "name": users[0],
             "units": creating_dict_units(units_player2),
-            "bag": starting_bag(units_player2),
+            **starting_bag(units_player2),
         }
     }
 
@@ -89,8 +89,13 @@ def starting_bag(name_units: list) -> dict:
     units.append("RoyalShip")
     random.shuffle(units)
 
-    return {
-        "count": len(units),
-        "units": units
-    }
+    hand = units[:3]
+    bag = units[3:]
 
+    return {
+        "bag": {
+            "count": len(bag),
+            "units": bag
+        },
+        "hand": hand
+    }

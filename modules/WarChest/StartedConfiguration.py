@@ -35,13 +35,15 @@ def started_configuration(data):
     game_info = {
         "active_player": active_player,
         "initiative": active_player,
-        "player_1": {
-            "name": active_player,
+        active_player: {
+            "player": 1,
+            # "name": active_player,
             "units": creating_dict_units(units_player1),
             **starting_bag(units_player1),
         },
-        "player_2": {
-            "name": users[0],
+        users[0]: {
+            "player": 2,
+            # "name": users[0],
             "units": creating_dict_units(units_player2),
             **starting_bag(units_player2),
         }

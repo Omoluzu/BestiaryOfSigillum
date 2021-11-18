@@ -18,7 +18,7 @@ class Start(QDialog):
 
         self.client = client
         self.data = data
-        self.id = data['id']
+        self.id = data['game_id']
 
         btn_close = QPushButton("Закрыть")
         btn_close.clicked.connect(self.action_close)
@@ -40,7 +40,8 @@ class Start(QDialog):
     def check_game_info(self, data: dict) -> None:
         """ Проверка соответсвия игры на игру с ИД """
         if data['game_id'] == self.id:
-            self.check_game_created(data)
+            print(data)
+            # self.check_game_created(data)
 
     def check_game_created(self, data: dict) -> None:
         """ Проверка игры на информацию """
@@ -61,10 +62,10 @@ class Start(QDialog):
         self.client.action = self
         self.client.boardgames_list.close()
 
-        self.client.send_data({
-            "command": "information_games",
-            "game_id": self.id
-        })
+        # self.client.send_data({
+        #     "command": "information_games",
+        #     "game_id": self.id
+        # })
 
         self.exec_()
 

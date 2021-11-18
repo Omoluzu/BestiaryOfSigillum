@@ -7,7 +7,7 @@ from PyQt5.QtWidgets import *
 from .BoardGamesCreate import BoardGamesCreate
 from .ListCreateGames import ListCreateGames
 
-from modules.WarChest import started_configuration
+from modules.WarChest import *
 
 
 class BoardgamesList(QDialog):
@@ -121,7 +121,8 @@ class BoardgamesList(QDialog):
                 d = WaitingGameDialog()
                 d.exec_()
         else:
-            print(data)
+            war_chest = StartWarChest(self.client, data)
+            war_chest.start()
 
     def start(self, user_connect=False):
         """ Запуск стартового окна после успешной авторизации пользователя и не только"""

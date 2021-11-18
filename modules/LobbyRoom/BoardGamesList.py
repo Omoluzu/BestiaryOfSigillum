@@ -7,6 +7,8 @@ from PyQt5.QtWidgets import *
 from .BoardGamesCreate import BoardGamesCreate
 from .ListCreateGames import ListCreateGames
 
+from modules.WarChest import started_configuration
+
 
 class BoardgamesList(QDialog):
 
@@ -108,7 +110,7 @@ class BoardgamesList(QDialog):
                 a = ApprovedGameDialog()
                 a.exec_()
                 if a.start_game:
-                    print("Approved")
+                    started_configuration(data)
             else:
                 d = WaitingGameDialog()
                 d.exec_()

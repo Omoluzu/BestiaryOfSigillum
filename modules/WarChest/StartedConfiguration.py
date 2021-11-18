@@ -4,7 +4,6 @@ import random
 
 from itertools import chain
 
-from pprint import pprint
 from modules.WarChest.Units import *
 
 
@@ -48,7 +47,7 @@ def started_configuration(data):
         }
     }
 
-    pprint(game_info)
+    return game_info
 
 
 def generated_units(units: list):

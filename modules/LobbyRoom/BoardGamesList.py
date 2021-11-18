@@ -110,10 +110,18 @@ class BoardgamesList(QDialog):
                 a = ApprovedGameDialog()
                 a.exec_()
                 if a.start_game:
-                    started_configuration(data)
+                    self.client.send_data(
+                        {
+                            "command": "approved_games",
+                            "info_game": started_configuration(data),
+                            "game_id": data['game_id']
+                        }
+                    )
             else:
                 d = WaitingGameDialog()
                 d.exec_()
+        else:
+            print(data)
 
     def start(self, user_connect=False):
         """ Запуск стартового окна после успешной авторизации пользователя и не только"""

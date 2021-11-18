@@ -104,11 +104,11 @@ class BoardgamesList(QDialog):
     def command_game_connect(self, data):
         """ Подключение к игре """
         if not data['game_info']:
-            print(data)
             if data['create_user'] == self.client.user:
                 a = ApprovedGameDialog()
                 a.exec_()
-                print(a.start_game)
+                if a.start_game:
+                    print("Approved")
             else:
                 d = WaitingGameDialog()
                 d.exec_()

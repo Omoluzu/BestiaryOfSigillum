@@ -4,13 +4,16 @@
 """
 Основное окно игры Сундук Войны
 """
+import json
+
+from pprint import pprint
 from PyQt5.QtWidgets import *
 
 from wrapperQWidget5.WrapperWidget import wrapper_widget
 from modules.WarChest import *
 
 
-class Start(QDialog):
+class Start(QWidget):
 
     @wrapper_widget
     def __init__(self, client, data):
@@ -18,6 +21,7 @@ class Start(QDialog):
 
         self.client = client
         self.data = data
+        self.data_games = json.loads(self.data['game_info'])
         self.id = data['game_id']
 
         btn_close = QPushButton("Закрыть")
@@ -29,6 +33,8 @@ class Start(QDialog):
                 btn_close,
             ]
         }
+
+        self.game_created()
 
     def data_received(self, data: dict) -> None:
         """ Получение информации с сервера """
@@ -51,6 +57,7 @@ class Start(QDialog):
 
     def game_created(self):
         """ Создание игры """
+        pprint(self.data_games)
 
     def action_close(self):
         """ Закрытие окна с игрой """
@@ -67,8 +74,8 @@ class Start(QDialog):
         #     "game_id": self.id
         # })
 
-        self.exec_()
-
+        # self.exec_()
+        self.show()
 
 
 

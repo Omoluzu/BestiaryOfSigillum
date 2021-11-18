@@ -106,11 +106,12 @@ class BoardgamesList(QDialog):
         if not data['game_info']:
             print(data)
             if data['create_user'] == self.client.user:
-                print("Подтвердите подключение к игре")
+                a = ApprovedGameDialog()
+                a.exec_()
+                print(a.start_game)
             else:
                 d = WaitingGameDialog()
                 d.exec_()
-                # print("Ожидайте подтверждение игры")
 
     def start(self, user_connect=False):
         """ Запуск стартового окна после успешной авторизации пользователя и не только"""
@@ -143,3 +144,25 @@ class WaitingGameDialog(QDialog):
                 QLabel("Ожидайте подтверждения игры")
             ]
         }
+
+
+class ApprovedGameDialog(QDialog):
+
+    @wrapper_widget
+    def __init__(self):
+        super(ApprovedGameDialog, self).__init__()
+        self.start_game = False
+
+        approved_btn = QPushButton("Начать игру")
+        approved_btn.clicked.connect(self.action_start_game)
+
+        self.layouts = {
+            "vbox": [
+                QLabel("Подтвердите начала игры"),
+                approved_btn
+            ]
+        }
+
+    def action_start_game(self):
+        self.start_game = True
+        self.close()

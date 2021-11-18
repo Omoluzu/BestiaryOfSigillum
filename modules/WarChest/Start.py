@@ -11,6 +11,7 @@ from PyQt5.QtWidgets import *
 
 from wrapperQWidget5.WrapperWidget import wrapper_widget
 from modules.WarChest import *
+from modules.WarChest.Hand import *
 
 
 class Start(QWidget):
@@ -27,9 +28,12 @@ class Start(QWidget):
         btn_close = QPushButton("Закрыть")
         btn_close.clicked.connect(self.action_close)
 
+        self.your_hands = YourHands()
+
         self.layouts = {
             "vbox": [
                 QLabel("ИГРА СУНДУК ВОЙНЫ"),
+                self.your_hands,
                 btn_close,
             ]
         }
@@ -75,7 +79,7 @@ class Start(QWidget):
         # })
 
         # self.exec_()
-        self.show()
+        self.showMaximized()
 
 
 

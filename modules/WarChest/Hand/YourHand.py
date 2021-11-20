@@ -1,17 +1,15 @@
 
-from PyQt5.QtWidgets import *
-
-from wrapperQWidget5.WrapperWidget import wrapper_widget
+from PyQt5.QtWidgets import QWidget, QHBoxLayout, QPushButton
 
 
 class YourHands(QWidget):
 
-    @wrapper_widget
     def __init__(self):
         super().__init__()
+        self.layout = QHBoxLayout(self)
 
-        self.layouts = {
-            "hbox": {
-                QLabel("Your Hand")
-            }
-        }
+    def start(self, hand):
+
+        for unit in hand:
+            b = QPushButton(unit)
+            self.layout.addWidget(b)

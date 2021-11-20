@@ -61,7 +61,9 @@ class Start(QWidget):
 
     def game_created(self):
         """ Создание игры """
-        pprint(self.data_games)
+        # pprint(self.data_games)
+
+        self.your_hands.start(self.data_games[self.client.user]['hand'])
 
     def action_close(self):
         """ Закрытие окна с игрой """

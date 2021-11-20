@@ -8,13 +8,15 @@ from modules.WarChest.Units.Infantry import Infantry
 from modules.WarChest.Units.Chaplain import Chaplain
 from modules.WarChest.Units.Generals import Generals
 from modules.WarChest.Units.Swordsmen import Swordsmen
-from modules.WarChest.Units._RoyalShip import RoyalShip
+from modules.WarChest.Units.RoyalShip import RoyalShip
 from modules.WarChest.Units.RoyalGuard import RoyalGuard
 from modules.WarChest.Units.Mercenaries import Mercenaries
 from modules.WarChest.Units.Crossbowman import Crossbowman
 from modules.WarChest.Units.LightCavalry import LightCavalry
 from modules.WarChest.Units.HorseSpearman import HorseSpearman
 from modules.WarChest.Units.StandardBearer import StandardBearer
+
+from ._UnitsBotton import UnitsButton
 
 ListUnits = {
     "Crossbowman": Crossbowman,  # Арбалетчики

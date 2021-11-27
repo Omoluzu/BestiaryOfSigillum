@@ -1,5 +1,5 @@
 
-from PyQt5.QtWidgets import QWidget, QHBoxLayout, QPushButton
+from PyQt5.QtWidgets import QWidget, QHBoxLayout
 from PyQt5.QtCore import Qt
 
 from modules.WarChest.Units import UnitsButton

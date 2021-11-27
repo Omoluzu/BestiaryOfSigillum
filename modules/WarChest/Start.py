@@ -5,6 +5,8 @@
 Основное окно игры Сундук Войны
 """
 import json
+import copy
+import jmespath
 
 from pprint import pprint
 from PyQt5.QtWidgets import *
@@ -29,9 +31,11 @@ class Start(QWidget):
         btn_close.clicked.connect(self.action_close)
 
         self.your_hands = YourHands()
+        self.his_hands = HisHands()
 
         self.layouts = {
             "vbox": [
+                self.his_hands,
                 QLabel("ИГРА СУНДУК ВОЙНЫ"),
                 self.your_hands,
                 btn_close,
@@ -64,6 +68,10 @@ class Start(QWidget):
         # pprint(self.data_games)
 
         self.your_hands.start(self.data_games[self.client.user]['hand'])
+
+        users = copy.deepcopy(self.data['users'])
+        users.pop(users.index(self.client.user))
+        self.his_hands.start(self.data_games[users[0]]['hand'])
 
     def action_close(self):
         """ Закрытие окна с игрой """

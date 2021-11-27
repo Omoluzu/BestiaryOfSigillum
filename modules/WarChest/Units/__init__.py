@@ -21,17 +21,17 @@ from ._UnitsBotton import UnitsButton
 ListUnits = {
     "Crossbowman": Crossbowman,  # Арбалетчики
     "RoyalGuard": RoyalGuard,  # Королевкая стража
-    "Mercenaries": Mercenaries,  # Наемники
+    "Mercenaries": Mercenaries,  # Наемники +
     "Pikeman": Pikemen,  # Пикинеры
     "Generals": Generals,  # Полководцы
     "HorseSpearman": HorseSpearman,  # Конные копейщики
     "Cavalry": Cavalry,  # Кавалерия
     "StandardBearer": StandardBearer,  # Знаменосец
-    "LightCavalry": LightCavalry,  # Легкая кавалерия
+    "LightCavalry": LightCavalry,  # Легкая кавалерия +
     "Berserk": Berserk,  # Берсерки
-    "Archers": Archers,  # Лучники
-    "Infantry": Infantry,  # Пехота
-    "Knights": Knights,  # Рыцари
+    "Archers": Archers,  # Лучники +
+    "Infantry": Infantry,  # Пехота +
+    "Knights": Knights,  # Рыцари +
     "Scouts": Scouts,  # Разведчики
     "Swordsmen": Swordsmen,  # Мечники
     "Chaplain": Chaplain,  # Капелланы
@@ -39,5 +39,5 @@ ListUnits = {
 
 ListUnitsAll = {
     **ListUnits,
-    "RoyalShip": RoyalShip
+    "RoyalShip": RoyalShip  # Королевская фишка
 }

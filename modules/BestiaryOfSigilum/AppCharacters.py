@@ -10,7 +10,7 @@ import math
 
 class AppCharacters(QGraphicsPolygonItem):
 
-    def __init__(self, point, sides=6, radius=50, angle=None, parent=None, brush=None, pen=None):
+    def __init__(self, point, sides=6, radius=50, angle=0.0, parent=None, brush=None, pen="write"):
         """
         Initializes an hexagon of the given radius.
             sides -- sides of the regular polygon
@@ -24,8 +24,8 @@ class AppCharacters(QGraphicsPolygonItem):
 
         self._sides = sides
         self._radius = radius
-        self._angle = angle if angle else 0.0
-        self._pen = "write" if not pen else pen
+        self._angle = angle
+        self._pen = pen
 
         self.setPen(QPen(QColor(self._pen), 6))
         self.setBrush(QColor("green") if not brush else QColor(brush))

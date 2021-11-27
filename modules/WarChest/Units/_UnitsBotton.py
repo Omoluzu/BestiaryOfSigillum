@@ -20,8 +20,8 @@ class UnitsButton(QPushButton):
 
         self.units = ListUnitsAll[key_units]
 
-        if self.units.image:
-            image = os.path.join(IMAGE_PATH, self.units.image)
+        if os.path.isfile(os.path.join(IMAGE_PATH, f"{self.units.name}.png")):
+            image = os.path.join(IMAGE_PATH, f"{self.units.name}.png")
         else:
             image = os.path.join(IMAGE_PATH, "shirt.png")
 
@@ -37,6 +37,6 @@ class UnitsButton(QPushButton):
         self.clicked.connect(self.action_click)
 
     def action_click(self):
-        print(self.self.units.translate)
+        print(self.units.translate)
 
 

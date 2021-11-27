@@ -11,6 +11,7 @@ class Units(ABC):
     name = None  # Кодовое имя юнита
     translate = None  # Имя юнита на русском языке
     count_units = 5  # Количество фишек ютинов в игре
+    image = None  # Путь до изображения картинки юнита
 
     def __repr__(self):
         return f"<class Units({self.__class__.__name__}) translate={self.translate} >"

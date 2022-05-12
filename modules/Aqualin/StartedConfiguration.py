@@ -1,11 +1,14 @@
 import random
 
 """
+two_player - Игрок который начал ходить вторым. По правилам при ничьей он выигрывает.
 type_users
     color - Имя игрока который собирает цвет
     dweller - Имя игрока который собирает тип
 select_unit - Юниты для выбора. 
 stock - Юниты в запасе
+mobilized_unit - Мобилизованные юниты
+check_move - Проверка на то перемещался ли юнит по полю в этом ходу.
 """
 
 
@@ -45,13 +48,15 @@ def started_configuration(data):
 
     game_info = {
         "active_player": data['users'][select_active_player],
-        "initiative": data['users'][select_active_player],
+        "two_player": data['users'][1 - select_active_player],
         "type_users": {
             "color": data['users'][select_int_type_user],
             "dweller": data['users'][1 - select_int_type_user]
         },
         "select_unit": start_unit,
-        "stock": type_units
+        "stock": type_units,
+        "mobilized_unit": [],
+        "check_move": False
     }
 
     return game_info

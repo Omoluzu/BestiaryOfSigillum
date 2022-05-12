@@ -7,7 +7,7 @@ from PyQt5.QtWidgets import *
 from .BoardGamesCreate import BoardGamesCreate
 from .ListCreateGames import ListCreateGames
 
-from modules.WarChest import *
+from modules import WarChest, Aqualin
 
 
 class BoardgamesList(QDialog):
@@ -110,19 +110,24 @@ class BoardgamesList(QDialog):
                 a = ApprovedGameDialog()
                 a.exec_()
                 if a.start_game:
-                    self.client.send_data(
-                        {
-                            "command": "approved_games",
-                            "info_game": started_configuration(data),
-                            "game_id": data['game_id']
-                        }
-                    )
+                    if data['games'] == 'war_chest':
+                        self.client.send_data(
+                            {
+                                "command": "approved_games",
+                                "info_game": WarChest.started_configuration(data),
+                                "game_id": data['game_id']
+                            }
+                        )
+
+                    elif data['games'] == 'aqualin':
+                        print(Aqualin.started_configuration(data))
             else:
                 d = WaitingGameDialog()
                 d.exec_()
         else:
-            war_chest = StartWarChest(self.client, data)
-            war_chest.start()
+            print("Start Games", data)
+            # war_chest = StartWarChest(self.client, data)
+            # war_chest.start()
 
     def start(self, user_connect=False):
         """ Запуск стартового окна после успешной авторизации пользователя и не только"""

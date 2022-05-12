@@ -23,6 +23,9 @@ class BoardGamesCreate(QDialog):
         self.create_war_chest = QPushButton("Сундук Войны")
         self.create_war_chest.clicked.connect(self.action_create_war_chest)
 
+        self.create_aqualin = QPushButton("Аквалин")
+        self.create_aqualin.clicked.connect(self.action_create_aqualin)
+
         # self.create_undaunted = QPushButton("Неустрашимые")
         # self.create_undaunted.clicked.connect(self.action_create_undaunted)
 
@@ -31,7 +34,8 @@ class BoardGamesCreate(QDialog):
 
         self.layouts = {
             "vbox": [
-                self.create_war_chest
+                self.create_war_chest,
+                self.create_aqualin
             ]
         }
 
@@ -45,6 +49,19 @@ class BoardGamesCreate(QDialog):
         games.exec_()
 
         self.game_settings = games.game_settings
+        self.close()
+
+    def action_create_aqualin(self):
+        self.game_settings = {
+            "command": "create_games",
+            "games": "aqualin",
+            "ru": "Аквалин",
+            "games_config": {
+                "select_players": 2,
+                "select_unit": "random",
+            }
+        }
+
         self.close()
 
     def action_create_undaunted(self):

@@ -1,5 +1,13 @@
-import copy
 import random
+
+"""
+type_users
+    color - Имя игрока который собирает цвет
+    dweller - Имя игрока который собирает тип
+select_unit - Юниты для выбора. 
+stock - Юниты в запасе
+"""
+
 
 def started_configuration(data):
     """
@@ -19,8 +27,21 @@ def started_configuration(data):
         'game_info': None
     }
     """
-    select_active_player = random.randint(0, 1)
-    select_int_type_user = random.randint(0, 1)
+    select_active_player: int = random.randint(0, 1)
+    select_int_type_user: int = random.randint(0, 1)
+
+    # Получение списка всех возможнх юнитов
+    type_units: list = []
+    for color in ['red', 'blue', 'pink', 'orange', 'green', 'purple']:
+        for dweller in ['skate', 'fish', 'star', 'turtle', 'jellyfish', 'crab']:
+            type_units.append({"color": color, "dweller": dweller})
+
+    # Получение 6 стартовых юнитов
+    start_unit: list = []
+    for _ in range(6):
+        random_unit = random.choice(type_units)
+        del type_units[type_units.index(random_unit)]
+        start_unit.append(random_unit)
 
     game_info = {
         "active_player": data['users'][select_active_player],
@@ -28,7 +49,9 @@ def started_configuration(data):
         "type_users": {
             "color": data['users'][select_int_type_user],
             "dweller": data['users'][1 - select_int_type_user]
-        }
+        },
+        "select_unit": start_unit,
+        "stock": type_units
     }
 
     return game_info

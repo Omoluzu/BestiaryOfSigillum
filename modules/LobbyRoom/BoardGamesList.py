@@ -135,7 +135,7 @@ class BoardgamesList(QDialog):
                 war_chest = WarChest.StartWarChest(self.client, data)
                 war_chest.start()
             elif data['games'] == 'aqualin':
-                print("Start Games", data)
+                Aqualin.GamesAqualin(self.client, data).start()
 
     def start(self, user_connect=False):
         """ Запуск стартового окна после успешной авторизации пользователя и не только"""

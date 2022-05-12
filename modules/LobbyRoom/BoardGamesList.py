@@ -120,14 +120,22 @@ class BoardgamesList(QDialog):
                         )
 
                     elif data['games'] == 'aqualin':
-                        print(Aqualin.started_configuration(data))
+                        self.client.send_data(
+                            {
+                                "command": "approved_games",
+                                "info_game": Aqualin.started_configuration(data),
+                                "game_id": data['game_id']
+                            }
+                        )
             else:
                 d = WaitingGameDialog()
                 d.exec_()
         else:
-            print("Start Games", data)
-            # war_chest = StartWarChest(self.client, data)
-            # war_chest.start()
+            if data['games'] == 'war_chest':
+                war_chest = WarChest.StartWarChest(self.client, data)
+                war_chest.start()
+            elif data['games'] == 'aqualin':
+                print("Start Games", data)
 
     def start(self, user_connect=False):
         """ Запуск стартового окна после успешной авторизации пользователя и не только"""

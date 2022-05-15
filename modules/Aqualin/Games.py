@@ -22,19 +22,6 @@ class AqualinScene(Scene):
                 FieldTile(self, bias=(x, y))
 
 
-class WrapperGraphicsView2(QWidget):
-    def __init__(self, app_widget):
-        super().__init__()
-        self.app_widget = app_widget
-        self.widget = AqualinScene(self)
-
-    def set_hide(self):
-        self.app_widget.set_hide()
-
-    def show_app(self):
-        self.app_widget.show_app()
-
-
 class GamesAqualin(QMainWindow):
 
     def __init__(self, client, data):
@@ -50,8 +37,9 @@ class GamesAqualin(QMainWindow):
         self.setFixedSize(806, 700)
         self.setContentsMargins(0, 0, 0, 0)
 
-        self.widget = WrapperGraphicsView2(self)
+        self.widget = QWidget(self)
         self.setCentralWidget(self.widget)
+        AqualinScene(self.widget)
         self.show()
 
     def set_hide(self):

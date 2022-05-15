@@ -1,25 +1,7 @@
 
 
-from wrapperQWidget5.modules.scene.Scene import Scene
-from wrapperQWidget5.modules.scene.RectangleScene_new import RectangleScene
 from PyQt5.QtWidgets import QMainWindow, QWidget
-
-SIZE = 70
-
-
-class FieldTile(RectangleScene):
-    height = width = SIZE
-
-
-class AqualinScene(Scene):
-
-    def __init__(self, widget):
-        super().__init__(widget=widget, size=(810, 700))
-
-    def draw(self):
-        for x in range(-3, 3):
-            for y in range(-3, 3):
-                FieldTile(self, bias=(x, y))
+from .Scene import AqualinScene
 
 
 class GamesAqualin(QMainWindow):

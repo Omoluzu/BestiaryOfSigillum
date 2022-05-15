@@ -12,6 +12,8 @@ class GamesAqualin(QMainWindow):
         self.client = client
         self.data = data
 
+        print(self.data)
+
         self.setWindowTitle(f"Аквалин")
         # self.setWindowIcon(QIcon(":/pink_turtle.png"))
 
@@ -21,7 +23,7 @@ class GamesAqualin(QMainWindow):
 
         self.widget = QWidget(self)
         self.setCentralWidget(self.widget)
-        AqualinScene(self.widget)
+        AqualinScene(self.widget, self.data['game_info'])
         self.show()
 
     def set_hide(self):

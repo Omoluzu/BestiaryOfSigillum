@@ -12,6 +12,7 @@ from .TextTile import TextTile
 class AqualinScene(Scene):
     player_turn: TextTile
     units_from_buy: dict = {}  # Список юнитов для покупки [0: UnitTile, 1: UnitTile, ..., 5: UnitTile]
+    check_move: bool  # Проверка на то перемещался ли юнит по полю в этом ходу.
 
     def __init__(self, app, game_info):
         self.client = app.client
@@ -19,6 +20,7 @@ class AqualinScene(Scene):
         self.game_info = game_info
         self.active_player = self.game_info['active_player']
 
+        self.check_move = False
         super().__init__(widget=app.widget, size=(810, 700))
 
     def draw(self) -> None:
@@ -33,7 +35,7 @@ class AqualinScene(Scene):
 
         # Юниты для покупки.
         for x, unit in self.game_info['select_unit'].items():
-            self.units_from_buy[x] = UnitTile(scene=self, status='buy', **unit, bias=(int(x) - 3, 3.5))
+            self.units_from_buy[int(x)] = UnitTile(scene=self, status='buy', **unit, bias=(int(x) - 3, 3.5))
 
         # Вывод имени игрока, чей сейчас ход
         TextTile(self, "Ход игрока:", (200, 70))
@@ -45,9 +47,9 @@ class AqualinScene(Scene):
 
         Отправка запроса на сервер на покупку нового юнита.
         """
-        print(self.active)
-        print(field)
-        print(self.units_from_buy)
+        # print(self.active)
+        # print(field)
+        # print(self.units_from_buy)
 
         # pprint(self.game_info)
 
@@ -66,6 +68,17 @@ class AqualinScene(Scene):
         }
 
         self.client.send_data(data)
+
+    def buy_unit(self, command):
+        """
+        Обработка действия с сервера на покуку и размещение юнита на поле.
+        """
+        unit_buy = self.units_from_buy[command['id_pos_buy']]  # Получение юнита которого купили
+        # Поле куда переместиться юнит
+        new_point_field = FieldTile(self, point=(command['pos_filed']['x'], command['pos_filed']['y']))
+        unit_buy.status = 'field'  # Меняем статус юнита, с "покупки" на "поле"
+        unit_buy.move_item(new_point_field)  # Перемещение юнита
+        new_point_field.remove_item()  # Удаление точки перемещения с карты
 
 
 """

@@ -22,7 +22,7 @@ class GamesAqualin(QMainWindow):
 
         self.widget = QWidget(self)
         self.setCentralWidget(self.widget)
-        AqualinScene(self, self.data['game_info'])
+        self.scene = AqualinScene(self, self.data['game_info'])
         self.show()
 
     def start(self):
@@ -34,6 +34,6 @@ class GamesAqualin(QMainWindow):
 
     def data_received(self, data: dict) -> None:
         if data['command'] == 'game_update' and data['game_id'] == self.game_id:
-            command = data['game_command']
+            if data['game_command']['command'] == 'buy_unit':
+                self.scene.buy_unit(data['game_command'])
 
-            pprint(data)

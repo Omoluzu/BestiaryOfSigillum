@@ -23,6 +23,9 @@ class UnitTile(RectangleScene):
             self.status = status
             super().__init__(scene=self.scene, *args, **kwargs)
 
+    def __repr__(self):
+        return f"UnitTile {self.color}:{self.dweller}"
+
     def set_image(self, path, bias=(0, 0)):
         super().set_image(path, bias=(5, 5))
 

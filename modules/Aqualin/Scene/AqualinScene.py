@@ -10,13 +10,13 @@ from .UnitTile import UnitTile
 
 class AqualinScene(Scene):
 
-    def __init__(self, widget, game_info):
+    def __init__(self, app, game_info):
+        self.client = app.client
         self.game_info = game_info
+        self.active_player = self.game_info['active_player']
 
-        super().__init__(widget=widget, size=(810, 700))
+        super().__init__(widget=app.widget, size=(810, 700))
 
-    def draw(self):
-        # Пустые элементы поля
         for x in range(-3, 3):
             for y in range(-3, 3):
                 FieldTile(self, bias=(x, y))

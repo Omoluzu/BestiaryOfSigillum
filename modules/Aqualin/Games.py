@@ -21,7 +21,7 @@ class GamesAqualin(QMainWindow):
 
         self.widget = QWidget(self)
         self.setCentralWidget(self.widget)
-        AqualinScene(self.widget, self.data['game_info'])
+        AqualinScene(self, self.data['game_info'])
         self.show()
 
     def start(self):

@@ -12,8 +12,6 @@ class GamesAqualin(QMainWindow):
         self.client = client
         self.data = data
 
-        print(self.data)
-
         self.setWindowTitle(f"Аквалин")
         # self.setWindowIcon(QIcon(":/pink_turtle.png"))
 
@@ -26,15 +24,15 @@ class GamesAqualin(QMainWindow):
         AqualinScene(self.widget, self.data['game_info'])
         self.show()
 
-    def set_hide(self):
-        self.setVisible(False)
-
-    def show_app(self):
-        self.setVisible(True)
-
     def start(self):
         """ Активация приложения """
         self.client.action = self
         self.client.boardgames_list.close()
 
         self.showMaximized()
+
+    def data_received(self, data: dict) -> None:
+        if data['command'] == 'game_update' and data['game_id'] == self.game_id:
+            command = data['game_command']
+
+            print(command)

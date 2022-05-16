@@ -2,6 +2,7 @@
 Основная сцена с игрой
 """
 from pprint import pprint
+import random
 
 from wrapperQWidget5.modules.scene.Scene import Scene
 from .FieldTile import FieldTile
@@ -52,6 +53,7 @@ class AqualinScene(Scene):
         # print(self.units_from_buy)
 
         # pprint(self.game_info)
+        new_unit_buy = self.get_new_unit()
 
         data = {
             'test': True,
@@ -63,7 +65,7 @@ class AqualinScene(Scene):
                 'user': self.client.user,
                 'pos_filed': {"x": field.start_point_x, "y": field.start_point_y},  # Позиция на поле,
                 'id_pos_buy': self.active.bias[0] + 3,  # ИД позиции места в ряду покупки юнита
-                'new_unit_buy': None,  # Новый юнит для покупки
+                'new_unit_buy': new_unit_buy,  # Новый юнит для покупки
             }
         }
 
@@ -71,14 +73,26 @@ class AqualinScene(Scene):
 
     def buy_unit(self, command):
         """
-        Обработка действия с сервера на покуку и размещение юнита на поле.
+        Обработка действия с сервера на покупку и размещение юнита на поле.
         """
+        new_point_field = FieldTile(self, point=(command['pos_filed']['x'], command['pos_filed']['y']))  # Поле куда переместиться юнит
+
         unit_buy = self.units_from_buy[command['id_pos_buy']]  # Получение юнита которого купили
-        # Поле куда переместиться юнит
-        new_point_field = FieldTile(self, point=(command['pos_filed']['x'], command['pos_filed']['y']))
         unit_buy.status = 'field'  # Меняем статус юнита, с "покупки" на "поле"
         unit_buy.move_item(new_point_field)  # Перемещение юнита
+
         new_point_field.remove_item()  # Удаление точки перемещения с карты
+
+        self.units_from_buy[command['id_pos_buy']] = UnitTile(  # Отрисовка и сохранение нового юнита на покупку
+            scene=self, status='buy', bias=(int(command['id_pos_buy']) - 3, 3.5), **command['new_unit_buy']
+        )
+
+    def get_new_unit(self) -> dict:
+        """ Получение нового рандомного юнита на покупку """
+        if self.game_info['stock']:
+            random_unit = random.choice(self.game_info['stock'])
+            del self.game_info['stock'][self.game_info['stock'].index(random_unit)]
+            return random_unit
 
 
 """

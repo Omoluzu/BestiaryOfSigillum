@@ -29,8 +29,8 @@ class AqualinScene(Scene):
                 FieldTile(self, bias=(x, y))
 
         # Юниты для покупки.
-        for x, unit in enumerate(self.game_info['select_unit']):
-            UnitTile(scene=self, status='buy', **unit, bias=(x - 3, 3.5))
+        for x, unit in self.game_info['select_unit'].items():
+            UnitTile(scene=self, status='buy', **unit, bias=(int(x) - 3, 3.5))
 
         # Вывод имени игрока, чей сейчас ход
         TextTile(self, "Ход игрока:", (200, 70))

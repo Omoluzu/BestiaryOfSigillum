@@ -59,7 +59,7 @@ class AqualinScene(Scene):
             'game_command': {
                 'command': 'buy_unit',
                 'user': self.client.user,
-                'pos_filed': None,  # Позиция на поле,
+                'pos_filed': {"x": field.start_point_x, "y": field.start_point_y},  # Позиция на поле,
                 'id_pos_buy': self.active.bias[0] + 3,  # ИД позиции места в ряду покупки юнита
                 'new_unit_buy': None,  # Новый юнит для покупки
             }

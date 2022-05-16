@@ -1,4 +1,4 @@
-
+from pprint import pprint
 
 from PyQt5.QtWidgets import QMainWindow, QWidget
 from .Scene import AqualinScene
@@ -11,6 +11,7 @@ class GamesAqualin(QMainWindow):
 
         self.client = client
         self.data = data
+        self.game_id = self.data['game_id']
 
         self.setWindowTitle(f"Аквалин")
         # self.setWindowIcon(QIcon(":/pink_turtle.png"))
@@ -35,4 +36,4 @@ class GamesAqualin(QMainWindow):
         if data['command'] == 'game_update' and data['game_id'] == self.game_id:
             command = data['game_command']
 
-            print(command)
+            pprint(data)

@@ -11,6 +11,7 @@ from .TextTile import TextTile
 
 class AqualinScene(Scene):
     player_turn: TextTile
+    units_from_buy: dict = {}  # Список юнитов для покупки [0: UnitTile, 1: UnitTile, ..., 5: UnitTile]
 
     def __init__(self, app, game_info):
         self.client = app.client
@@ -32,7 +33,7 @@ class AqualinScene(Scene):
 
         # Юниты для покупки.
         for x, unit in self.game_info['select_unit'].items():
-            UnitTile(scene=self, status='buy', **unit, bias=(int(x) - 3, 3.5))
+            self.units_from_buy[x] = UnitTile(scene=self, status='buy', **unit, bias=(int(x) - 3, 3.5))
 
         # Вывод имени игрока, чей сейчас ход
         TextTile(self, "Ход игрока:", (200, 70))
@@ -46,6 +47,7 @@ class AqualinScene(Scene):
         """
         print(self.active)
         print(field)
+        print(self.units_from_buy)
 
         # pprint(self.game_info)
 
@@ -58,6 +60,7 @@ class AqualinScene(Scene):
                 'command': 'buy_unit',
                 'user': self.client.user,
                 'pos_filed': None,  # Позиция на поле,
+                'id_pos_buy': self.active.bias[0] + 3,  # ИД позиции места в ряду покупки юнита
                 'new_unit_buy': None,  # Новый юнит для покупки
             }
         }

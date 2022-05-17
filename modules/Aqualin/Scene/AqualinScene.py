@@ -15,10 +15,10 @@ class AqualinScene(Scene):
     units_from_buy: dict = {}  # Список юнитов для покупки [0: UnitTile, 1: UnitTile, ..., 5: UnitTile]
     check_move: bool  # Проверка на то перемещался ли юнит по полю в этом ходу.
 
-    def __init__(self, app, game_info):
+    def __init__(self, app):
         self.client = app.client
         self.data = app.data
-        self.game_info = game_info
+        self.game_info = self.data['game_info']
         self.active_player = self.game_info['active_player']
 
         self.check_move = False
@@ -48,12 +48,11 @@ class AqualinScene(Scene):
 
         Отправка запроса на сервер на покупку нового юнита.
         """
-        # print(self.active)
-        # print(field)
-        # print(self.units_from_buy)
 
-        # pprint(self.game_info)
+        new_active_player = self.data['users'][1 - self.data['users'].index(self.client.user)]
         new_unit_buy = self.get_new_unit()
+
+        self.game_info['active_player'] = new_active_player
 
         data = {
             'test': True,
@@ -66,6 +65,7 @@ class AqualinScene(Scene):
                 'pos_filed': {"x": field.start_point_x, "y": field.start_point_y},  # Позиция на поле,
                 'id_pos_buy': self.active.bias[0] + 3,  # ИД позиции места в ряду покупки юнита
                 'new_unit_buy': new_unit_buy,  # Новый юнит для покупки
+                'new_active_player': new_active_player  # Новый активный игрок
             }
         }
 
@@ -86,6 +86,10 @@ class AqualinScene(Scene):
         self.units_from_buy[command['id_pos_buy']] = UnitTile(  # Отрисовка и сохранение нового юнита на покупку
             scene=self, status='buy', bias=(int(command['id_pos_buy']) - 3, 3.5), **command['new_unit_buy']
         )
+
+        # Смена активного игрока
+        self.active_player = command['new_active_player']
+        self.player_turn.setPlainText(command['new_active_player'])
 
     def get_new_unit(self) -> dict:
         """ Получение нового рандомного юнита на покупку """

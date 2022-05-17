@@ -15,8 +15,8 @@ class AqualinScene(Scene):
     player_turn: TextTile
     units_from_buy: dict = {}  # Список юнитов для покупки {0: UnitTile, 1: UnitTile, ..., 5: UnitTile}
     field: dict = {}  # Поле. {'-210:-210': FieldTile, '-210:-140': FieldTile, ..., '140:140': FieldTile}
+    mobilized_unit: dict = {}  # Список занятых клеток поля. {'-210:-210': UnitTile, ..., '140:140': UnitTile}
     check_move: bool  # Проверка на то перемещался ли юнит по полю в этом ходу.
-    mobilized_unit: list  # Список занятых клеток поля.
     move_tile: list  # Список тайлов/мест куда юнит может переместиться.
 
     def __init__(self, app):
@@ -24,7 +24,6 @@ class AqualinScene(Scene):
         self.data = app.data
         self.game_info = self.data['game_info']
         self.active_player = self.game_info['active_player']
-        self.mobilized_unit = []
         self.move_tile = []
 
         self.check_move = False
@@ -42,11 +41,11 @@ class AqualinScene(Scene):
 
         # Отрисовка мобилизированных юнитов.
         for mobilized in self.game_info['mobilized_unit']:
-            self.mobilized_unit.append(f"{mobilized['x']}:{mobilized['y']}")  # Сохранение занятой клетки поля боя
-            UnitTile(
+            self.mobilized_unit[f"{mobilized['x']}:{mobilized['y']}"] = UnitTile(
                 scene=self, color=mobilized['color'], dweller=mobilized['dweller'],
                 point=(mobilized['x'], mobilized['y'])
-            )
+            )  # Сохранение занятой клетки поля боя
+
 
         # Юниты для покупки.
         for x, unit in self.game_info['select_unit'].items():

@@ -8,11 +8,13 @@ from wrapperQWidget5.modules.scene.Scene import Scene
 from .FieldTile import FieldTile
 from .UnitTile import UnitTile
 from .TextTile import TextTile
+from ..Settings import SIZE
 
 
 class AqualinScene(Scene):
     player_turn: TextTile
-    units_from_buy: dict = {}  # Список юнитов для покупки [0: UnitTile, 1: UnitTile, ..., 5: UnitTile]
+    units_from_buy: dict = {}  # Список юнитов для покупки {0: UnitTile, 1: UnitTile, ..., 5: UnitTile}
+    field: dict = {}  # Поле. {'-210:-210': FieldTile, '-210:-140': FieldTile, ..., '140:140': FieldTile}
     check_move: bool  # Проверка на то перемещался ли юнит по полю в этом ходу.
     mobilized_unit: list  # Список занятых клеток поля.
     move_tile: list  # Список тайлов/мест куда юнит может переместиться.
@@ -36,7 +38,7 @@ class AqualinScene(Scene):
         # Пустые элементы поля.
         for x in range(-3, 3):
             for y in range(-3, 3):
-                FieldTile(self, bias=(x, y))
+                self.field[f"{x * SIZE}:{y * SIZE}"] = FieldTile(self, bias=(x, y))
 
         # Отрисовка мобилизированных юнитов.
         for mobilized in self.game_info['mobilized_unit']:

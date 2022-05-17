@@ -55,6 +55,10 @@ class AqualinScene(Scene):
 
         self.game_info['active_player'] = new_active_player
         self.game_info['select_unit'][str(id_pos_buy)] = new_unit_buy
+        self.game_info['mobilized_unit'].append({
+            'color': self.active.color, 'dweller': self.active.dweller,
+            "x": field.start_point_x, "y": field.start_point_y
+        })
 
         data = {
             'test': True,
@@ -63,7 +67,6 @@ class AqualinScene(Scene):
             'game_info': self.game_info,
             'game_command': {
                 'command': 'buy_unit',
-                'user': self.client.user,
                 'pos_filed': {"x": field.start_point_x, "y": field.start_point_y},  # Позиция на поле,
                 'id_pos_buy': id_pos_buy,  # ИД позиции места в ряду покупки юнита
                 'new_unit_buy': new_unit_buy,  # Новый юнит для покупки

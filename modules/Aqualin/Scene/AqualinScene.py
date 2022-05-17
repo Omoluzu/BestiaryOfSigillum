@@ -72,7 +72,7 @@ class AqualinScene(Scene):
             "x": field.start_point_x, "y": field.start_point_y
         })
 
-        data = {
+        self.client.send_data({
             'command': 'game_update',
             'game_id': self.data['game_id'],
             'game_info': self.game_info,
@@ -83,9 +83,7 @@ class AqualinScene(Scene):
                 'new_unit_buy': new_unit_buy,  # Новый юнит для покупки
                 'new_active_player': new_active_player  # Новый активный игрок
             }
-        }
-
-        self.client.send_data(data)
+        })
 
     def buy_unit(self, command):
         """
@@ -107,6 +105,27 @@ class AqualinScene(Scene):
         # Смена активного игрока
         self.active_player = command['new_active_player']
         self.player_turn.setPlainText(command['new_active_player'])
+
+    def send_move_unit(self, move_tile: 'MoveTile'):
+        """
+        Передвижение юнита на поле:
+
+        Отправка запроса на сервер на передвижение юнита по полю.
+        """
+        # print(move_tile)
+
+        self.client.send_data({
+            'test': True,
+            'command': 'game_update',
+            'game_id': self.data['game_id'],
+            'game_info': self.game_info,
+            'game_command': {
+                'command': 'move_unit',
+            }
+        })
+
+    def move_unit(self, command):
+        print(command)
 
     def get_new_unit(self) -> dict:
         """ Получение нового рандомного юнита на покупку """

@@ -36,4 +36,6 @@ class GamesAqualin(QMainWindow):
         if data['command'] == 'game_update' and data['game_id'] == self.game_id:
             if data['game_command']['command'] == 'buy_unit':
                 self.scene.buy_unit(data['game_command'])
+            if data['game_command']['command'] == 'move_unit':
+                self.scene.move_unit(data['game_command'])
 

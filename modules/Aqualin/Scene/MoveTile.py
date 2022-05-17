@@ -12,3 +12,6 @@ class MoveTile(RectangleScene):
         super().__init__(*args, **kwargs)
 
         self.setBrush(QColor("blue"))
+
+    def activated(self):
+        self.scene.send_move_unit(self)

@@ -130,7 +130,7 @@ class AqualinScene(Scene):
         """
         print(command)
 
-        print(self.field[command['old_point']])
+        self.mobilized_unit[command['old_point']].move_item(self.field[command['new_point']])
 
     def get_new_unit(self) -> dict:
         """ Получение нового рандомного юнита на покупку """

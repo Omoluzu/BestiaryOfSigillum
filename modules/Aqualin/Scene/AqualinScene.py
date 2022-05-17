@@ -29,16 +29,23 @@ class AqualinScene(Scene):
         Отрисовка элементов поля
         """
 
-        # Пустые элементы поля
+        # Пустые элементы поля.
         for x in range(-3, 3):
             for y in range(-3, 3):
                 FieldTile(self, bias=(x, y))
+
+        # Отрисовка мобилизированных юнитов.
+        for mobilized in self.game_info['mobilized_unit']:
+            UnitTile(
+                scene=self, color=mobilized['color'], dweller=mobilized['dweller'],
+                point=(mobilized['x'], mobilized['y'])
+            )
 
         # Юниты для покупки.
         for x, unit in self.game_info['select_unit'].items():
             self.units_from_buy[int(x)] = UnitTile(scene=self, status='buy', **unit, bias=(int(x) - 3, 3.5))
 
-        # Вывод имени игрока, чей сейчас ход
+        # Вывод имени игрока, чей сейчас ход.
         TextTile(self, "Ход игрока:", (200, 70))
         self.player_turn = TextTile(self, self.active_player, (210, 120))
 
@@ -61,7 +68,6 @@ class AqualinScene(Scene):
         })
 
         data = {
-            'test': True,
             'command': 'game_update',
             'game_id': self.data['game_id'],
             'game_info': self.game_info,

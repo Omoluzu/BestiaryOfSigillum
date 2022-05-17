@@ -50,9 +50,11 @@ class AqualinScene(Scene):
         """
 
         new_active_player = self.data['users'][1 - self.data['users'].index(self.client.user)]
+        id_pos_buy = self.active.bias[0] + 3
         new_unit_buy = self.get_new_unit()
 
         self.game_info['active_player'] = new_active_player
+        self.game_info['select_unit'][str(id_pos_buy)] = new_unit_buy
 
         data = {
             'test': True,
@@ -63,7 +65,7 @@ class AqualinScene(Scene):
                 'command': 'buy_unit',
                 'user': self.client.user,
                 'pos_filed': {"x": field.start_point_x, "y": field.start_point_y},  # Позиция на поле,
-                'id_pos_buy': self.active.bias[0] + 3,  # ИД позиции места в ряду покупки юнита
+                'id_pos_buy': id_pos_buy,  # ИД позиции места в ряду покупки юнита
                 'new_unit_buy': new_unit_buy,  # Новый юнит для покупки
                 'new_active_player': new_active_player  # Новый активный игрок
             }

@@ -100,6 +100,8 @@ class AqualinScene(Scene):
         self.active_player = command['new_active_player']
         self.player_turn.setPlainText(command['new_active_player'])
 
+        self.check_move = False  # Разрешаем перемещение юнита
+
     def send_move_unit(self, move_tile: 'MoveTile'):
         """
         Передвижение юнита на поле:
@@ -126,6 +128,7 @@ class AqualinScene(Scene):
         print(command)
 
         self.mobilized_unit[command['old_point']].move_item(self.field[command['new_point']])
+        self.check_move = True  # Запрещаем перемещение юнита
 
     def get_new_unit(self) -> dict:
         """ Получение нового рандомного юнита на покупку """

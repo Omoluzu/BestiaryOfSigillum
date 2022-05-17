@@ -80,7 +80,7 @@ class AqualinScene(Scene):
             'game_info': self.game_info,
             'game_command': {
                 'command': 'buy_unit',
-                'pos_filed': {"x": field.start_point_x, "y": field.start_point_y},  # Позиция на поле,
+                'pos_filed': field.pos_filed(),  # Позиция на поле,
                 'id_pos_buy': id_pos_buy,  # ИД позиции места в ряду покупки юнита
                 'new_unit_buy': new_unit_buy,  # Новый юнит для покупки
                 'new_active_player': new_active_player  # Новый активный игрок
@@ -91,14 +91,12 @@ class AqualinScene(Scene):
         """
         Обработка действия с сервера на покупку и размещение юнита на поле.
         """
-        self.mobilized_unit.append((command['pos_filed']['x'], command['pos_filed']['y']))  # Сохранение занятой клетки поля боя
-        new_point_field = FieldTile(self, point=(command['pos_filed']['x'], command['pos_filed']['y']))  # Поле куда переместиться юнит
+        field = self.field[command['pos_filed']]
+        self.mobilized_unit.append((field.start_point_x, field.start_point_y))  # Сохранение занятой клетки поля боя
 
         unit_buy = self.units_from_buy[command['id_pos_buy']]  # Получение юнита которого купили
         unit_buy.status = 'field'  # Меняем статус юнита, с "покупки" на "поле"
-        unit_buy.move_item(new_point_field)  # Перемещение юнита
-
-        new_point_field.remove_item()  # Удаление точки перемещения с карты
+        unit_buy.move_item(field)  # Перемещение юнита
 
         self.units_from_buy[command['id_pos_buy']] = UnitTile(  # Отрисовка и сохранение нового юнита на покупку
             scene=self, status='buy', bias=(int(command['id_pos_buy']) - 3, 3.5), **command['new_unit_buy']

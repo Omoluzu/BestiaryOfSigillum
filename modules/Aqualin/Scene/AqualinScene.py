@@ -42,7 +42,7 @@ class AqualinScene(Scene):
 
         # Отрисовка мобилизированных юнитов.
         for mobilized in self.game_info['mobilized_unit']:
-            self.mobilized_unit.append((mobilized['x'], mobilized['y']))  # Сохранение занятой клетки поля боя
+            self.mobilized_unit.append(f"{mobilized['x']}:{mobilized['y']}")  # Сохранение занятой клетки поля боя
             UnitTile(
                 scene=self, color=mobilized['color'], dweller=mobilized['dweller'],
                 point=(mobilized['x'], mobilized['y'])
@@ -126,7 +126,12 @@ class AqualinScene(Scene):
         })
 
     def move_unit(self, command):
+        """
+        Обработка действия с сервера на перемещение юнита по полю.
+        """
         print(command)
+
+        print(self.field[command['old_point']])
 
     def get_new_unit(self) -> dict:
         """ Получение нового рандомного юнита на покупку """

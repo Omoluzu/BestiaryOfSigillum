@@ -74,7 +74,7 @@ class UnitTile(RectangleScene):
         """ Получение месту куда может двигатся юнит """
 
         for i in range(1, 6):
-            if (self.start_point_x, self.start_point_y - (SIZE * i)) not in self.scene.mobilized_unit:
+            if f"{self.start_point_x}:{self.start_point_y - (SIZE * i)}" not in self.scene.mobilized_unit:
                 if self.start_point_y - (SIZE * i) >= -(SIZE * 3):
                     self.scene.move_tile.append(
                         MoveTile(self.scene, point=(self.start_point_x, self.start_point_y - (SIZE * i)))
@@ -83,7 +83,7 @@ class UnitTile(RectangleScene):
                 break
 
         for i in range(1, 6):
-            if (self.start_point_x, self.start_point_y + (SIZE * i)) not in self.scene.mobilized_unit:
+            if f"{self.start_point_x}:{self.start_point_y + (SIZE * i)}" not in self.scene.mobilized_unit:
                 if self.start_point_y + (SIZE * i) <= (SIZE * 2):
                     self.scene.move_tile.append(
                         MoveTile(self.scene, point=(self.start_point_x, self.start_point_y + (SIZE * i)))
@@ -92,7 +92,7 @@ class UnitTile(RectangleScene):
                 break
 
         for i in range(1, 6):
-            if (self.start_point_x + (SIZE * i), self.start_point_y) not in self.scene.mobilized_unit:
+            if f"{self.start_point_x + (SIZE * i)}:{self.start_point_y}" not in self.scene.mobilized_unit:
                 if self.start_point_x + (SIZE * i) <= (SIZE * 2):
                     self.scene.move_tile.append(
                         MoveTile(self.scene, point=(self.start_point_x + (SIZE * i), self.start_point_y))
@@ -101,7 +101,7 @@ class UnitTile(RectangleScene):
                 break
 
         for i in range(1, 6):
-            if (self.start_point_x - (SIZE * i), self.start_point_y) not in self.scene.mobilized_unit:
+            if f"{self.start_point_x - (SIZE * i)}:{self.start_point_y}" not in self.scene.mobilized_unit:
                 if self.start_point_x - (SIZE * i) >= -(SIZE * 3):
                     self.scene.move_tile.append(
                         MoveTile(self.scene, point=(self.start_point_x - (SIZE * i), self.start_point_y))

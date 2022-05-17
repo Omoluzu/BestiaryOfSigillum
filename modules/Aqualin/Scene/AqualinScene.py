@@ -14,12 +14,14 @@ class AqualinScene(Scene):
     player_turn: TextTile
     units_from_buy: dict = {}  # Список юнитов для покупки [0: UnitTile, 1: UnitTile, ..., 5: UnitTile]
     check_move: bool  # Проверка на то перемещался ли юнит по полю в этом ходу.
+    mobilized_unit: list  # Список занятых клеток поля.
 
     def __init__(self, app):
         self.client = app.client
         self.data = app.data
         self.game_info = self.data['game_info']
         self.active_player = self.game_info['active_player']
+        self.mobilized_unit = []
 
         self.check_move = False
         super().__init__(widget=app.widget, size=(810, 700))
@@ -36,6 +38,7 @@ class AqualinScene(Scene):
 
         # Отрисовка мобилизированных юнитов.
         for mobilized in self.game_info['mobilized_unit']:
+            self.mobilized_unit.append((mobilized['x'], mobilized['y']))  # Сохранение занятой клетки поля боя
             UnitTile(
                 scene=self, color=mobilized['color'], dweller=mobilized['dweller'],
                 point=(mobilized['x'], mobilized['y'])
@@ -86,6 +89,7 @@ class AqualinScene(Scene):
         """
         Обработка действия с сервера на покупку и размещение юнита на поле.
         """
+        self.mobilized_unit.append((command['pos_filed']['x'], command['pos_filed']['y']))  # Сохранение занятой клетки поля боя
         new_point_field = FieldTile(self, point=(command['pos_filed']['x'], command['pos_filed']['y']))  # Поле куда переместиться юнит
 
         unit_buy = self.units_from_buy[command['id_pos_buy']]  # Получение юнита которого купили

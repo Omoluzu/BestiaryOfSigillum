@@ -70,6 +70,15 @@ class UnitTile(RectangleScene):
     def pos_filed(self):
         return f"{self.start_point_x}:{self.start_point_y}"
 
+    def move_item(self, new_point, deactivated=True):
+        if self.status == 'field':
+            del self.scene.mobilized_unit[self.pos_filed()]
+        else:
+            self.status = 'field'
+
+        super().move_item(new_point)
+        self.scene.mobilized_unit[self.pos_filed()] = self
+
     def check_move_field(self):
         """ Получение месту куда может двигатся юнит """
 

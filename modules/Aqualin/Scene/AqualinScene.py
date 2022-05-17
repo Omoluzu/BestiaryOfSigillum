@@ -90,12 +90,7 @@ class AqualinScene(Scene):
         """
         Обработка действия с сервера на покупку и размещение юнита на поле.
         """
-        field = self.field[command['pos_filed']]
-        self.mobilized_unit.append((field.start_point_x, field.start_point_y))  # Сохранение занятой клетки поля боя
-
-        unit_buy = self.units_from_buy[command['id_pos_buy']]  # Получение юнита которого купили
-        unit_buy.status = 'field'  # Меняем статус юнита, с "покупки" на "поле"
-        unit_buy.move_item(field)  # Перемещение юнита
+        self.units_from_buy[command['id_pos_buy']].move_item(self.field[command['pos_filed']])  # Перемещение юнита
 
         self.units_from_buy[command['id_pos_buy']] = UnitTile(  # Отрисовка и сохранение нового юнита на покупку
             scene=self, status='buy', bias=(int(command['id_pos_buy']) - 3, 3.5), **command['new_unit_buy']

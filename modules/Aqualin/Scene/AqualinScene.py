@@ -15,6 +15,7 @@ class AqualinScene(Scene):
     units_from_buy: dict = {}  # Список юнитов для покупки [0: UnitTile, 1: UnitTile, ..., 5: UnitTile]
     check_move: bool  # Проверка на то перемещался ли юнит по полю в этом ходу.
     mobilized_unit: list  # Список занятых клеток поля.
+    move_tile: list  # Список тайлов/мест куда юнит может переместиться.
 
     def __init__(self, app):
         self.client = app.client
@@ -22,6 +23,7 @@ class AqualinScene(Scene):
         self.game_info = self.data['game_info']
         self.active_player = self.game_info['active_player']
         self.mobilized_unit = []
+        self.move_tile = []
 
         self.check_move = False
         super().__init__(widget=app.widget, size=(810, 700))

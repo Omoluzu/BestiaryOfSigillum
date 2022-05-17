@@ -67,6 +67,9 @@ class UnitTile(RectangleScene):
 
         self.scene.move_tile = []  # Очищение списка для перемещения.
 
+    def pos_filed(self):
+        return f"{self.start_point_x}:{self.start_point_y}"
+
     def check_move_field(self):
         """ Получение месту куда может двигатся юнит """
 

@@ -15,3 +15,6 @@ class MoveTile(RectangleScene):
 
     def activated(self):
         self.scene.send_move_unit(self)
+
+    def pos_filed(self):
+        return f"{self.start_point_x}:{self.start_point_y}"

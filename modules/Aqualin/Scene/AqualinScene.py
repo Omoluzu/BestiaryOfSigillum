@@ -112,7 +112,6 @@ class AqualinScene(Scene):
 
         Отправка запроса на сервер на передвижение юнита по полю.
         """
-        # print(move_tile)
 
         self.client.send_data({
             'test': True,
@@ -121,6 +120,8 @@ class AqualinScene(Scene):
             'game_info': self.game_info,
             'game_command': {
                 'command': 'move_unit',
+                'old_point': self.active.pos_filed(),
+                'new_point': move_tile.pos_filed()
             }
         })
 

@@ -66,8 +66,9 @@ class AqualinScene(Scene):
         id_pos_buy = self.active.bias[0] + 3
         new_unit_buy = self.get_new_unit()
 
-        self.game_info['active_player'] = new_active_player
+        self.game_info['check_move'] = False
         self.game_info['select_unit'][str(id_pos_buy)] = new_unit_buy
+        self.game_info['active_player'] = new_active_player
         self.game_info['mobilized_unit'].append({
             'color': self.active.color, 'dweller': self.active.dweller,
             "x": field.start_point_x, "y": field.start_point_y
@@ -115,6 +116,8 @@ class AqualinScene(Scene):
             if mobilized_unit['x'] == int(x) and mobilized_unit['y'] == int(y):
                 mobilized_unit['x'], mobilized_unit['y'] = move_tile.pos_filed().split(':')
                 break
+
+        self.game_info['check_move'] = True
 
         self.client.send_data({
             'test': True,

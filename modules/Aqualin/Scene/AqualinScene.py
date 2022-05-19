@@ -51,6 +51,14 @@ class AqualinScene(Scene):
         for x, unit in self.game_info['select_unit'].items():
             self.units_from_buy[int(x)] = UnitTile(scene=self, status='buy', **unit, bias=(int(x) - 3, 3.5))
 
+        TextTile(self, self.game_info['type_users']['color'], (200, -240))
+        TextTile(self, "Цвет:", (200, -195))
+        # self.score_color = TextTile(self, "0", (310, -195))
+
+        TextTile(self, self.game_info['type_users']['dweller'], (200, -100))
+        TextTile(self, "Вид:", (200, -55))
+        # self.score_dweller = TextTile(self, "0", (310, -55))
+
         # Вывод имени игрока, чей сейчас ход.
         TextTile(self, "Ход игрока:", (200, 70))
         self.player_turn = TextTile(self, self.active_player, (210, 120))

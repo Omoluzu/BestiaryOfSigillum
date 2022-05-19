@@ -43,9 +43,8 @@ class AqualinScene(Scene):
         for mobilized in self.game_info['mobilized_unit']:
             self.mobilized_unit[f"{mobilized['x']}:{mobilized['y']}"] = UnitTile(
                 scene=self, color=mobilized['color'], dweller=mobilized['dweller'],
-                point=(mobilized['x'], mobilized['y'])
+                point=(int(mobilized['x']), int(mobilized['y']))
             )  # Сохранение занятой клетки поля боя
-
 
         # Юниты для покупки.
         for x, unit in self.game_info['select_unit'].items():

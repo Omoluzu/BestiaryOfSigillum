@@ -109,6 +109,13 @@ class AqualinScene(Scene):
         Отправка запроса на сервер на передвижение юнита по полю.
         """
 
+        # Изменение точек расположения перемещенного юнита
+        x, y = self.active.pos_filed().split(':')
+        for mobilized_unit in self.game_info['mobilized_unit']:
+            if mobilized_unit['x'] == int(x) and mobilized_unit['y'] == int(y):
+                mobilized_unit['x'], mobilized_unit['y'] = move_tile.pos_filed().split(':')
+                break
+
         self.client.send_data({
             'test': True,
             'command': 'game_update',

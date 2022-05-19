@@ -39,3 +39,4 @@ class GamesAqualin(QMainWindow):
             if data['game_command']['command'] == 'move_unit':
                 self.scene.move_unit(data['game_command'])
 
+            self.scene.game_info = data['game_info']

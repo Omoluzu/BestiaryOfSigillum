@@ -135,8 +135,6 @@ class AqualinScene(Scene):
         """
         Обработка действия с сервера на перемещение юнита по полю.
         """
-        print(command)
-
         self.mobilized_unit[command['old_point']].move_item(self.field[command['new_point']])
         self.check_move = True  # Запрещаем перемещение юнита
 

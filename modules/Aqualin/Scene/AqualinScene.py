@@ -20,6 +20,7 @@ class AqualinScene(Scene):
     move_tile: list  # Список тайлов/мест куда юнит может переместиться.
 
     def __init__(self, app):
+        self.version_game = app.version_game
         self.client = app.client
         self.data = app.data
         self.game_info = self.data['game_info']
@@ -53,6 +54,10 @@ class AqualinScene(Scene):
         # Вывод имени игрока, чей сейчас ход.
         TextTile(self, "Ход игрока:", (200, 70))
         self.player_turn = TextTile(self, self.active_player, (210, 120))
+
+        # Версия игры
+        TextTile(self, "by Aleksey Volkov", (-320, 327), point_size=8)
+        TextTile(self, f"v:{self.version_game}", (430, 327), point_size=8)
 
     def send_buy_unit(self, field: FieldTile):
         """

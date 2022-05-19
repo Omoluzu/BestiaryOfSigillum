@@ -3,8 +3,11 @@ from pprint import pprint
 from PyQt5.QtWidgets import QMainWindow, QWidget
 from .Scene import AqualinScene
 
+__version__ = "2.0.0"
+
 
 class GamesAqualin(QMainWindow):
+    version_game = __version__
 
     def __init__(self, client, data):
         super().__init__()

@@ -10,6 +10,7 @@ from wrapperQWidget5.modules.scene.Scene import Scene
 from .FieldTile import FieldTile
 from .UnitTile import UnitTile
 from .TextTile import TextTile
+from .InfoWinPlayerDialog import InfoWinPlayerDialog
 from ..Settings import SIZE
 
 COUNT = {
@@ -171,6 +172,10 @@ class AqualinScene(Scene):
             random_unit = random.choice(self.game_info['stock'])
             del self.game_info['stock'][self.game_info['stock'].index(random_unit)]
             return random_unit
+        else:
+            if len(self.mobilized_unit) == 36:
+                self.game_over()
+            return {"color": None, "dweller": None}
 
     def get_score(self):
         score_color_dict = defaultdict(list)
@@ -236,6 +241,28 @@ class AqualinScene(Scene):
                 new_array.append([unit])
 
         return list(filter(lambda x: x, new_array))
+
+    def game_over(self):
+        result = self.get_score()
+
+        result['color']['name'] = self.type_users['color']
+        result['dweller']['name'] = self.type_users['dweller']
+
+        if result['color']['score'] == result['dweller']['score']:
+            result['win'] = self.two_player
+        elif result['color']['score'] > result['dweller']['score']:
+            result['win'] = self.type_users["color"]
+        else:
+            result['win'] = self.type_users["dweller"]
+
+        self.widget.set_hide()
+        win_player_dialog = InfoWinPlayerDialog(result)
+        win_player_dialog.exec_()
+
+        # if win_player_dialog.repeat:
+        #     pass
+        # else:
+        #     self.widget.show_app()
 
 
 """

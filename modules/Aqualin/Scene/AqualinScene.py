@@ -7,6 +7,7 @@ from collections import defaultdict
 from itertools import chain
 
 from wrapperQWidget5.modules.scene.Scene import Scene
+from wrapperQWidget5.modules.scene.RectangleScene_new import RectangleScene
 from .FieldTile import FieldTile
 from .UnitTile import UnitTile
 from .TextTile import TextTile
@@ -21,6 +22,17 @@ COUNT = {
     5: 10,
     6: 15,
 }
+
+
+class HexTile1(RectangleScene):
+    height = 697
+    width = 807
+    image = ":/g24.png"
+
+
+class HexTile(RectangleScene):
+    height = width = (SIZE * 6) + 8
+    image = ":/filed.jpg"
 
 
 class AqualinScene(Scene):
@@ -47,6 +59,9 @@ class AqualinScene(Scene):
         """
         Отрисовка элементов поля
         """
+
+        HexTile1(self, point=(80, 0))
+        HexTile(self, point=(-35, -35))
 
         # Пустые элементы поля.
         for x in range(-3, 3):

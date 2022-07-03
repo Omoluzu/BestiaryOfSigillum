@@ -43,3 +43,9 @@ class GamesAqualin(QMainWindow):
                 self.scene.move_unit(data['game_command'])
 
             self.scene.game_info = data['game_info']
+
+    def set_hide(self):
+        self.setVisible(False)
+
+    def show_app(self):
+        self.setVisible(True)

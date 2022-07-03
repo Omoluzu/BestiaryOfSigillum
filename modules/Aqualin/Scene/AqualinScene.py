@@ -32,6 +32,7 @@ class AqualinScene(Scene):
     move_tile: list  # Список тайлов/мест куда юнит может переместиться.
 
     def __init__(self, app):
+        self.app = app
         self.version_game = app.version_game
         self.client = app.client
         self.data = app.data
@@ -173,7 +174,8 @@ class AqualinScene(Scene):
             del self.game_info['stock'][self.game_info['stock'].index(random_unit)]
             return random_unit
         else:
-            if len(self.mobilized_unit) == 36:
+            print(len(self.mobilized_unit))
+            if len(self.mobilized_unit) == 35:
                 self.game_over()
             return {"color": None, "dweller": None}
 
@@ -245,24 +247,24 @@ class AqualinScene(Scene):
     def game_over(self):
         result = self.get_score()
 
-        result['color']['name'] = self.type_users['color']
-        result['dweller']['name'] = self.type_users['dweller']
+        result['color']['name'] = self.game_info['type_users']['color']
+        result['dweller']['name'] = self.game_info['type_users']['dweller']
 
         if result['color']['score'] == result['dweller']['score']:
             result['win'] = self.two_player
         elif result['color']['score'] > result['dweller']['score']:
-            result['win'] = self.type_users["color"]
+            result['win'] = self.game_info['type_users']['color']
         else:
-            result['win'] = self.type_users["dweller"]
+            result['win'] = self.game_info['type_users']['dweller']
 
-        self.widget.set_hide()
+        self.app.set_hide()
         win_player_dialog = InfoWinPlayerDialog(result)
         win_player_dialog.exec_()
 
-        # if win_player_dialog.repeat:
-        #     pass
-        # else:
-        #     self.widget.show_app()
+        if win_player_dialog.repeat:
+            pass
+        else:
+            self.app.show_app()
 
 
 """

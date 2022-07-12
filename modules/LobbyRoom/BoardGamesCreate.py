@@ -13,15 +13,17 @@ class BoardGamesCreate(QDialog):
         self.parent = parent
         self.game_settings = None
 
-        self.config = {
-            "title": "BoardGames - Create"
-        }
+        self.setWindowTitle("BoardGames - Create")
+
+        # self.config = {
+        #     "title": "BoardGames - Create"
+        # }
 
         # self.create_bestiary = QPushButton("Бестиарий Сигиллума")
         # self.create_bestiary.clicked.connect(self.action_create_bestiary)
 
-        self.create_war_chest = QPushButton("Сундук Войны")
-        self.create_war_chest.clicked.connect(self.action_create_war_chest)
+        # self.create_war_chest = QPushButton("Сундук Войны")
+        # self.create_war_chest.clicked.connect(self.action_create_war_chest)
 
         self.create_aqualin = QPushButton("Аквалин")
         self.create_aqualin.clicked.connect(self.action_create_aqualin)
@@ -34,7 +36,7 @@ class BoardGamesCreate(QDialog):
 
         self.layouts = {
             "vbox": [
-                self.create_war_chest,
+                # self.create_war_chest,
                 self.create_aqualin
             ]
         }

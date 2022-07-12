@@ -163,7 +163,6 @@ class AqualinScene(Scene):
         self.game_info['check_move'] = True
 
         self.client.send_data({
-            'test': True,
             'command': 'game_update',
             'game_id': self.data['game_id'],
             'game_info': self.game_info,
@@ -181,6 +180,15 @@ class AqualinScene(Scene):
         self.mobilized_unit[command['old_point']].move_item(self.field[command['new_point']])
         self.check_move = True  # Запрещаем перемещение юнита
         self.get_score()
+
+    def send_game_over(self):
+        """
+        Отправка сообщения серверу о завергении игры
+        """
+        self.client.send_data({
+            'command': 'game_over',
+            'game_id': self.data['game_id']
+        })
 
     def get_new_unit(self) -> dict:
         """ Получение нового рандомного юнита на покупку """
@@ -261,6 +269,8 @@ class AqualinScene(Scene):
 
     def game_over(self):
         result = self.get_score()
+
+        self.send_game_over()  # Говорим серверу о том что игра завершена.
 
         result['color']['name'] = self.game_info['type_users']['color']
         result['dweller']['name'] = self.game_info['type_users']['dweller']

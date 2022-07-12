@@ -36,13 +36,14 @@ class GamesAqualin(QMainWindow):
         self.showMaximized()
 
     def data_received(self, data: dict) -> None:
-        if data['command'] == 'game_update' and data['game_id'] == self.game_id:
-            if data['game_command']['command'] == 'buy_unit':
-                self.scene.buy_unit(data['game_command'])
-            if data['game_command']['command'] == 'move_unit':
-                self.scene.move_unit(data['game_command'])
+        if command := data.get('command'):
+            if command == 'game_update' and data['game_id'] == self.game_id:
+                if data['game_command']['command'] == 'buy_unit':
+                    self.scene.buy_unit(data['game_command'])
+                if data['game_command']['command'] == 'move_unit':
+                    self.scene.move_unit(data['game_command'])
 
-            self.scene.game_info = data['game_info']
+                self.scene.game_info = data['game_info']
 
     def set_hide(self):
         self.setVisible(False)

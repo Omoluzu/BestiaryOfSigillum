@@ -19,9 +19,10 @@ class GuiAuth(QDialog):
 
         self.client = client
 
-        self.config = {
-            "title": "Авторизация"
-        }
+        self.setWindowTitle("Авторизация")
+        # self.config = {
+        #     "title": "Авторизация"
+        # }
 
         self.setGeometry(700, 450, 300, 100)
 

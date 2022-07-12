@@ -17,9 +17,11 @@ class BoardgamesList(QDialog):
         super().__init__()
         self.client = client
 
-        self.config = {
-            "title": "BoardGames"
-        }
+        self.setWindowTitle("BoardGames")
+
+        # self.config = {
+        #     "title": "BoardGames"
+        # }
 
         self.create_boardgames = BoardGamesCreate(parent=self)
 

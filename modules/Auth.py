@@ -7,6 +7,8 @@ from wrapperQWidget5.WrapperWidget import wrapper_widget
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import QKeySequence
 
+from modules.Settings import Settings
+
 from images import recource
 
 
@@ -124,6 +126,8 @@ class BtnSettings(QPushButton):
     def __init__(self):
         super().__init__()
 
+        self.clicked.connect(self.action)
+
         self.config = {
             'size': 25,
             'flat': True,
@@ -133,3 +137,8 @@ class BtnSettings(QPushButton):
                 "size": 25
             }
         }
+
+    def action(self):
+        """ Вызов файла настроек подключения к серверу """
+        settings = Settings()
+        settings.exec_()

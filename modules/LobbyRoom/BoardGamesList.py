@@ -17,7 +17,7 @@ class BoardgamesList(QDialog):
         super().__init__()
         self.client = client
 
-        self.setWindowTitle("BoardGames")
+        self.setWindowTitle(f"BoardGames v{self.client.version}")
 
         # self.config = {
         #     "title": "BoardGames"

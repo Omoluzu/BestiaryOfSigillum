@@ -14,6 +14,9 @@ from modules.CheckSettings import CheckSettings
 from modules.LobbyRoom.BoardGamesList import BoardgamesList
 
 
+__version__ = '1.0.0'
+
+
 class ClientProtocol(asyncio.Protocol):
     transport: asyncio.transports.Transport
     window: 'AppStart'
@@ -52,8 +55,8 @@ class Client:
     boardgames_list: BoardgamesList
 
     def __init__(self):
+        self.version = __version__
         self.message = None
-
         self.action = None
 
         self.auth = GuiAuth(client=self)  # Экземпляр приложения авторизации

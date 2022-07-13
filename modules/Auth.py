@@ -7,6 +7,8 @@ from wrapperQWidget5.WrapperWidget import wrapper_widget
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import QKeySequence
 
+from images import recource
+
 
 class GuiAuth(QDialog):
     """ Главный виджет """
@@ -55,7 +57,10 @@ class GuiAuth(QDialog):
                     self.password
                 ]},
                 self.btn_auth,
-                self.btn_register,
+                {"hbox": [
+                    self.btn_register,
+                    BtnSettings()
+                ]},
                 self.status_connect
             ]
         }
@@ -111,3 +116,20 @@ class MessageInformation(QMessageBox):
         self.setText(text)
         self.setWindowTitle("Information")
         self.exec_()
+
+
+class BtnSettings(QPushButton):
+
+    @wrapper_widget
+    def __init__(self):
+        super().__init__()
+
+        self.config = {
+            'size': 25,
+            'flat': True,
+            "icon": {
+                "icon": "settings.png",
+                "resource": True,
+                "size": 25
+            }
+        }

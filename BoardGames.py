@@ -14,7 +14,7 @@ from modules.CheckSettings import CheckSettings
 from modules.LobbyRoom.BoardGamesList import BoardgamesList
 
 
-__version__ = '1.0.0'
+__version__ = '1.0.1'
 
 
 class ClientProtocol(asyncio.Protocol):

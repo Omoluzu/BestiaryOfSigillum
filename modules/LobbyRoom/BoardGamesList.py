@@ -7,10 +7,14 @@ from PyQt5.QtWidgets import *
 from .BoardGamesCreate import BoardGamesCreate
 from .ListCreateGames import ListCreateGames
 
-from modules import WarChest, Aqualin
+from modules import Aqualin
+import GAMES
 
 
 class BoardgamesList(QDialog):
+    """
+    Лобби комната
+    """
 
     @wrapper_widget
     def __init__(self, client):
@@ -60,23 +64,28 @@ class BoardgamesList(QDialog):
         }
 
     def data_received(self, data: dict) -> None:
-        """ Получение информации с сервера """
-        if data['command'] == "message":
-            """ Отправка сообщения в чат """
-            self.append_text(data)
+        """
+        Description:
+            Получение и обработка информации с сервера.
 
-        elif data['command'] == "update_list_games":
-            """ Запрос на обновление списка текущих игр """
-            self.list_boardgames.update_list_games(data)
+        Parameters:
+            ::data (dict) - Информация с сервера.
 
-        elif data['command'] == 'game_info':
-            """ Запрос на подключение к игре """
-            self.command_game_connect(data)
-
-        else:
-            print("Необработанное сообщение")
-            print(data)
-            print(" ")
+        init version 1.0.0:
+        update version 1.0.1:
+            - Проверка условий реализованна с помощью match case
+            - Переопределен вызов команды для подключения к игре с command_game_connect на command_game_info
+            - Объединен вывод информационного сообщения о небрабатываемом типе сообщении.
+        """
+        match data['command']:
+            case "message":  # Отправка сообщеиня в чат
+                self.append_text(data)
+            case "update_list_games":  # Запрос на обновление списка текущих игр
+                self.list_boardgames.update_list_games(data)
+            case 'game_info':  # Запрос на подключение к игре
+                self.command_game_info(data)
+            case _:
+                print(f"Необработанное сообщение: {data}\n")
 
     def action_create_game(self):
         """ Запуск окна на создание игры """
@@ -105,39 +114,89 @@ class BoardgamesList(QDialog):
         """ Печать сообщения в чат """
         self.chat.append(f"<html><b>{content['user']}</b> >> {content['message']}</html>")
 
-    def command_game_connect(self, data):
-        """ Подключение к игре """
-        if not data['game_info']:
-            if data['create_user'] == self.client.user:
-                a = ApprovedGameDialog()
-                a.exec_()
-                if a.start_game:
-                    if data['games'] == 'war_chest':
-                        self.client.send_data(
-                            {
-                                "command": "approved_games",
-                                "info_game": WarChest.started_configuration(data),
-                                "game_id": data['game_id']
-                            }
-                        )
+    def command_game_info(self, data: dict) -> None:
+        """
+        Description:
+            Проверка на наличии информаии об игре.
+            Если информация есть то запускаем игру
+            Если информации нету то выводим информационное окно об ожидании или подтверждения игры.
 
-                    elif data['games'] == 'aqualin':
-                        self.client.send_data(
-                            {
-                                "command": "approved_games",
-                                "info_game": Aqualin.started_configuration(data),
-                                "game_id": data['game_id']
-                            }
-                        )
-            else:
-                d = WaitingGameDialog()
-                d.exec_()
-        else:
-            if data['games'] == 'war_chest':
-                war_chest = WarChest.StartWarChest(self.client, data)
-                war_chest.start()
-            elif data['games'] == 'aqualin':
-                Aqualin.GamesAqualin(self.client, data).start()
+        Parameters:
+            ::data (dict) - Информация с сервера.
+
+        init version 1.0.1:
+        """
+        match bool(data['game_info']):  # Проверка на наличие информации об игре.
+            case True:  # Информация об игре есть
+                self.command_game_connect(data)
+            case False:  # Информации об игре нет
+                self.command_select_connect(data)
+
+    def command_select_connect(self, data):
+        """
+        Description:
+            Проверка на то кто запускает игру, если нету информации об игре.
+            Если это делает игрок создавший игру, то он должен подтвердить создание игры
+            Если это делает игрок присоединивший к игре, то он ожидает подтверждения создания игры.
+
+        Parameters:
+            ::data (dict) - Информация с сервера.
+
+        init version 1.0.1:
+        """
+        match data['create_user']:
+            case self.client.user:
+                self.command_approved_game(data)
+            case _:
+                self.command_waiting_game()
+
+    def command_approved_game(self, data):
+        """
+        Description:
+            Вывод информационного диалога о подтверждении создния игры.
+            Если пользователь подтверждает создание игры. То происходит запрос на получение стортовой информации об игре
+                и отправка информации на сервер. Длясоздани игры.
+
+        Parameters:
+            ::data (dict) - Информация с сервера.
+
+        init version 1.0.1:
+        """
+        approve = ApprovedGameDialog()
+        approve.exec_()
+        if approve.start_game:
+            if games := GAMES.start_game.get(data['games']):
+                self.client.send_data({
+                    "command": "approved_games",
+                    "info_game": games(data),
+                    "game_id": data['game_id']
+                })
+
+    @staticmethod
+    def command_waiting_game():
+        """
+        Description:
+            Вывод информационного диалога о ожидании создания игры, создателем игры.
+
+        init version 1.0.1:
+        """
+        waiting = WaitingGameDialog()
+        waiting.exec_()
+
+    def command_game_connect(self, data):
+        """
+        Description:
+            Инициализация подключения к выбраной игре.
+
+        Parameters:
+            ::data (dict) - Информация с сервера.
+
+        init version 1.0.0:
+        update version 1.0.1:
+            - Разделения метода. Текущий метод теперь только инициализирует запуск игр.
+        """
+        if data['games'] == 'aqualin':
+            Aqualin.GamesAqualin(self.client, data).start()
 
     def start(self, user_connect=False):
         """ Запуск стартового окна после успешной авторизации пользователя и не только"""

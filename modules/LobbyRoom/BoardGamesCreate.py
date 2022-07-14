@@ -28,16 +28,13 @@ class BoardGamesCreate(QDialog):
         self.create_aqualin = QPushButton("Аквалин")
         self.create_aqualin.clicked.connect(self.action_create_aqualin)
 
-        # self.create_undaunted = QPushButton("Неустрашимые")
-        # self.create_undaunted.clicked.connect(self.action_create_undaunted)
-
-        # self.create_dice_throne = QPushButton("Трон Кубов")
-        # self.create_dice_throne.clicked.connect(self.action_create_dice_throne)
+        self.create_ignis = QPushButton("ИГНИС")
+        self.create_ignis.clicked.connect(self.action_create_ignis)
 
         self.layouts = {
             "vbox": [
-                # self.create_war_chest,
-                self.create_aqualin
+                self.create_aqualin,
+                self.create_ignis
             ]
         }
 
@@ -66,10 +63,17 @@ class BoardGamesCreate(QDialog):
 
         self.close()
 
-    def action_create_undaunted(self):
-        self.close()
+    def action_create_ignis(self):
+        self.game_settings = {
+            "command": "create_games",
+            "games": "ignis",
+            "ru": "ИГНИС",
+            "games_config": {
+                "select_players": 2,
+                "select_unit": "random",
+            }
+        }
 
-    def action_create_dice_throne(self):
         self.close()
 
 

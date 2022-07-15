@@ -4,7 +4,7 @@ FILE = "settings.ini"
 
 MAIN = {
     "SERVER": {
-        "address": "127.0.0.1",
-        "port": 8888
+        "address": "gr0otty.space",
+        "port": 10150
     }
 }

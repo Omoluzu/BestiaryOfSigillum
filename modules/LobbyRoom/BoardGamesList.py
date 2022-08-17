@@ -194,13 +194,10 @@ class BoardgamesList(QDialog):
         init version 1.0.0:
         update version 1.0.1:
             - Разделения метода. Текущий метод теперь только инициализирует запуск игр.
+            - Нет необходимости каждый раз прописывать игру. Игры беруться автоматически из словаря GAMES
         """
-        print(data)
-
-        if data['games'] == 'aqualin':
-            Aqualin.GamesAqualin(self.client, data).start()
-        elif data['games'] == 'ignis':
-            GAMES.IgnisGames(self.client, data).start()
+        if games := GAMES.game.get(data['games']):
+            games(self.client, data).start()
 
     def start(self, user_connect=False):
         """ Запуск стартового окна после успешной авторизации пользователя и не только"""

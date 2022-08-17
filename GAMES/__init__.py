@@ -1,7 +1,12 @@
 from .IGNIS import *
-from modules.Aqualin import StartedConfiguration
+from modules.Aqualin import StartedConfiguration, GamesAqualin
 
 start_game = {
-    'ignis': IGNIS.start,
-    'aqualin': StartedConfiguration.started_configuration
+    'aqualin': StartedConfiguration.started_configuration,
+    'ignis': IGNIS.start
+}
+
+game = {
+    'aqualin': GamesAqualin,
+    'ignis': IgnisGames,
 }

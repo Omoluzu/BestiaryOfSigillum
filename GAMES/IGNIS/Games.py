@@ -12,6 +12,7 @@ class IgnisScene(Scene):
 
 class WrapperGames(QMainWindow):
     __scene__ = None
+    title = "WrapperGames"
     version_game = "0.0.0"
 
     def __init__(self, client, data):
@@ -19,6 +20,8 @@ class WrapperGames(QMainWindow):
 
         self.client = client
         self.data = data
+
+        self.setWindowTitle(f"{self.title} ({self.version_game})")
 
         self.widget = QWidget(self)
         self.setCentralWidget(self.widget)
@@ -44,10 +47,15 @@ class WrapperGames(QMainWindow):
 
 class Games(WrapperGames):
     __scene__ = IgnisScene
+    title = "ИГНИС"
     version_game = __version__
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+
+        self.setGeometry(560, 200, 806, 700)
+        self.setFixedSize(806, 700)
+        self.setContentsMargins(0, 0, 0, 0)
 
     def data_received(self, data: dict) -> None:
         print(data)

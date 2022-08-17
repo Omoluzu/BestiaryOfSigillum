@@ -2,6 +2,14 @@
 Стартовая конфигурация
 """
 
+"""
+field - Игровое поле
+    F - fire - фишка огня
+    W - water - фмшка земли
+    A - air - фишка воздуха
+    E - earth - фишка земли
+"""
+
 
 def start(info: dict) -> dict:
     """
@@ -15,5 +23,17 @@ def start(info: dict) -> dict:
             'games': 'ignis', 'users': ['Omoluzu', 'Hokage'], 'command': 'game_info', 'game_id': 21, 'game_info': None
         }
     """
-    data = {}
+
+    field = [
+        ["F", "F", "", "", "W", "W"],
+        ["F", "", "", "", "", "W"],
+        ["", "", "F", "W", "", ""],
+        ["", "", "W", "F", "", ""],
+        ["W", "", "", "", "", "F"],
+        ["W", "W", "", "", "F", "F"]
+    ]
+
+    data = {
+        "field": field
+    }
     return data

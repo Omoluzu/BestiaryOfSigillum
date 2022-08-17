@@ -77,6 +77,8 @@ class BoardgamesList(QDialog):
             - Переопределен вызов команды для подключения к игре с command_game_connect на command_game_info
             - Объединен вывод информационного сообщения о небрабатываемом типе сообщении.
         """
+        print(data)
+
         match data['command']:
             case "message":  # Отправка сообщеиня в чат
                 self.append_text(data)
@@ -235,7 +237,7 @@ class ApprovedGameDialog(QDialog):
 
     @wrapper_widget
     def __init__(self):
-        super(ApprovedGameDialog, self).__init__()
+        super().__init__()
         self.start_game = False
 
         approved_btn = QPushButton("Начать игру")

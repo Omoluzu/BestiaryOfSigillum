@@ -1,13 +1,7 @@
-from wrapperQWidget5.modules.scene.Scene import Scene
-# from wrapperQWidget5.WrapperWidget import wrapper_widget
 from PyQt5.QtWidgets import QMainWindow, QWidget
+from .Scene import IgnisScene
 
 __version__ = "1.0.0"
-
-
-class IgnisScene(Scene):
-    def __init__(self, app):
-        super().__init__(widget=app.widget, size=(810, 700))
 
 
 class WrapperGames(QMainWindow):

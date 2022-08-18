@@ -53,7 +53,7 @@ class AqualinScene(Scene):
         self.move_tile = []
 
         self.check_move = False
-        super().__init__(widget=app.widget, size=(810, 700))
+        super().__init__(app=app, size=(810, 700))
 
     def draw(self) -> None:
         """

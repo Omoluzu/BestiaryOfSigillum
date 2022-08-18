@@ -7,8 +7,8 @@ class FieldTile(RectangleScene):
 
 
 class IgnisScene(Scene):
-    def __init__(self, app, *args, **kwargs):
-        super().__init__(widget=app.widget, *args, **kwargs)
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
 
     def draw(self):
         for x in range(6):

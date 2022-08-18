@@ -19,15 +19,14 @@ class WrapperGames(QMainWindow):
 
         self.widget = QWidget(self)
         self.setCentralWidget(self.widget)
-        self.scene = self.__scene__(self)
-        self.show()
+        self.scene = self.__scene__(self, size=(810, 700))
 
     def start(self):
         """ Активация приложения """
         self.client.action = self
         self.client.boardgames_list.close()
 
-        self.showMaximized()
+        self.show()
 
     def data_received(self, data: dict) -> None:
         print(data)
@@ -41,7 +40,7 @@ class WrapperGames(QMainWindow):
 
 class Games(WrapperGames):
     __scene__ = IgnisScene
-    title = "ИГНИС"
+    title = "Игнис"
     version_game = __version__
 
     def __init__(self, *args, **kwargs):

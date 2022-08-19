@@ -11,7 +11,11 @@ class IgnisScene(Scene):
         super().__init__(*args, **kwargs)
 
     def draw(self):
-        for x in range(6):
-            for y in range(6):
+
+        for x, x_data in enumerate(self.app.data['game_info']['field']):
+            for y, xy_data in enumerate(x_data):
                 FieldTile(self, bias=(x, y))
+                if xy_data:
+                    print(x, y, xy_data)
+
 

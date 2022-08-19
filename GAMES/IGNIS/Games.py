@@ -19,7 +19,7 @@ class WrapperGames(QMainWindow):
 
         self.widget = QWidget(self)
         self.setCentralWidget(self.widget)
-        self.scene = self.__scene__(self, size=(810, 700))
+        self.scene = self.__scene__(self, size=(810, 700))  # Fixme, size не должен быть захардкожен в WrapperGames
 
     def start(self):
         """ Активация приложения """

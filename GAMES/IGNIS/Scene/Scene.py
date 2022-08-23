@@ -1,9 +1,6 @@
 from wrapperQWidget5.modules.scene.Scene import Scene
-from wrapperQWidget5.modules.scene.RectangleScene_new import RectangleScene
-
-
-class FieldTile(RectangleScene):
-    height = width = 60
+from .FieldTile import FieldTile
+from .UnitTile import Unit
 
 
 class IgnisScene(Scene):
@@ -16,6 +13,6 @@ class IgnisScene(Scene):
             for y, xy_data in enumerate(x_data):
                 FieldTile(self, bias=(x, y))
                 if xy_data:
-                    print(x, y, xy_data)
+                    Unit(scene=self, type_unit=xy_data, bias=(x, y))
 
 

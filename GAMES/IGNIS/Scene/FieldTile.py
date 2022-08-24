@@ -1,9 +1,9 @@
-from wrapperQWidget5.modules.scene.RectangleScene_new import RectangleScene
+from wrapperQWidget5.modules.scene import SquareScene
 
 
-class FieldTile(RectangleScene):
+class FieldTile(SquareScene):
 
     def __init__(self, scene, *args, **kwargs):
-        self.height = self.width = scene.size
+        self.size = scene.size
 
         super().__init__(scene, *args, **kwargs)

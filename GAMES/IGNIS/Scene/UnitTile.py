@@ -8,12 +8,12 @@ TYPE_UNIT = {
 
 
 class Unit(RectangleScene):
-    height = width = 60
 
-    def __init__(self, type_unit, *args, **kwargs):
+    def __init__(self, scene, type_unit, *args, **kwargs):
+        self.height = self.width = scene.size
         self.type_tail = TYPE_UNIT[type_unit]  # Тип тайла, Огонь, Вода, Земля, Воздух
         self.image = f"Games/IGNIS/Image/{self.type_tail}.png"  # Установка пути до изображения тайла
 
-        super().__init__(*args, **kwargs)
+        super().__init__(scene, *args, **kwargs)
 
 

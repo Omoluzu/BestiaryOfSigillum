@@ -4,6 +4,8 @@ from .UnitTile import Unit
 
 
 class IgnisScene(Scene):
+    size = 65
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 

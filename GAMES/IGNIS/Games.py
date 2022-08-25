@@ -52,3 +52,13 @@ class Games(WrapperGames):
 
     def data_received(self, data: dict) -> None:
         print(data)
+
+    def send_data(self, command, test=False):
+        self.client.send_data({
+            'test': test,
+            'command': 'game_update',
+            'game_id': self.data['game_id'],
+            'game_info': self.data['game_info'],
+            'game_command': command
+        })
+

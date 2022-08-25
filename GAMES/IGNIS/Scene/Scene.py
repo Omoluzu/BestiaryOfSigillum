@@ -43,3 +43,6 @@ class IgnisScene(Scene):
         """ Деактивация тайлов передвижения """
         for move in self.move_tile:
             move.remove_item()
+
+    def send_expose_unit(self, data):
+        self.app.send_data(command=data, test=True)

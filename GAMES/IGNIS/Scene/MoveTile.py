@@ -13,4 +13,18 @@ class Move(SquareScene):
         return f"Move tile {self.route=}, {self.scene.active.kind=}"
 
     def activated(self):
-        print(self)
+
+        data = {
+            "command": "expose_unit",
+            "route": self.route,
+            "tile": self.scene.active.kind
+        }
+
+        match self.route:
+            case 'right' | 'left':
+                data['position'] = (self.bias[1])
+            case 'button' | 'up':
+                data['position'] = (self.bias[0])
+
+        self.scene.active.deactivated()
+        self.scene.send_expose_unit(data)

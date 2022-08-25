@@ -2,6 +2,8 @@ from wrapperQWidget5.modules.scene import SquareScene
 
 
 class Bye(SquareScene):
+    kind = None
+
     def __init__(self, scene, *args, **kwargs):
         self.size = scene.size
         super().__init__(scene, *args, **kwargs)
@@ -21,12 +23,16 @@ class Bye(SquareScene):
 
 
 class ByeAir(Bye):
+    kind = 'air'
+
     def __init__(self, *args, **kwargs):
         self.image = "Games/IGNIS/Image/air.png"
         super().__init__(*args, **kwargs)
 
 
 class ByeEarth(Bye):
+    kind = 'earth'
+    
     def __init__(self, *args, **kwargs):
         self.image = "Games/IGNIS/Image/earth.png"
         super().__init__(*args, **kwargs)

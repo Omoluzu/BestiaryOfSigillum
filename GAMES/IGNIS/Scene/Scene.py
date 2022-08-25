@@ -28,16 +28,16 @@ class IgnisScene(Scene):
     def active_move_tile(self):
         """ Активация тайлов передвижения """
         for move_right in range(6):
-            self.move_tile.append(Move(self, bias=(-1, move_right)))
+            self.move_tile.append(Move(self, route="right", bias=(-1, move_right)))
 
         for move_left in range(6):
-            self.move_tile.append(Move(self, bias=(6, move_left)))
+            self.move_tile.append(Move(self, route="left", bias=(6, move_left)))
 
         for move_button in range(6):
-            self.move_tile.append(Move(self, bias=(move_button, -1)))
+            self.move_tile.append(Move(self, route="button", bias=(move_button, -1)))
 
         for move_up in range(6):
-            self.move_tile.append(Move(self, bias=(move_up, 6)))
+            self.move_tile.append(Move(self, route="up", bias=(move_up, 6)))
 
     def deactivate_move_tile(self):
         """ Деактивация тайлов передвижения """

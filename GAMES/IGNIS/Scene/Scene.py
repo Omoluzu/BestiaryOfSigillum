@@ -1,6 +1,7 @@
 from wrapperQWidget5.modules.scene.Scene import Scene
 from .FieldTile import FieldTile
 from .UnitTile import Unit
+from .ByeTile import ByeAir, ByeEarth
 
 
 class IgnisScene(Scene):
@@ -17,4 +18,6 @@ class IgnisScene(Scene):
                 if xy_data:
                     Unit(scene=self, type_unit=xy_data, bias=(x, y))
 
+        ByeAir(self, bias=(7.5, 4.5))
+        ByeEarth(self, bias=(9, 4.5))
 

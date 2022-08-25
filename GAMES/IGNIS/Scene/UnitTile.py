@@ -2,6 +2,8 @@ from wrapperQWidget5.modules.scene import SquareScene
 
 
 TYPE_UNIT = {
+    "A": "air",
+    "E": "earth",
     "F": "fire",
     "W": "water"
 }

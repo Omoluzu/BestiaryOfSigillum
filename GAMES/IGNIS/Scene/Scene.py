@@ -5,7 +5,7 @@ from .ByeTile import ByeAir, ByeEarth
 
 
 class IgnisScene(Scene):
-    size = 65
+    size = 60
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

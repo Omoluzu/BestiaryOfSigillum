@@ -6,6 +6,17 @@ class Bye(SquareScene):
         self.size = scene.size
         super().__init__(scene, *args, **kwargs)
 
+    def activated(self):
+        if self.scene.active:
+            self.scene.active.deactivated()
+
+        self.scene.active = self
+        self.set_border("orange", 10)
+
+    def deactivated(self):
+        self.scene.active = None
+        self.set_border()
+
 
 class ByeAir(Bye):
     def __init__(self, *args, **kwargs):

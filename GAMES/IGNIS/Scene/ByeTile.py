@@ -12,10 +12,12 @@ class Bye(SquareScene):
 
         self.scene.active = self
         self.set_border("orange", 10)
+        self.scene.active_move_tile()
 
     def deactivated(self):
         self.scene.active = None
         self.set_border()
+        self.scene.deactivate_move_tile()
 
 
 class ByeAir(Bye):

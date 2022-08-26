@@ -1,5 +1,5 @@
 from wrapperQWidget5.modules.scene.Scene import Scene
-from .FieldTile import FieldTile
+from .FieldTile import FiledScene
 from .UnitTile import Unit
 from .ByeTile import ByeAir, ByeEarth
 from .MoveTile import Move
@@ -10,17 +10,13 @@ class IgnisScene(Scene):
 
     def __init__(self, app, *args, **kwargs):
         self.move_tile = []  # Сохранение тайлов перемещения
-        self.field = app.data['game_info']['field']
+        self.field = FiledScene(self)
 
         super().__init__(app, *args, **kwargs)
 
     def draw(self):
 
-        for x, x_data in enumerate(self.app.data['game_info']['field']):
-            for y, xy_data in enumerate(x_data):
-                FieldTile(self, bias=(x, y))
-                if xy_data:
-                    Unit(scene=self, type_unit=xy_data, bias=(x, y))
+        self.field.draw()
 
         ByeAir(self, bias=(7.5, 4.5))
         ByeEarth(self, bias=(9, 4.5))

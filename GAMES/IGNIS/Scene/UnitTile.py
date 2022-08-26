@@ -18,4 +18,7 @@ class Unit(SquareScene):
 
         super().__init__(scene, *args, **kwargs)
 
+    def __repr__(self):
+        return f'Unit({self.type_tail}), bias=({self.bias}))'
+
 

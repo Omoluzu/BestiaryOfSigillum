@@ -29,7 +29,11 @@ class WrapperGames(QMainWindow):
         self.show()
 
     def data_received(self, data: dict) -> None:
-        print(data)
+        if self.data['game_id'] == data['game_id']:
+            self.get_data(data)
+
+    def get_data(self, data: dict):
+        pass
 
     def send_data(self, command, test=False):
         self.client.send_data({
@@ -61,7 +65,9 @@ class Games(WrapperGames):
         self.setFixedSize(806, 700)
         self.setContentsMargins(0, 0, 0, 0)
 
-    def data_received(self, data: dict) -> None:
-        print(data)
-
+    def get_data(self, data: dict):
+        if data['command'] == 'game_update':
+            self.data['game_info'] = data['game_info']
+            if data['game_command']['command'] == 'expose_unit':
+                self.scene.get_expose_unit(data)
 

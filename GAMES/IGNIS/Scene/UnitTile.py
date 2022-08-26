@@ -21,4 +21,7 @@ class Unit(SquareScene):
     def __repr__(self):
         return f'Unit({self.type_tail}), bias=({self.bias}))'
 
+    def activated(self):
+        print(self)
+
 

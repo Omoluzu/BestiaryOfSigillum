@@ -66,3 +66,30 @@ class FiledScene:
             step_x=(new_pos[0] - old_pos[0]) / step,
             step_y=(new_pos[1] - old_pos[1]) / step)
         )
+
+    def check_move(self, route, index):
+
+        # if all(self.field[index]):
+        match route:
+            case 'right':
+                if all(self.field[index]) and self.field[index][5].type_tail == 'earth':
+                    return False
+            case 'left':
+                if all(self.field[index]) and self.field[index][0].type_tail == 'earth':
+                    return False
+            case 'button':
+                field = list(field[index] for field in self.field)
+                if all(field) and field[5].type_tail == 'earth':
+                    return False
+            case 'up':
+                field = list(field[index] for field in self.field)
+                if all(field) and field[0].type_tail == 'earth':
+                    return False
+
+
+                    # print(field, index)
+
+                    # print(route, index, self.field[index][0])
+
+        return True
+

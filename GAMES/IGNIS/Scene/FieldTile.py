@@ -53,6 +53,36 @@ class FiledScene:
                     scene=self.scene, type_unit=move['tile'], bias=new_pos[::-1]
                 )
 
+    def destroy_tile(self, data: dict):
+        """
+        Description
+
+        Parameter:
+            :: data (dict): - Информация с сервера и удалении тайлов в поля.
+                {'route': [{'route': 'left', 'index': 5}]}
+                {'route': []}
+
+        init version 1.0.0
+        """
+        if data['route']:
+            for destroy in data['route']:
+                match destroy['route']:
+                    case 'left':
+                        for unit in self.get_index_vertical(destroy['index']):
+                            unit.remove_item()  # Уничтожение юнитов
+                    case _:
+                        ...
+
+    def get_index_vertical(self, index: int) -> list:
+        """
+        Description:
+            Получение все тайлы указанного индекса по вертикали
+
+        Parameters:
+            ::index (int) - Искомый индекс
+        """
+        return list(field[index] for field in self.field)
+
     @staticmethod
     def draw_step(old_pos, new_pos, step=5):
         def get_step(step_x, step_y):

@@ -1,3 +1,5 @@
+from pprint import pprint
+
 from wrapperQWidget5.modules.scene.Scene import Scene
 from .FieldTile import FiledScene
 from .UnitTile import Unit
@@ -49,3 +51,4 @@ class IgnisScene(Scene):
 
     def get_expose_unit(self, data):
         self.field.move_tile(data['game_command']['move'])
+        self.field.destroy_tile(data['game_command']['destroy'])

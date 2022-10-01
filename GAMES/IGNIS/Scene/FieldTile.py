@@ -46,7 +46,10 @@ class FiledScene:
     def draw(self):
         for x, x_data in enumerate(self.scene.app.data['game_info']['field']):
             for y, xy_data in enumerate(x_data):
-                self.field[x][y] = Field(self.scene, unit=xy_data, bias=(y, x))
+                if xy_data != "X":
+                    self.field[x][y] = Field(self.scene, unit=xy_data, bias=(y, x))
+                else:
+                    self.field[x][y] = ['X']
 
     def move_tile(self, data: list):
         for move in data[::-1]:
@@ -75,11 +78,12 @@ class FiledScene:
         if data['route']:
             for destroy in data['route']:
                 match destroy['route']:
-                    case 'left':
+                    case 'left' | 'right':
                         for field in self.get_index_vertical(destroy['index']):
                             field.remove_item()  # Уничтожение юнитов
-                    case _:
-                        ...
+                    case 'up' | 'button':
+                        for field in self.field[destroy['index']]:
+                            field.remove_item()
 
     def get_index_vertical(self, index: int) -> list:
         """

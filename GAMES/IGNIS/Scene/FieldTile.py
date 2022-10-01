@@ -17,10 +17,10 @@ class Field(SquareScene):
         super().__init__(scene, bias=bias, *args, **kwargs)
 
     def __repr__(self):
-        return f"Field(bias={self.bias})"
+        return f"Field(bias={self.bias}, Unit={self.unit})"
 
-    def activated(self):
-        print(self)
+    def __bool__(self):
+        return bool(self.unit)
 
     def remove_item(self) -> None:
         """
@@ -80,10 +80,10 @@ class FiledScene:
                 match destroy['route']:
                     case 'left' | 'right':
                         for field in self.get_index_vertical(destroy['index']):
-                            field.remove_item()  # Уничтожение юнитов
+                            field.remove_item()  # Уничтожение элемента поля
                     case 'up' | 'button':
                         for field in self.field[destroy['index']]:
-                            field.remove_item()
+                            field.remove_item()  # Уничтожение элемента поля
 
     def get_index_vertical(self, index: int) -> list:
         """
@@ -109,12 +109,23 @@ class FiledScene:
             step_y=(new_pos[1] - old_pos[1]) / step)
         )
 
-    def check_move(self, route, index):
+    def check_move(self, route: str, index: int) -> bool:
+        """
+        Description:
+            Проверка на возможность выставить нового юнита
 
-        # if all(self.field[index]):
+        Parameters:
+            ::route (str) - направление (right, left, button, up)
+            ::index (int) - номер строки/колонки
+
+        Return
+            :: bool
+
+        new version 1.0.0
+        """
         match route:
             case 'right':
-                if all(self.field[index]) and self.field[index][0].unit and self.field[index][5].unit.type_tail == 'earth':
+                if all(self.field[index]) and self.field[index][5].unit and self.field[index][5].unit.type_tail == 'earth':
                     return False
             case 'left':
                 if all(self.field[index]) and self.field[index][0].unit and self.field[index][0].unit.type_tail == 'earth':
@@ -127,11 +138,5 @@ class FiledScene:
                 field = list(field[index] for field in self.field)
                 if all(field) and field[0].unit and field[0].unit.type_tail == 'earth':
                     return False
-
-
-                    # print(field, index)
-
-                    # print(route, index, self.field[index][0])
-
         return True
 

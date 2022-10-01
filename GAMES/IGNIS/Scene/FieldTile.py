@@ -49,7 +49,7 @@ class FiledScene:
                 if xy_data != "X":
                     self.field[x][y] = Field(self.scene, unit=xy_data, bias=(y, x))
                 else:
-                    self.field[x][y] = ['X']
+                    self.field[x][y] = 'X'
 
     def move_tile(self, data: list):
         for move in data[::-1]:
@@ -109,7 +109,7 @@ class FiledScene:
             step_y=(new_pos[1] - old_pos[1]) / step)
         )
 
-    def check_move(self, route: str, index: int) -> bool:
+    def check_move(self, route: str, index: int, index_pos=None) -> bool:
         """
         Description:
             Проверка на возможность выставить нового юнита
@@ -132,8 +132,15 @@ class FiledScene:
                     return False
             case 'button':
                 field = list(field[index] for field in self.field)
-                if all(field) and field[5].unit and field[5].unit.type_tail == 'earth':
+                # print(index_pos, type(index_pos))
+                if all(field) and field[index_pos].unit and field[index_pos].unit.type_tail == 'earth':
                     return False
+                # for index in range(5, -1, -1):
+                #     if not field[index] == 'X':
+                #         if all(field) and field[index].unit and field[index].unit.type_tail == 'earth':
+                #             return False
+                #     else:
+                #         continue
             case 'up':
                 field = list(field[index] for field in self.field)
                 if all(field) and field[0].unit and field[0].unit.type_tail == 'earth':

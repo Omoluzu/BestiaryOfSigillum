@@ -21,10 +21,11 @@ class WrapperGames(QMainWindow):
         self.setCentralWidget(self.widget)
         self.scene = self.__scene__(self, size=(810, 700))  # Fixme, size не должен быть захардкожен в WrapperGames
 
-    def start(self):
+    def start(self, close=True):
         """ Активация приложения """
         self.client.action = self
-        self.client.boardgames_list.close()
+        if close:
+            self.client.boardgames_list.close()
 
         self.show()
 

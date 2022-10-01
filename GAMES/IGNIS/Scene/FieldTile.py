@@ -7,16 +7,31 @@ from .UnitTile import Unit
 
 class Field(SquareScene):
 
-    def __init__(self, scene, *args, **kwargs):
+    def __init__(self, scene, unit, bias, *args, **kwargs):
         self.size = scene.size
 
-        super().__init__(scene, *args, **kwargs)
+        self.unit = None
+        if unit:
+            self.unit = Unit(scene=scene, type_unit=unit, bias=bias)
+
+        super().__init__(scene, bias=bias, *args, **kwargs)
 
     def __repr__(self):
         return f"Field(bias={self.bias})"
 
     def activated(self):
         print(self)
+
+    def remove_item(self) -> None:
+        """
+        Description:
+            При удалении элемента поля удаляеться и unit этого поля
+
+        new version 1.0.0
+        """
+        if self.unit:
+            self.unit.remove_item()
+        super().remove_item()
 
 
 class FiledScene:
@@ -31,25 +46,18 @@ class FiledScene:
     def draw(self):
         for x, x_data in enumerate(self.scene.app.data['game_info']['field']):
             for y, xy_data in enumerate(x_data):
-                Field(self.scene, bias=(x, y))
-                if xy_data:
-                    self.field[x][y] = Unit(scene=self.scene, type_unit=xy_data, bias=(y, x))
+                self.field[x][y] = Field(self.scene, unit=xy_data, bias=(y, x))
 
     def move_tile(self, data: list):
         for move in data[::-1]:
             old_pos = move['old_pos']
             new_pos = move['new_pos']
             if old_pos:
-                self.field[new_pos[0]][new_pos[1]] = self.field[old_pos[0]][old_pos[1]]
-                self.field[new_pos[0]][new_pos[1]].move_item(new_bias=new_pos[::-1], deactivated=False)
-
-                # for step in self.draw_step(old_pos, new_pos, step=10000):
-                #     print(step)
-                #     self.field[new_pos[0]][new_pos[1]].move_item(new_bias=step[::-1], deactivated=False)
-                    # time.sleep(0.5)
+                self.field[new_pos[0]][new_pos[1]].unit = self.field[old_pos[0]][old_pos[1]].unit
+                self.field[new_pos[0]][new_pos[1]].unit.move_item(new_bias=new_pos[::-1], deactivated=False)
 
             else:
-                self.field[new_pos[0]][new_pos[1]] = Unit(
+                self.field[new_pos[0]][new_pos[1]].unit = Unit(
                     scene=self.scene, type_unit=move['tile'], bias=new_pos[::-1]
                 )
 
@@ -68,8 +76,8 @@ class FiledScene:
             for destroy in data['route']:
                 match destroy['route']:
                     case 'left':
-                        for unit in self.get_index_vertical(destroy['index']):
-                            unit.remove_item()  # Уничтожение юнитов
+                        for field in self.get_index_vertical(destroy['index']):
+                            field.remove_item()  # Уничтожение юнитов
                     case _:
                         ...
 
@@ -102,18 +110,18 @@ class FiledScene:
         # if all(self.field[index]):
         match route:
             case 'right':
-                if all(self.field[index]) and self.field[index][5].type_tail == 'earth':
+                if all(self.field[index]) and self.field[index][0].unit and self.field[index][5].unit.type_tail == 'earth':
                     return False
             case 'left':
-                if all(self.field[index]) and self.field[index][0].type_tail == 'earth':
+                if all(self.field[index]) and self.field[index][0].unit and self.field[index][0].unit.type_tail == 'earth':
                     return False
             case 'button':
                 field = list(field[index] for field in self.field)
-                if all(field) and field[5].type_tail == 'earth':
+                if all(field) and field[5].unit and field[5].unit.type_tail == 'earth':
                     return False
             case 'up':
                 field = list(field[index] for field in self.field)
-                if all(field) and field[0].type_tail == 'earth':
+                if all(field) and field[0].unit and field[0].unit.type_tail == 'earth':
                     return False
 
 

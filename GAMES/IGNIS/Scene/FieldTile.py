@@ -132,18 +132,11 @@ class FiledScene:
                     return False
             case 'button':
                 field = list(field[index] for field in self.field)
-                # print(index_pos, type(index_pos))
                 if all(field) and field[index_pos].unit and field[index_pos].unit.type_tail == 'earth':
                     return False
-                # for index in range(5, -1, -1):
-                #     if not field[index] == 'X':
-                #         if all(field) and field[index].unit and field[index].unit.type_tail == 'earth':
-                #             return False
-                #     else:
-                #         continue
             case 'up':
                 field = list(field[index] for field in self.field)
-                if all(field) and field[0].unit and field[0].unit.type_tail == 'earth':
+                if all(field) and field[index_pos].unit and field[index_pos].unit.type_tail == 'earth':
                     return False
         return True
 

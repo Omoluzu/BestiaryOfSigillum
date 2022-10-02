@@ -66,7 +66,8 @@ class FiledScene:
 
     def destroy_tile(self, data: dict):
         """
-        Description
+        Description:
+            Обработка кинформации с сервера на удаление элеентов поля.
 
         Parameter:
             :: data (dict): - Информация с сервера и удалении тайлов в поля.
@@ -80,10 +81,12 @@ class FiledScene:
                 match destroy['route']:
                     case 'left' | 'right':
                         for field in self.get_index_vertical(destroy['index']):
-                            field.remove_item()  # Уничтожение элемента поля
+                            if field != 'X':
+                                field.remove_item()  # Уничтожение элемента поля
                     case 'up' | 'button':
                         for field in self.field[destroy['index']]:
-                            field.remove_item()  # Уничтожение элемента поля
+                            if field != 'X':
+                                field.remove_item()  # Уничтожение элемента поля
 
     def get_index_vertical(self, index: int) -> list:
         """

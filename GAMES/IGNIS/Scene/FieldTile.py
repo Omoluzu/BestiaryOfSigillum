@@ -83,10 +83,12 @@ class FiledScene:
                         for field in self.get_index_vertical(destroy['index']):
                             if field != 'X':
                                 field.remove_item()  # Уничтожение элемента поля
+                                self.field[field.bias[1]][field.bias[0]] = 'X'
                     case 'up' | 'button':
                         for field in self.field[destroy['index']]:
                             if field != 'X':
                                 field.remove_item()  # Уничтожение элемента поля
+                                self.field[field.bias[1]][field.bias[0]] = 'X'
 
     def get_index_vertical(self, index: int) -> list:
         """

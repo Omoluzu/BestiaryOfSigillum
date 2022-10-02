@@ -38,18 +38,25 @@ class IgnisScene(Scene):
                     continue
                 else:
                     if self.field.check_move(route="right", index=move_right, index_pos=index_field):
-                        self.move_tile.append(Move(self, route="right", bias=(-1, move_right)))
+                        for index_move in range(6):
+                            if not list(set(list(field[index_move] for field in list(self.field.field[i] for i in range(6))))) == ['X']:
+                                self.move_tile.append(Move(self, route="right", bias=(index_move - 1, move_right)))
+                                break
                     break
 
         for move_left in range(6):
             if list(set(self.field.field[move_left])) == ['X']:
                 continue
-            if self.field.check_move(route="left", index=move_left):
-                for index_move in range(5, -1, -1):
-                    if not list(set(list(field[index_move] for field in list(self.field.field[i] for i in range(5, -1, -1))))) == ['X']:
-                        self.move_tile.append(Move(self, route="left", bias=(index_move + 1, move_left)))
-                        break
-                # break
+            for index_field in range(6):
+                if self.field.field[move_left][index_field] == 'X':
+                    continue
+                else:
+                    if self.field.check_move(route="left", index=move_left, index_pos=index_field):
+                        for index_move in range(5, -1, -1):
+                            if not list(set(list(field[index_move] for field in list(self.field.field[i] for i in range(5, -1, -1))))) == ['X']:
+                                self.move_tile.append(Move(self, route="left", bias=(index_move + 1, move_left)))
+                                break
+                    break
 
         for move_button in range(6):
             for index_field in range(5, -1, -1):
@@ -81,7 +88,7 @@ class IgnisScene(Scene):
             move.remove_item()
 
     def send_expose_unit(self, data):
-        self.app.send_data(command=data) #, test=True)
+        self.app.send_data(command=data, test=True)
 
     def get_expose_unit(self, data):
         self.field.move_tile(data['game_command']['move'])

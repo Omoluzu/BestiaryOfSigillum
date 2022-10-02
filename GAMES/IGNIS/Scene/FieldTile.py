@@ -125,7 +125,7 @@ class FiledScene:
         """
         match route:
             case 'right':
-                if all(self.field[index]) and self.field[index][5].unit and self.field[index][5].unit.type_tail == 'earth':
+                if all(self.field[index]) and self.field[index][index_pos].unit and self.field[index][index_pos].unit.type_tail == 'earth':
                     return False
             case 'left':
                 if all(self.field[index]) and self.field[index][0].unit and self.field[index][0].unit.type_tail == 'earth':

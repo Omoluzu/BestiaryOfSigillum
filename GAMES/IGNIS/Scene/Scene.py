@@ -1,8 +1,5 @@
-from pprint import pprint
-
 from wrapperQWidget5.modules.scene.Scene import Scene
 from .FieldTile import FiledScene
-from .UnitTile import Unit
 from .ByeTile import ByeAir, ByeEarth
 from .MoveTile import Move
 

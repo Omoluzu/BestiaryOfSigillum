@@ -53,11 +53,15 @@ class FiledScene:
 
     def move_tile(self, data: list):
         for move in data[::-1]:
+
             old_pos = move['old_pos']
             new_pos = move['new_pos']
             if old_pos:
-                self.field[new_pos[0]][new_pos[1]].unit = self.field[old_pos[0]][old_pos[1]].unit
-                self.field[new_pos[0]][new_pos[1]].unit.move_item(new_bias=new_pos[::-1], deactivated=False)
+                if new_pos == 'X':
+                    self.field[old_pos[0]][old_pos[1]].unit.remove_item()
+                else:
+                    self.field[new_pos[0]][new_pos[1]].unit = self.field[old_pos[0]][old_pos[1]].unit
+                    self.field[new_pos[0]][new_pos[1]].unit.move_item(new_bias=new_pos[::-1], deactivated=False)
 
             else:
                 self.field[new_pos[0]][new_pos[1]].unit = Unit(

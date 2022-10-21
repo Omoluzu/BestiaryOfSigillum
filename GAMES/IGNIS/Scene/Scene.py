@@ -85,7 +85,7 @@ class IgnisScene(Scene):
             move.remove_item()
 
     def send_expose_unit(self, data):
-        self.app.send_data(command=data, test=True)
+        self.app.send_data(command=data) #, test=True)
 
     def get_expose_unit(self, data):
         self.field.move_tile(data['game_command']['move'])

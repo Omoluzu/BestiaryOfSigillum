@@ -1,3 +1,5 @@
+from pprint import pprint
+
 from PyQt5.QtWidgets import QMainWindow, QWidget
 from .Scene import IgnisScene
 

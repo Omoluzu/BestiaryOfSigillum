@@ -27,69 +27,69 @@ class InfoWinPlayerDialog(QDialog):
         label.setGeometry(360, 84, 900, 50)
         label.setFont(font)
 
-        label_dweller = QLabel(data['color']['name'], self)
+        label_dweller = QLabel(data['c']['name'], self)
         label_dweller.setGeometry(82, 135, 900, 50)
         label_dweller.setFont(font)
 
-        label_color = QLabel(data['dweller']['name'], self)
+        label_color = QLabel(data['d']['name'], self)
         label_color.setGeometry(376, 135, 900, 50)
         label_color.setFont(font)
 
         font.setPointSize(26)
 
-        label_blue = QLabel(f"- {data['color'].get('blue', 0)}", self)
+        label_blue = QLabel(f"- {data['c'].get('blue', 0)}", self)
         label_blue.setGeometry(128, 180, 900, 50)
         label_blue.setFont(font)
 
-        label_green = QLabel(f"- {data['color'].get('green', 0)}", self)
+        label_green = QLabel(f"- {data['c'].get('green', 0)}", self)
         label_green.setGeometry(128, 218, 900, 50)
         label_green.setFont(font)
 
-        label_pink = QLabel(f"- {data['color'].get('pink', 0)}", self)
+        label_pink = QLabel(f"- {data['c'].get('pink', 0)}", self)
         label_pink.setGeometry(128, 253, 900, 50)
         label_pink.setFont(font)
 
-        label_purple = QLabel(f"- {data['color'].get('purple', 0)}", self)
+        label_purple = QLabel(f"- {data['c'].get('purple', 0)}", self)
         label_purple.setGeometry(128, 290, 900, 50)
         label_purple.setFont(font)
 
-        label_red = QLabel(f"- {data['color'].get('red', 0)}", self)
+        label_red = QLabel(f"- {data['c'].get('red', 0)}", self)
         label_red.setGeometry(128, 326, 900, 50)
         label_red.setFont(font)
 
-        label_orange = QLabel(f"- {data['color'].get('orange', 0)}", self)
+        label_orange = QLabel(f"- {data['c'].get('orange', 0)}", self)
         label_orange.setGeometry(128, 363, 900, 50)
         label_orange.setFont(font)
 
-        label_color_total = QLabel(f"- {data['color']['score']}", self)
+        label_color_total = QLabel(f"- {data['c']['score']}", self)
         label_color_total.setGeometry(128, 400, 900, 50)
         label_color_total.setFont(font)
 
-        label_crab = QLabel(f"- {data['dweller'].get('crab', 0)}", self)
+        label_crab = QLabel(f"- {data['d'].get('crab', 0)}", self)
         label_crab.setGeometry(425, 180, 900, 50)
         label_crab.setFont(font)
 
-        label_fish = QLabel(f"- {data['dweller'].get('fish', 0)}", self)
+        label_fish = QLabel(f"- {data['d'].get('fish', 0)}", self)
         label_fish.setGeometry(425, 218, 900, 50)
         label_fish.setFont(font)
 
-        label_jellyfish = QLabel(f"- {data['dweller'].get('jellyfish', 0)}", self)
+        label_jellyfish = QLabel(f"- {data['d'].get('jellyfish', 0)}", self)
         label_jellyfish.setGeometry(425, 253, 900, 50)
         label_jellyfish.setFont(font)
 
-        label_skate = QLabel(f"- {data['dweller'].get('skate', 0)}", self)
+        label_skate = QLabel(f"- {data['d'].get('skate', 0)}", self)
         label_skate.setGeometry(425, 290, 900, 50)
         label_skate.setFont(font)
 
-        label_star = QLabel(f"- {data['dweller'].get('star', 0)}", self)
+        label_star = QLabel(f"- {data['d'].get('star', 0)}", self)
         label_star.setGeometry(425, 326, 900, 50)
         label_star.setFont(font)
 
-        label_turtle = QLabel(f"- {data['dweller'].get('turtle', 0)}", self)
+        label_turtle = QLabel(f"- {data['d'].get('turtle', 0)}", self)
         label_turtle.setGeometry(425, 363, 900, 50)
         label_turtle.setFont(font)
 
-        label_color_total = QLabel(f"- {data['dweller']['score']}", self)
+        label_color_total = QLabel(f"- {data['d']['score']}", self)
         label_color_total.setGeometry(425, 400, 900, 50)
         label_color_total.setFont(font)
 

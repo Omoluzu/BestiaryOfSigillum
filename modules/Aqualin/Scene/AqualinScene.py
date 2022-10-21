@@ -53,7 +53,7 @@ class AqualinScene(Scene):
         self.move_tile = []
 
         self.check_move = False
-        super().__init__(widget=app.widget, size=(810, 700))
+        super().__init__(app=app, size=(810, 700))
 
     def draw(self) -> None:
         """
@@ -71,7 +71,7 @@ class AqualinScene(Scene):
         # Отрисовка мобилизированных юнитов.
         for mobilized in self.game_info['mobilized_unit']:
             self.mobilized_unit[f"{mobilized['x']}:{mobilized['y']}"] = UnitTile(
-                scene=self, color=mobilized['color'], dweller=mobilized['dweller'],
+                scene=self, c=mobilized['c'], d=mobilized['d'],
                 point=(int(mobilized['x']), int(mobilized['y']))
             )  # Сохранение занятой клетки поля боя
 
@@ -79,11 +79,11 @@ class AqualinScene(Scene):
         for x, unit in self.game_info['select_unit'].items():
             self.units_from_buy[int(x)] = UnitTile(scene=self, status='buy', **unit, bias=(int(x) - 3, 3.5))
 
-        TextTile(self, self.game_info['type_users']['color'], (200, -240))
+        TextTile(self, self.game_info['type_users']['c'], (200, -240))
         TextTile(self, "Цвет:", (200, -195))
         self.score_color = TextTile(self, "0", (310, -195))
 
-        TextTile(self, self.game_info['type_users']['dweller'], (200, -100))
+        TextTile(self, self.game_info['type_users']['d'], (200, -100))
         TextTile(self, "Вид:", (200, -55))
         self.score_dweller = TextTile(self, "0", (310, -55))
 
@@ -112,7 +112,7 @@ class AqualinScene(Scene):
         self.game_info['select_unit'][str(id_pos_buy)] = new_unit_buy
         self.game_info['active_player'] = new_active_player
         self.game_info['mobilized_unit'].append({
-            'color': self.active.color, 'dweller': self.active.dweller,
+            'c': self.active.color, 'd': self.active.dweller,
             "x": field.start_point_x, "y": field.start_point_y
         })
 
@@ -200,7 +200,7 @@ class AqualinScene(Scene):
             print(len(self.mobilized_unit))
             if len(self.mobilized_unit) == 35:
                 self.game_over()
-            return {"color": None, "dweller": None}
+            return {"d": None, "d": None}
 
     def get_score(self):
         score_color_dict = defaultdict(list)
@@ -216,7 +216,7 @@ class AqualinScene(Scene):
         self.score_color.setPlainText(str(count_score_color['score']))
         self.score_dweller.setPlainText(str(count_score_dweller['score']))
 
-        return {"color": count_score_color, "dweller": count_score_dweller}
+        return {"c": count_score_color, "d": count_score_dweller}
 
     def count_score(self, score_list) -> dict:
         dict_score = {"score": 0}
@@ -272,15 +272,15 @@ class AqualinScene(Scene):
 
         self.send_game_over()  # Говорим серверу о том что игра завершена.
 
-        result['color']['name'] = self.game_info['type_users']['color']
-        result['dweller']['name'] = self.game_info['type_users']['dweller']
+        result['c']['name'] = self.game_info['type_users']['c']
+        result['d']['name'] = self.game_info['type_users']['d']
 
-        if result['color']['score'] == result['dweller']['score']:
+        if result['c']['score'] == result['d']['score']:
             result['win'] = self.two_player
-        elif result['color']['score'] > result['dweller']['score']:
-            result['win'] = self.game_info['type_users']['color']
+        elif result['c']['score'] > result['d']['score']:
+            result['win'] = self.game_info['type_users']['c']
         else:
-            result['win'] = self.game_info['type_users']['dweller']
+            result['win'] = self.game_info['type_users']['d']
 
         self.app.set_hide()
         win_player_dialog = InfoWinPlayerDialog(result)

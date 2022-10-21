@@ -15,13 +15,13 @@ from ..Image import recourse
 class UnitTile(RectangleScene):
     height = width = SIZE
 
-    def __init__(self, scene, color, dweller, status='field', *args, **kwargs):
+    def __init__(self, scene, c, d, status='field', *args, **kwargs):
         from ..Games import TypeUnitEnum
         self.scene = scene
 
-        if color:
-            self.color = color
-            self.dweller = dweller
+        if c:
+            self.color = c
+            self.dweller = d
             self.image = f":/{getattr(TypeUnitEnum, self.color).value}_{getattr(TypeUnitEnum, self.dweller).value}.png"
             self.status = status
             super().__init__(scene=self.scene, *args, **kwargs)

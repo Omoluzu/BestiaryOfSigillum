@@ -39,7 +39,7 @@ def started_configuration(data):
     type_units: list = []
     for color in [UnitEnum.red.value, UnitEnum.blue.value, UnitEnum.pink.value, UnitEnum.orange.value, UnitEnum.green.value, UnitEnum.purple.value]:
         for dweller in [UnitEnum.skate.value, UnitEnum.fish.value, UnitEnum.star.value, UnitEnum.turtle.value, UnitEnum.jellyfish.value, UnitEnum.crab.value]:
-            type_units.append({"color": color, "dweller": dweller})
+            type_units.append({"c": color, "d": dweller})
 
     # Получение 6 стартовых юнитов
     start_unit: dict = {}
@@ -52,8 +52,8 @@ def started_configuration(data):
         "active_player": data['users'][select_active_player],
         "two_player": data['users'][1 - select_active_player],
         "type_users": {
-            "color": data['users'][select_int_type_user],
-            "dweller": data['users'][1 - select_int_type_user]
+            "c": data['users'][select_int_type_user],
+            "d": data['users'][1 - select_int_type_user]
         },
         "select_unit": start_unit,
         "stock": type_units,

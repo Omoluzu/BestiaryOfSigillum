@@ -1,9 +1,59 @@
-from pprint import pprint
+from enum import Enum
 
 from PyQt5.QtWidgets import QMainWindow, QWidget
 from .Scene import AqualinScene
 
-__version__ = "2.0.0"
+__version__ = "2.0.1"
+
+"""
+    for color in ['red', 'blue', 'pink', 'orange', 'green', 'purple']:
+        for dweller in ['skate', 'fish', 'star', 'turtle', 'jellyfish', 'crab']:
+"""
+
+# UnitType = {
+#     "r": 'red',
+#     "b": 'blue',
+#     "p": 'pink',
+#     "o": 'orange',
+#     "g": 'green',
+#     "p": 'purple',
+#     "s": 'skate',
+#     "f": 'fish',
+#     "s": 'star',
+#     "t": 'turtle',
+#     "j": 'jellyfish',
+#     "c": 'crab'
+# }
+
+
+class TypeUnitEnum(Enum):
+    r = 'red'
+    b = 'blue'
+    p = 'pink'
+    o = 'orange'
+    g = 'green'
+    pu = 'purple'
+    s = 'skate'
+    f = 'fish'
+    st = 'star'
+    t = 'turtle'
+    j = 'jellyfish'
+    c = 'crab'
+
+
+class UnitEnum(Enum):
+    red = "r"
+    blue = "b"
+    pink = "p"
+    orange = "o"
+    green = "g"
+    purple = "pu"
+    skate = "s"
+    fish = "f"
+    star = "st"
+    turtle = "t"
+    jellyfish = "j"
+    crab = "c"
 
 
 class GamesAqualin(QMainWindow):

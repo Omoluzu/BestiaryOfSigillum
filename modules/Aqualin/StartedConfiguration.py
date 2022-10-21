@@ -1,5 +1,7 @@
 import random
 
+from .Games import UnitEnum
+
 """
 two_player - Игрок который начал ходить вторым. По правилам при ничьей он выигрывает.
 type_users
@@ -35,8 +37,8 @@ def started_configuration(data):
 
     # Получение списка всех возможных юнитов
     type_units: list = []
-    for color in ['red', 'blue', 'pink', 'orange', 'green', 'purple']:
-        for dweller in ['skate', 'fish', 'star', 'turtle', 'jellyfish', 'crab']:
+    for color in [UnitEnum.red.value, UnitEnum.blue.value, UnitEnum.pink.value, UnitEnum.orange.value, UnitEnum.green.value, UnitEnum.purple.value]:
+        for dweller in [UnitEnum.skate.value, UnitEnum.fish.value, UnitEnum.star.value, UnitEnum.turtle.value, UnitEnum.jellyfish.value, UnitEnum.crab.value]:
             type_units.append({"color": color, "dweller": dweller})
 
     # Получение 6 стартовых юнитов

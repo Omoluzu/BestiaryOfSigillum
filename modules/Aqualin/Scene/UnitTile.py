@@ -16,12 +16,13 @@ class UnitTile(RectangleScene):
     height = width = SIZE
 
     def __init__(self, scene, color, dweller, status='field', *args, **kwargs):
+        from ..Games import TypeUnitEnum
         self.scene = scene
 
         if color:
             self.color = color
             self.dweller = dweller
-            self.image = f":/{self.color}_{self.dweller}.png"
+            self.image = f":/{getattr(TypeUnitEnum, self.color).value}_{getattr(TypeUnitEnum, self.dweller).value}.png"
             self.status = status
             super().__init__(scene=self.scene, *args, **kwargs)
 

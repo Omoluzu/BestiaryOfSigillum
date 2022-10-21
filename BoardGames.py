@@ -11,10 +11,10 @@ from modules.configControl.configControl import Config
 from modules.Auth import GuiAuth
 from modules.Registration import GuiRegistration
 from modules.CheckSettings import CheckSettings
-from modules.LobbyRoom.BoardGamesList import BoardgamesList
+from modules.LobbyRoom import BoardgamesList
 
 
-__version__ = '1.0.0'
+__version__ = '1.0.1'
 
 
 class ClientProtocol(asyncio.Protocol):

@@ -1,6 +1,7 @@
 from wrapperQWidget5.modules.scene.Scene import Scene
 from .FieldTile import FiledScene
 from .ByeTile import ByeAir, ByeEarth
+from .CountTile import CountFire, CountWater
 from .MoveTile import Move
 
 
@@ -16,6 +17,9 @@ class IgnisScene(Scene):
     def draw(self):
 
         self.field.draw()
+
+        CountFire(self, bias=(7.5, 0.5))
+        CountWater(self, bias=(7.5, 2))
 
         ByeAir(self, bias=(7.5, 4.5))
         ByeEarth(self, bias=(9, 4.5))

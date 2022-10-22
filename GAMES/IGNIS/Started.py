@@ -34,6 +34,7 @@ def start(info: dict) -> dict:
     ]
 
     data = {
-        "field": field
+        "field": field,
+        "count": "F8W8"  # F - fire, 8 - кол-во тайлов F на поле, W - water, 8 - кол-во тайлов W на поле
     }
     return data

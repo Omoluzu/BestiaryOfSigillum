@@ -38,11 +38,10 @@ class ClientProtocol(asyncio.Protocol):
 
     def send_data(self, message: str):
         """ Отправляет сообщение """
-        print(type(message), message)
-        print(len(message.encode('utf-8')), sys.getsizeof(message.encode('utf-8')))
-        encoded = message.encode()
-        print(type(encoded), sys.getsizeof(encoded), encoded)
-        # pri
+        # print(type(message), message)
+        # print(len(message.encode('utf-8')), sys.getsizeof(message.encode('utf-8')))
+        encoded = message.encode('utf-8')
+        print(f"Размер передаваемого пакета = {len(encoded)}, содержимое {encoded}")
         # print(struct.pack('>I', len(encoded)))
         # print(struct.pack_into('>I', encoded))
         self.transport.write(encoded)
@@ -78,9 +77,9 @@ class Client:
         self.protocol = ClientProtocol(self)
         return self.protocol
 
-    # def send_data(self, data: dict):
-    #     """ Отправка сообщения на сервер """
-    #     self.protocol.send_data(json.dumps(data))
+    def send_data(self, data: dict):
+        """ Отправка сообщения на сервер """
+        self.protocol.send_data(json.dumps(data))
 
     async def start(self):
         """ Запускаем приложение """

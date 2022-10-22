@@ -20,8 +20,9 @@ class IgnisScene(Scene):
 
         self.field.draw()
 
-        self.count_fire = CountFire(self, bias=(7.5, 0.5))
-        self.count_water = CountWater(self, bias=(7.5, 2))
+        count = self.app.data['game_info']['count']
+        self.count_fire = CountFire(self, count=count[1:2], bias=(7.5, 0.5))
+        self.count_water = CountWater(self, count=count[3:], bias=(7.5, 2))
 
         ByeAir(self, bias=(7.5, 4.5))
         ByeEarth(self, bias=(9, 4.5))

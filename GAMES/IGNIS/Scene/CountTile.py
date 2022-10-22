@@ -5,9 +5,9 @@ from PyQt5.QtGui import QFont
 
 
 class Count(SquareScene):
-    def __init__(self, scene, *args, **kwargs):
+    def __init__(self, scene, count, *args, **kwargs):
         self.size = scene.size
-        self.count = QGraphicsTextItem("-8")
+        self.count = QGraphicsTextItem(f"-{count}")
 
         font = QFont()
         font.setPointSize(int(self.size / 2))

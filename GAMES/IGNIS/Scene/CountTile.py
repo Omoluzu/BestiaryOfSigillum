@@ -19,6 +19,9 @@ class Count(SquareScene):
         self.count.setPos(QPointF(self.start_point_x + self.width / 2, self.start_point_y - self.height / 2))
         self.scene.addItem(self.count)
 
+    def set_count(self, count: str):
+        self.count.setPlainText(f"-{count}")
+
 
 class CountFire(Count):
     image = "Games/IGNIS/Image/fire.png"

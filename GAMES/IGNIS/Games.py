@@ -71,6 +71,6 @@ class Games(WrapperGames):
     def get_data(self, data: dict):
         if data['command'] == 'game_update':
             # self.data['game_info'] = data['game_info']
-            if data['game_command']['command'] == 'expose_unit':
-                self.scene.get_expose_unit(data)
+            # if data['game_command']['command'] == 'expose_unit':
+            self.scene.get_expose_unit(data)
 

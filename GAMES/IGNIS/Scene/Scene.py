@@ -6,6 +6,8 @@ from .MoveTile import Move
 
 
 class IgnisScene(Scene):
+    count_fire: CountFire
+    count_water: CountWater
     size = 60
 
     def __init__(self, app, *args, **kwargs):
@@ -18,8 +20,8 @@ class IgnisScene(Scene):
 
         self.field.draw()
 
-        CountFire(self, bias=(7.5, 0.5))
-        CountWater(self, bias=(7.5, 2))
+        self.count_fire = CountFire(self, bias=(7.5, 0.5))
+        self.count_water = CountWater(self, bias=(7.5, 2))
 
         ByeAir(self, bias=(7.5, 4.5))
         ByeEarth(self, bias=(9, 4.5))
@@ -88,9 +90,15 @@ class IgnisScene(Scene):
         for move in self.move_tile:
             move.remove_item()
 
+    def set_count(self, count):
+        # Обнововление счетчика очков
+        self.count_fire.set_count(count[1:2])
+        self.count_water.set_count(count[3:])
+
     def send_expose_unit(self, data):
-        self.app.send_data(command=data) #, test=True)
+        self.app.send_data(command=data, test=True)
 
     def get_expose_unit(self, data):
         self.field.move_tile(data['game_command']['move'])
         self.field.destroy_tile(data['game_command']['destroy'])
+        self.set_count(data['game_command']['count'])

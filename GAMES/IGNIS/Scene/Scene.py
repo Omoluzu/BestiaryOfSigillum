@@ -1,7 +1,7 @@
 from wrapperQWidget5.modules.scene.Scene import Scene
 from .FieldTile import FiledScene
 from .ByeTile import ByeAir, ByeEarth
-from .CountTile import CountFire, CountWater, TextTile
+from .CountTile import CountFire, CountWater
 from .MoveTile import Move
 
 
@@ -23,26 +23,22 @@ class IgnisScene(Scene):
 
         super().__init__(app, *args, **kwargs)
 
+    def __repr__(self):
+        return "<Scene>"
+
     def draw(self):
 
         self.field.draw()
 
         count = self.app.data['game_info']['count']
 
-        self.count_fire = CountFire(self, count=count[1:2], bias=(7.5, 0.5))
-        self.count_water = CountWater(self, count=count[3:], bias=(7.5, 2))
+        self.count_fire = CountFire(self, count=count[1:2], bias=(7.5, 0.5), text=f"({self.fire_player})")
+        self.count_water = CountWater(self, count=count[3:], bias=(7.5, 2), text=f"({self.water_player})")
 
         if self.users[self.active_player] == "F":
             self.count_fire.select()
         else:
             self.count_water.select()
-
-        # FIRE игрок
-        TextTile(self, text=f"({self.fire_player})",
-                 size=(8.8 * self.size, 0 * self.size), point_size=int(self.size / 2))
-        # WATER игрок
-        TextTile(self, text=f"({self.water_player})",
-                 size=(8.8 * self.size, 1.5 * self.size), point_size=int(self.size / 2))
 
         ByeAir(self, bias=(7.5, 4.5))
         ByeEarth(self, bias=(9, 4.5))
@@ -112,7 +108,7 @@ class IgnisScene(Scene):
             move.remove_item()
 
     def set_count(self, count):
-        # Обнововление счетчика очков
+        # Обновление счетчика очков
         self.count_fire.set_count(count[1:2])
         self.count_water.set_count(count[3:])
 

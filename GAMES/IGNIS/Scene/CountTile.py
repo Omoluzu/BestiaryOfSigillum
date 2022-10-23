@@ -5,7 +5,7 @@ from PyQt5.QtGui import QFont
 
 
 class Count(SquareScene):
-    def __init__(self, scene, count, *args, **kwargs):
+    def __init__(self, scene, count, text, *args, **kwargs):
         self.size = scene.size
         self.count = QGraphicsTextItem(f"-{count}")
 
@@ -14,6 +14,11 @@ class Count(SquareScene):
         self.count.setFont(font)
 
         super().__init__(scene, *args, **kwargs)
+
+        self.player = FirePlayer(
+            scene=scene, text=text, point_size=int(self.size / 2),
+            size=(self.start_point_x + self.width * 1.3, self.start_point_y - self.height / 2)
+        )
 
     def draw(self):
         super().draw()
@@ -26,6 +31,7 @@ class Count(SquareScene):
 
     def select(self):
         self.set_border(color="lightgreen", border=10)
+        self.player.select()
 
     def remove(self):
         self.set_border()
@@ -39,10 +45,11 @@ class CountWater(Count):
     image = "Games/IGNIS/Image/water.png"
 
 
-class TextTile(QGraphicsTextItem):
+class TextPlayerName(QGraphicsTextItem):
 
     def __init__(self, scene, text, size, point_size=30):
         super().__init__(text)
+        self.point_size = point_size
 
         self.setPos(QPointF(*size))
 
@@ -52,4 +59,14 @@ class TextTile(QGraphicsTextItem):
 
         scene.addItem(self)
 
+
+class FirePlayer(TextPlayerName):
+
+    def select(self):
+
+        font = QFont()
+        font.setPointSize(self.point_size)
+        font.setBold(True)
+
+        self.setFont(font)
 

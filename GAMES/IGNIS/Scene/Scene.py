@@ -10,11 +10,15 @@ class IgnisScene(Scene):
     count_water: CountWater
     size = 60
 
+    active_player: str  # Имя текущего активного игрока
+
     def __init__(self, app, *args, **kwargs):
         self.move_tile = []  # Сохранение тайлов перемещения
         self.field = FiledScene(self)
 
         super().__init__(app, *args, **kwargs)
+
+        self.active_player = self.app.data['game_info']['active_player']
 
     def draw(self):
 

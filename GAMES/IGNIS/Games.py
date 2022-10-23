@@ -21,7 +21,7 @@ class WrapperGames(QMainWindow):
 
         self.widget = QWidget(self)
         self.setCentralWidget(self.widget)
-        self.scene = self.__scene__(self, size=(810, 700))  # Fixme, size не должен быть захардкожен в WrapperGames
+        self.scene = self.__scene__(self, size=(1110, 600))  # Fixme, size не должен быть захардкожен в WrapperGames
 
     def start(self, close=True):
         """ Активация приложения """
@@ -64,8 +64,8 @@ class Games(WrapperGames):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        self.setGeometry(560, 200, 806, 700)
-        self.setFixedSize(806, 700)
+        self.setGeometry(560, 200, 1106, 600)
+        self.setFixedSize(1106, 600)
         self.setContentsMargins(0, 0, 0, 0)
 
     def get_data(self, data: dict):

@@ -1,7 +1,7 @@
 from wrapperQWidget5.modules.scene.Scene import Scene
 from .FieldTile import FiledScene
 from .ByeTile import ByeAir, ByeEarth
-from .CountTile import CountFire, CountWater
+from .CountTile import CountFire, CountWater, TextTile
 from .MoveTile import Move
 
 
@@ -16,9 +16,11 @@ class IgnisScene(Scene):
         self.move_tile = []  # Сохранение тайлов перемещения
         self.field = FiledScene(self)
 
-        super().__init__(app, *args, **kwargs)
+        self.active_player = app.data['game_info']['active_player']
+        self.fire_player = app.data['game_info']['kind']['F']
+        self.water_player = app.data['game_info']['kind']['W']
 
-        self.active_player = self.app.data['game_info']['active_player']
+        super().__init__(app, *args, **kwargs)
 
     def draw(self):
 
@@ -27,6 +29,13 @@ class IgnisScene(Scene):
         count = self.app.data['game_info']['count']
         self.count_fire = CountFire(self, count=count[1:2], bias=(7.5, 0.5))
         self.count_water = CountWater(self, count=count[3:], bias=(7.5, 2))
+
+        # FIRE игрок
+        TextTile(self, text=f"({self.fire_player})",
+                 size=(8.8 * self.size, 0 * self.size), point_size=int(self.size / 2))
+        # WATER игрок
+        TextTile(self, text=f"({self.water_player})",
+                 size=(8.8 * self.size, 1.5 * self.size), point_size=int(self.size / 2))
 
         ByeAir(self, bias=(7.5, 4.5))
         ByeEarth(self, bias=(9, 4.5))

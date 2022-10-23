@@ -94,6 +94,9 @@ class FiledScene:
                                 field.remove_item()  # Уничтожение элемента поля
                                 self.field[field.bias[1]][field.bias[0]] = 'X'
 
+            if data.get('destroy'):
+                self.destroy_tile(data['destroy'])
+
     def get_index_vertical(self, index: int) -> list:
         """
         Description:

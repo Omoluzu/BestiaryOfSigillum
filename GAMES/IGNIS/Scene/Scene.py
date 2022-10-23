@@ -19,6 +19,7 @@ class IgnisScene(Scene):
         self.active_player = app.data['game_info']['active_player']
         self.fire_player = app.data['game_info']['kind']['F']
         self.water_player = app.data['game_info']['kind']['W']
+        self.users = {self.fire_player: "F", self.water_player: "W"}
 
         super().__init__(app, *args, **kwargs)
 
@@ -27,8 +28,14 @@ class IgnisScene(Scene):
         self.field.draw()
 
         count = self.app.data['game_info']['count']
+
         self.count_fire = CountFire(self, count=count[1:2], bias=(7.5, 0.5))
         self.count_water = CountWater(self, count=count[3:], bias=(7.5, 2))
+
+        if self.users[self.active_player] == "F":
+            self.count_fire.select()
+        else:
+            self.count_water.select()
 
         # FIRE игрок
         TextTile(self, text=f"({self.fire_player})",

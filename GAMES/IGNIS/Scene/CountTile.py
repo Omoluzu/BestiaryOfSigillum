@@ -16,11 +16,19 @@ class Count(SquareScene):
         super().__init__(scene, *args, **kwargs)
 
     def draw(self):
+        super().draw()
+
         self.count.setPos(QPointF(self.start_point_x + self.width / 2, self.start_point_y - self.height / 2))
         self.scene.addItem(self.count)
 
     def set_count(self, count: str):
         self.count.setPlainText(f"-{count}")
+
+    def select(self):
+        self.set_border(color="lightgreen", border=10)
+
+    def remove(self):
+        self.set_border()
 
 
 class CountFire(Count):

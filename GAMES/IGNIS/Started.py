@@ -10,6 +10,8 @@ field - Игровое поле
     E - earth - фишка земли
 """
 
+import random
+
 
 def start(info: dict) -> dict:
     """
@@ -23,7 +25,6 @@ def start(info: dict) -> dict:
             'games': 'ignis', 'users': ['Omoluzu', 'Hokage'], 'command': 'game_info', 'game_id': 21, 'game_info': None
         }
     """
-
     field = [
         ["F", "F", "", "", "W", "W"],
         ["F", "", "", "", "", "W"],
@@ -33,8 +34,15 @@ def start(info: dict) -> dict:
         ["W", "W", "", "", "F", "F"]
     ]
 
+    select_type = (random.randint(0, 1))
+
     data = {
         "field": field,
-        "count": "F8W8"  # F - fire, 8 - кол-во тайлов F на поле, W - water, 8 - кол-во тайлов W на поле
+        "count": "F8W8",  # F - fire, 8 - кол-во тайлов F на поле, W - water, 8 - кол-во тайлов W на поле
+        "active_player": info['users'][random.randint(0, 1)],
+        "kind": {
+            "F": info['users'][select_type],
+            "W": info['users'][1 - select_type],
+        },
     }
     return data

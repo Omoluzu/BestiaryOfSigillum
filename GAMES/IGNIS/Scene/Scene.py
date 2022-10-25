@@ -32,8 +32,8 @@ class IgnisScene(Scene):
 
         count = self.app.data['game_info']['count']
 
-        self.count_fire = CountFire(self, count=count[1:2], bias=(7.5, 0.5), text=f"({self.fire_player})")
-        self.count_water = CountWater(self, count=count[3:], bias=(7.5, 2), text=f"({self.water_player})")
+        self.count_fire = CountFire(self, count=count[1:2], bias=(8, 0.5), text=f"({self.fire_player})")
+        self.count_water = CountWater(self, count=count[3:], bias=(8, 2), text=f"({self.water_player})")
 
         if self.users[self.active_player] == "F":
             self.count_fire.select()

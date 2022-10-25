@@ -32,6 +32,7 @@ class Count(SquareScene):
     def select(self):
         self.set_border(color="lightgreen", border=10)
         self.player.select()
+        ArrowActionPlayer(self.scene, bias=(self.bias[0] - 0.7, self.bias[1]))
 
     def remove(self):
         self.set_border()
@@ -70,3 +71,14 @@ class FirePlayer(TextPlayerName):
 
         self.setFont(font)
 
+
+class ArrowActionPlayer(SquareScene):
+
+    def __init__(self, scene, *args, **kwargs):
+        self.size = scene.size
+        self.image = f"Games/IGNIS/Image/action.png"  # Установка пути до изображения тайла
+
+        super().__init__(scene, *args, **kwargs)
+
+    def set_image(self, *args, **kwargs):
+        super(ArrowActionPlayer, self).set_image(scaled_size=(self.size/2, self.size/2), bias=(0, 16), *args, **kwargs)

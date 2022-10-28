@@ -8,6 +8,7 @@ class Count(SquareScene):
     def __init__(self, scene, count, text, *args, **kwargs):
         self.size = scene.size
         self.count = QGraphicsTextItem(f"-{count}")
+        self.action_player = None
 
         font = QFont()
         font.setPointSize(int(self.size / 2))
@@ -32,10 +33,12 @@ class Count(SquareScene):
     def select(self):
         self.set_border(color="lightgreen", border=10)
         self.player.select()
-        ArrowActionPlayer(self.scene, bias=(self.bias[0] - 0.7, self.bias[1]))
+        self.action_player = ArrowActionPlayer(self.scene, bias=(self.bias[0] - 0.7, self.bias[1]))
 
     def remove(self):
         self.set_border()
+        self.player.remove()
+        self.action_player.remove_item()
 
 
 class CountFire(Count):
@@ -68,6 +71,13 @@ class FirePlayer(TextPlayerName):
         font = QFont()
         font.setPointSize(self.point_size)
         font.setBold(True)
+
+        self.setFont(font)
+
+    def remove(self):
+        font = QFont()
+        font.setPointSize(self.point_size)
+        font.setBold(False)
 
         self.setFont(font)
 

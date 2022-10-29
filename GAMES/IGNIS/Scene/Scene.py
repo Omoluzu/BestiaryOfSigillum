@@ -1,4 +1,7 @@
+from PyQt5.QtWidgets import QDialog, QLabel
+
 from wrapperQWidget5.modules.scene.Scene import Scene
+from wrapperQWidget5.WrapperWidget import wrapper_widget
 from .FieldTile import FiledScene
 from .ByeTile import ByeAir, ByeEarth
 from .CountTile import CountFire, CountWater
@@ -24,7 +27,7 @@ class IgnisScene(Scene):
         super().__init__(app, *args, **kwargs)
 
     def __repr__(self):
-        return "<Scene>"
+        return "<IgnisScene>"
 
     def draw(self):
 
@@ -113,7 +116,7 @@ class IgnisScene(Scene):
         self.count_water.set_count(count[3:])
 
     def send_expose_unit(self, data):
-        self.app.send_data(command=data) #, test=True)
+        self.app.send_data(command=data, test=True)
 
     def change_active_player(self, new_active_player):
         if self.users[new_active_player] == "F":
@@ -123,8 +126,32 @@ class IgnisScene(Scene):
             self.count_water.select()
             self.count_fire.remove()
 
+    def game_over(self, game_over_info):
+        """ Завершение игры """
+        # if game_over_info == 'F':
+        player = (self.app.data['game_info']['kind']['W' if game_over_info == 'F' else 'F'])
+        game_over_widget = GameOverDialog(player)
+        game_over_widget.exec_()
+
     def get_expose_unit(self, data):
         self.field.move_tile(data['game_command']['move'])
         self.field.destroy_tile(data['game_command']['destroy'])
         self.set_count(data['game_command']['count'])
         self.change_active_player(data['game_command']['active_player'])
+
+        if game_over := data['game_command']['game_over']:
+            self.game_over(game_over)
+
+
+class GameOverDialog(QDialog):
+
+    @wrapper_widget
+    def __init__(self, player):
+        super().__init__()
+
+        self.layouts = {
+            "vbox": [
+                QLabel(f"Игрок {player} выиграл!")
+            ]
+        }
+

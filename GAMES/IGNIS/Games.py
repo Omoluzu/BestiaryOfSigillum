@@ -1,5 +1,3 @@
-from pprint import pprint
-
 from PyQt5.QtWidgets import QMainWindow, QWidget
 from .Scene import IgnisScene
 
@@ -45,7 +43,6 @@ class WrapperGames(QMainWindow):
             'user': self.client.user,
             'games': self.data['games'],
             'game_id': self.data['game_id'],
-            # 'game_info': self.data['game_info'],
             'game_command': command
         })
 
@@ -54,6 +51,9 @@ class WrapperGames(QMainWindow):
 
     def show_app(self):
         self.setVisible(True)
+
+    def close_app(self):
+        self.close()
 
 
 class Games(WrapperGames):
@@ -70,7 +70,5 @@ class Games(WrapperGames):
 
     def get_data(self, data: dict):
         if data['command'] == 'game_update':
-            # self.data['game_info'] = data['game_info']
-            # if data['game_command']['command'] == 'expose_unit':
             self.scene.get_expose_unit(data)
 

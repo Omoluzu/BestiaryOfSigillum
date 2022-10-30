@@ -128,10 +128,10 @@ class IgnisScene(Scene):
 
     def game_over(self, game_over_info):
         """ Завершение игры """
-        # if game_over_info == 'F':
         player = (self.app.data['game_info']['kind']['W' if game_over_info == 'F' else 'F'])
         game_over_widget = GameOverDialog(player)
         game_over_widget.exec_()
+        self.app.close_app()
 
     def get_expose_unit(self, data):
         self.field.move_tile(data['game_command']['move'])

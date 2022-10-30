@@ -25,15 +25,15 @@ class BoardGamesCreate(QDialog):
         # self.create_war_chest = QPushButton("Сундук Войны")
         # self.create_war_chest.clicked.connect(self.action_create_war_chest)
 
-        self.create_aqualin = QPushButton("Аквалин")
-        self.create_aqualin.clicked.connect(self.action_create_aqualin)
+        # self.create_aqualin = QPushButton("Аквалин")
+        # self.create_aqualin.clicked.connect(self.action_create_aqualin)
 
         self.create_ignis = QPushButton("ИГНИС")
         self.create_ignis.clicked.connect(self.action_create_ignis)
 
         self.layouts = {
             "vbox": [
-                self.create_aqualin,
+                # self.create_aqualin,
                 self.create_ignis
             ]
         }

@@ -9,12 +9,13 @@ class Bye(SquareScene):
         super().__init__(scene, *args, **kwargs)
 
     def activated(self):
-        if self.scene.active:
-            self.scene.active.deactivated()
+        if self.scene.app.client.user == self.scene.active_player:
+            if self.scene.active:
+                self.scene.active.deactivated()
 
-        self.scene.active = self
-        self.set_border("orange", 10)
-        self.scene.active_move_tile()
+            self.scene.active = self
+            self.set_border("orange", 10)
+            self.scene.active_move_tile()
 
     def deactivated(self):
         self.scene.active = None
@@ -24,15 +25,9 @@ class Bye(SquareScene):
 
 class ByeAir(Bye):
     kind = 'air'
-
-    def __init__(self, *args, **kwargs):
-        self.image = "Games/IGNIS/Image/air.png"
-        super().__init__(*args, **kwargs)
+    image = "Games/IGNIS/Image/air.png"
 
 
 class ByeEarth(Bye):
     kind = 'earth'
-    
-    def __init__(self, *args, **kwargs):
-        self.image = "Games/IGNIS/Image/earth.png"
-        super().__init__(*args, **kwargs)
+    image = "Games/IGNIS/Image/earth.png"

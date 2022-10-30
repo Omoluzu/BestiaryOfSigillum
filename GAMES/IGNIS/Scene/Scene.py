@@ -116,9 +116,10 @@ class IgnisScene(Scene):
         self.count_water.set_count(count[3:])
 
     def send_expose_unit(self, data):
-        self.app.send_data(command=data, test=True)
+        self.app.send_data(command=data)  #, test=True)
 
     def change_active_player(self, new_active_player):
+        self.active_player = new_active_player
         if self.users[new_active_player] == "F":
             self.count_fire.select()
             self.count_water.remove()

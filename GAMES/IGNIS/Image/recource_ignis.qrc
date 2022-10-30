@@ -1,0 +1,9 @@
+<RCC>
+    <qresource>
+        <file>action.png</file>
+        <file>air.png</file>
+        <file>earth.png</file>
+        <file>fire.png</file>
+        <file>water.png</file>
+    </qresource>
+</RCC>

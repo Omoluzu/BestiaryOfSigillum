@@ -1,5 +1,7 @@
 from wrapperQWidget5.modules.scene import SquareScene
 
+from ..Image import recource_ignis
+
 
 class Bye(SquareScene):
     kind = None
@@ -25,9 +27,9 @@ class Bye(SquareScene):
 
 class ByeAir(Bye):
     kind = 'air'
-    image = "Games/IGNIS/Image/air.png"
+    image = ":/air.png"
 
 
 class ByeEarth(Bye):
     kind = 'earth'
-    image = "Games/IGNIS/Image/earth.png"
+    image = ":/earth.png"

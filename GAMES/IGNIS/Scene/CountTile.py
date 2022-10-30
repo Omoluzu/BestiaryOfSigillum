@@ -3,6 +3,8 @@ from PyQt5.QtWidgets import QGraphicsTextItem
 from PyQt5.QtCore import QPointF
 from PyQt5.QtGui import QFont
 
+from ..Image import recource_ignis
+
 
 class Count(SquareScene):
     def __init__(self, scene, count, text, *args, **kwargs):
@@ -42,11 +44,11 @@ class Count(SquareScene):
 
 
 class CountFire(Count):
-    image = "Games/IGNIS/Image/fire.png"
+    image = ":/fire.png"
 
 
 class CountWater(Count):
-    image = "Games/IGNIS/Image/water.png"
+    image = ":/water.png"
 
 
 class TextPlayerName(QGraphicsTextItem):
@@ -86,7 +88,7 @@ class ArrowActionPlayer(SquareScene):
 
     def __init__(self, scene, *args, **kwargs):
         self.size = scene.size
-        self.image = f"Games/IGNIS/Image/action.png"  # Установка пути до изображения тайла
+        self.image = f":/action.png"  # Установка пути до изображения тайла
 
         super().__init__(scene, *args, **kwargs)
 

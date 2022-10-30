@@ -8,5 +8,6 @@ dist
 build
 *.xml
 *.iml
+*.png
 *.jpg
 *.spec

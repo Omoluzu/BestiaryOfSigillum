@@ -7,7 +7,6 @@ from PyQt5.QtWidgets import *
 from .BoardGamesCreate import BoardGamesCreate
 from .ListCreateGames import ListCreateGames
 
-from modules import Aqualin
 import GAMES
 
 

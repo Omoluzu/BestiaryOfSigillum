@@ -2,9 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import json
-import struct
 import asyncio
-import sys
 
 from PyQt5.QtWidgets import QApplication
 from asyncqt import QEventLoop

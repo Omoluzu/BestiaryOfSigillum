@@ -31,10 +31,14 @@ class BoardGamesCreate(QDialog):
         self.create_ignis = QPushButton("ИГНИС")
         self.create_ignis.clicked.connect(self.action_create_ignis)
 
+        self.create_quixo = QPushButton("QUIXO")
+        self.create_quixo.clicked.connect(self.action_create_quixo)
+
         self.layouts = {
             "vbox": [
                 # self.create_aqualin,
-                self.create_ignis
+                self.create_ignis,
+                self.create_quixo
             ]
         }
 
@@ -76,4 +80,15 @@ class BoardGamesCreate(QDialog):
 
         self.close()
 
+    def action_create_quixo(self):
+        self.game_settings = {
+            "command": "create_games",
+            "games": "quixo",
+            "ru": "Квиксо",
+            "games_config": {
+                "select_players": 2,
+                "select_unit": "random",
+            }
+        }
 
+        self.close()

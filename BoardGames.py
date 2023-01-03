@@ -14,7 +14,22 @@ from modules.CheckSettings import CheckSettings
 from modules.LobbyRoom.BoardGamesList import BoardgamesList
 
 
-__version__ = '1.0.1'
+__version__ = '1.0.2'
+
+
+def formatted_data_received(data: bytes) -> list:
+    """
+    Форматирование поступающего сообщения
+
+    new version 1.0.2
+    """
+    for message in data.decode().split("}{"):
+        if not message.endswith("}"):
+            message = message + "}"
+        if not message.startswith("{"):
+            message = "{" + message
+
+        yield message
 
 
 class ClientProtocol(asyncio.Protocol):
@@ -29,17 +44,23 @@ class ClientProtocol(asyncio.Protocol):
         return f"{self.__class__.__name__} ({self.user})"
 
     def data_received(self, data: bytes):
-        """ Принимает сообщение """
-        data_json = json.loads(data.decode())
+        """
+        Принимает сообщение
 
-        self.window.action.data_received(data_json)
+        new version 1.0.0
+        update version 1.0.2
+            - Ввел дополнительное форматирование поступающего сообщения (Костыльное решение)
+        """
+        for message in formatted_data_received(data):
+            data_json = json.loads(message)
+            self.window.action.data_received(data_json)
 
     def send_data(self, message: str):
         """ Отправляет сообщение """
         # print(type(message), message)
         # print(len(message.encode('utf-8')), sys.getsizeof(message.encode('utf-8')))
         encoded = message.encode('utf-8')
-        print(f"Размер передаваемого пакета = {len(encoded)}, содержимое {encoded}")
+        # print(f"Размер передаваемого пакета = {len(encoded)}, содержимое {encoded}")
         # print(struct.pack('>I', len(encoded)))
         # print(struct.pack_into('>I', encoded))
         self.transport.write(encoded)

@@ -1,7 +1,9 @@
 probe.py
 ReadMe.txt
 
+.obsidian
 .idea
+.venv
 images/брювус.png
 venv
 dist
@@ -11,3 +13,5 @@ build
 *.png
 *.jpg
 *.spec
+
+*__pycache__*

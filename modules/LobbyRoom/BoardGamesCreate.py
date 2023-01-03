@@ -31,28 +31,28 @@ class BoardGamesCreate(QDialog):
         self.create_ignis = QPushButton("ИГНИС")
         self.create_ignis.clicked.connect(self.action_create_ignis)
 
-        self.create_quixo = QPushButton("QUIXO")
-        self.create_quixo.clicked.connect(self.action_create_quixo)
+        self.create_azul = QPushButton("AZUL")
+        self.create_azul.clicked.connect(self.action_create_azul)
 
         self.layouts = {
             "vbox": [
                 # self.create_aqualin,
                 self.create_ignis,
-                self.create_quixo
+                self.create_azul
             ]
         }
 
-    def action_create_bestiary(self):
-        self.close()
+    # def action_create_bestiary(self):
+    #    self.close()
 
-    def action_create_war_chest(self):
-        from modules.WarChest.CreateGames import CreateGamesWarChest
-
-        games = CreateGamesWarChest()
-        games.exec_()
-
-        self.game_settings = games.game_settings
-        self.close()
+    # def action_create_war_chest(self):
+    #    from modules.WarChest.CreateGames import CreateGamesWarChest
+    #
+    #    games = CreateGamesWarChest()
+    #    games.exec_()
+    #
+    #    self.game_settings = games.game_settings
+    #    self.close()
 
     def action_create_aqualin(self):
         self.game_settings = {
@@ -80,11 +80,11 @@ class BoardGamesCreate(QDialog):
 
         self.close()
 
-    def action_create_quixo(self):
+    def action_create_azul(self):
         self.game_settings = {
             "command": "create_games",
-            "games": "quixo",
-            "ru": "Квиксо",
+            "games": "azul",
+            "ru": "AZUL",
             "games_config": {
                 "select_players": 2,
                 "select_unit": "random",

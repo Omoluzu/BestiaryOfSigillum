@@ -16,7 +16,7 @@ import random
 def start(info: dict) -> dict:
     """
     Description:
-        Генерация стортовой конфигурации для игры.
+        Генерация стартовой конфигурации для игры.
 
     Parameters:
         ::info (dict) - Информация о игре с сервера

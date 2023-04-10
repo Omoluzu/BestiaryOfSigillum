@@ -1,4 +1,4 @@
-#! /usr/bin/env python3
+                   #! /usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 from wrapperQWidget5.WrapperWidget import wrapper_widget
@@ -153,23 +153,29 @@ class BoardgamesList(QDialog):
         """
         Description:
             Вывод информационного диалога о подтверждении создния игры.
-            Если пользователь подтверждает создание игры. То происходит запрос на получение стортовой информации об игре
-                и отправка информации на сервер. Длясоздани игры.
+            Если пользователь подтверждает создание игры. То происходит запрос на получение стaртовой информации об игре
+                и отправка информации на сервер. Для создани игры.
 
         Parameters:
             ::data (dict) - Информация с сервера.
 
         init version 1.0.1:
+        update version 1.0.2
         """
         approve = ApprovedGameDialog()
         approve.exec_()
         if approve.start_game:
-            if games := GAMES.start_game.get(data['games']):
-                self.client.send_data({
-                    "command": "approved_games",
-                    "info_game": games(data),
-                    "game_id": data['game_id']
-                })
+            # print(f'True approved game {data["games"]}')
+            print(data)
+
+            # if games := GAMES.start_game.get(data['games']):
+            self.client.send_data({
+                "command": "approved_games",
+                # "info_game": games(data),
+                "info_game": None,
+                "game_id": data['game_id']
+            })
+
 
     @staticmethod
     def command_waiting_game():

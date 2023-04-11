@@ -30,7 +30,15 @@ class WrapperGames(QMainWindow):
         self.show()
 
     def data_received(self, data: dict) -> None:
-        if self.data['game_id'] == data['game_id']:
+        """
+
+        init version 1.0.1
+        update version 1.0.2
+            Добавленна проверка на принимаемую команду с сервера game_update
+        """
+        # ToDo: Сюда с сервера еще приходит 'command': 'game_info'. Зачем?
+        #  Если мне нужен только 'command': 'game_update'
+        if self.data['command'] == 'game_update' and self.data['game_id'] == data['game_id']:
             self.get_data(data)
 
     def get_data(self, data: dict):

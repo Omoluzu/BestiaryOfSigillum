@@ -14,7 +14,7 @@ from modules.CheckSettings import CheckSettings
 from modules.LobbyRoom.BoardGamesList import BoardgamesList
 
 
-__version__ = '1.0.1'
+__version__ = '1.0.2'
 
 
 class ClientProtocol(asyncio.Protocol):
@@ -30,16 +30,27 @@ class ClientProtocol(asyncio.Protocol):
 
     def data_received(self, data: bytes):
         """ Принимает сообщение """
-        data_json = json.loads(data.decode())
-
-        self.window.action.data_received(data_json)
+        print(f"get = {data}")
+        split_data = data.decode().split('}{')
+        if len(split_data) > 1:
+            for new_data in split_data:
+                if not new_data.startswith('{'):
+                    new_data = "{" + new_data
+                if not new_data.endswith('}'):
+                    new_data = new_data + "}"
+                data_json = json.loads(new_data)
+                self.window.action.data_received(data_json)
+        else:
+            data_json = json.loads(split_data[0])
+            self.window.action.data_received(data_json)
 
     def send_data(self, message: str):
         """ Отправляет сообщение """
         # print(type(message), message)
         # print(len(message.encode('utf-8')), sys.getsizeof(message.encode('utf-8')))
         encoded = message.encode('utf-8')
-        print(f"Размер передаваемого пакета = {len(encoded)}, содержимое {encoded}")
+        # print(f"Размер передаваемого пакета = {len(encoded)}, содержимое {encoded}")
+        print(f"send = {encoded}")
         # print(struct.pack('>I', len(encoded)))
         # print(struct.pack_into('>I', encoded))
         self.transport.write(encoded)

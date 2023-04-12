@@ -53,6 +53,7 @@ class ClientProtocol(asyncio.Protocol):
         """
         for message in formatted_data_received(data):
             data_json = json.loads(message)
+            print(f"---> {data_json}")
             self.window.action.data_received(data_json)
 
     def send_data(self, message: str):
@@ -63,6 +64,7 @@ class ClientProtocol(asyncio.Protocol):
         # print(f"Размер передаваемого пакета = {len(encoded)}, содержимое {encoded}")
         # print(struct.pack('>I', len(encoded)))
         # print(struct.pack_into('>I', encoded))
+        print(f"<--- {message}")
         self.transport.write(encoded)
 
     def connection_made(self, transport: asyncio.transports.Transport):

@@ -166,7 +166,7 @@ class BoardgamesList(QDialog):
         approve.exec_()
         if approve.start_game:
             # print(f'True approved game {data["games"]}')
-            print(data)
+            # print(data)
 
             # if games := GAMES.start_game.get(data['games']):
             self.client.send_data({

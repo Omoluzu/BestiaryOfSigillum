@@ -176,7 +176,6 @@ class BoardgamesList(QDialog):
                 "game_id": data['game_id']
             })
 
-
     @staticmethod
     def command_waiting_game():
         """

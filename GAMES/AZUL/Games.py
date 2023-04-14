@@ -56,6 +56,15 @@ class WrapperGames(QMainWindow):
     def close_app(self):
         self.close()
 
+    def closeEvent(self, event):
+        """
+        Действие на закрытие игры
+
+        new version 1.0.1
+        """
+        self.client.boardgames_list.start()
+        self.close()
+
 
 class AzulGames(WrapperGames):
     __scene__ = AzulScene

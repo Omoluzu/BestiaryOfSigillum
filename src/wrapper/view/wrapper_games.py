@@ -38,7 +38,7 @@ class WrapperGames(QMainWindow):
         update version 1.0.1:
             - Добавленна проверка на принимаемую команду с сервера game_update
         """
-        if self.data['command'] == 'game_update' and self.data['game_id'] == data['game_id']:
+        if data['command'] == 'game_update' and self.data['game_id'] == data['game_id']:
             self.get_data(data)
 
     @abstractmethod

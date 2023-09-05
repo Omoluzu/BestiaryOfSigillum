@@ -36,7 +36,7 @@ class WrapperGames(QMainWindow):
 
         init version 1.0.0:
         update version 1.0.1:
-            - Добавленна проверка на принимаемую команду с сервера game_update
+            - Добавлена проверка на принимаемую команду с сервера game_update
         """
         if data['command'] == 'game_update' and self.data['game_id'] == data['game_id']:
             self.get_data(data)

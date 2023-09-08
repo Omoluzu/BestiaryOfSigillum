@@ -18,6 +18,6 @@ class AzulScene(Scene):
         for element in self.app.data['game_info'].split(";"):
             match element:
                 case text if text.startswith('fac'):
-                    self.factories.init(element=element.replace('fac:', ''))
+                    self.factories.init(elements=element.replace('fac:', ''))
                 case _:
                     print('Unknown')

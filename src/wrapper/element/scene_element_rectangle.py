@@ -7,7 +7,7 @@ from src.wrapper.element.scene import ElementScene
 __version__ = "0.0.4"
 
 
-class RectangleScene(ElementScene, QGraphicsPolygonItem):
+class RectangleElementScene(ElementScene, QGraphicsPolygonItem):
     """
     Прямоугольник элемента сцены
     """
@@ -21,10 +21,22 @@ class RectangleScene(ElementScene, QGraphicsPolygonItem):
         self.setPolygon(
             QPolygonF(
                 [
-                    QPointF(self.start_point_x - indent_x, self.start_point_y + indent_y),
-                    QPointF(self.start_point_x + indent_x, self.start_point_y + indent_y),
-                    QPointF(self.start_point_x + indent_x, self.start_point_y - indent_y),
-                    QPointF(self.start_point_x - indent_x, self.start_point_y - indent_y),
+                    QPointF(
+                        self.start_point_x - indent_x,
+                        self.start_point_y + indent_y
+                    ),
+                    QPointF(
+                        self.start_point_x + indent_x,
+                        self.start_point_y + indent_y
+                    ),
+                    QPointF(
+                        self.start_point_x + indent_x,
+                        self.start_point_y - indent_y
+                    ),
+                    QPointF(
+                        self.start_point_x - indent_x,
+                        self.start_point_y - indent_y
+                    ),
                 ]
             )
         )

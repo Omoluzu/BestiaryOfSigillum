@@ -1,4 +1,4 @@
 from .scene_element_ellipse import EllipseElementScene
 from .scene_element_circle import CircleElementScene
-from .scene_element_rectangle import RectangleScene
-from .scene_element_square import SquareScene
+from .scene_element_rectangle import RectangleElementScene
+from .scene_element_square import SquareElementScene

@@ -1,9 +1,8 @@
-from wrapperQWidget5.modules.scene import SquareScene, RectangleScene
-from src.wrapper.element import CircleElementScene, SquareScene
+from src.wrapper.element import CircleElementScene, SquareElementScene
 
 
-class Tile(SquareScene):
-    pass
+class Tile(SquareElementScene):
+    size = 40
 
 
 class Factory(CircleElementScene):

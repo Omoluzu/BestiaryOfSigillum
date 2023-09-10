@@ -1,9 +1,9 @@
-from .scene_element_rectangle import RectangleScene
+from .scene_element_rectangle import RectangleElementScene
 
 __version__ = "0.0.1"
 
 
-class SquareScene(RectangleScene):
+class SquareElementScene(RectangleElementScene):
     size: int = 60  # Размер квадрата
 
     def __init__(self, *args, **kwarg):

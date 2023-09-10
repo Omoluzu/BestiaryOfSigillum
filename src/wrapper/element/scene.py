@@ -8,6 +8,15 @@ from PyQt5.QtWidgets import QGraphicsPolygonItem, QGraphicsScene
 __version__ = "1.0.0"
 
 
+"""
+version 1.0.1
+    - Добавлен параметр rotate для поворачивание фигуры
+
+version 1.0.0
+    - Инициализация
+"""
+
+
 class ElementScene:
     """
     """
@@ -16,11 +25,12 @@ class ElementScene:
     image: str = None  # Путь до изображения. Если он есть то оно будет отрисованно
     _pixmap: QGraphicsPolygonItem = None
 
-    def __init__(self, scene, bias=(0, 0), point=(0, 0), *args, **kwargs):
+    def __init__(self, scene, bias=(0, 0), point=(0, 0), rotate: int = 0, *args, **kwargs):
         super().__init__()
         self.scene = scene
         self.point = point
         self.bias = bias
+        self.rotate = rotate
 
         self.draw()
 

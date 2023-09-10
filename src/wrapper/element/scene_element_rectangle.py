@@ -4,7 +4,19 @@ from PyQt5.QtGui import QPolygonF, QPixmap
 
 from src.wrapper.element.scene import ElementScene
 
-__version__ = "0.0.4"
+__version__ = "1.0.1"
+
+
+"""
+version 1.0.1
+    - Реализованна возможность вращения фигуры ключём rotate
+    - Добавлен параметр start_point для получения начальной позиции фигруры
+    - Получение фигуры выведен в атрибут __polygon
+    
+
+version 1.0.0
+    - Инициализация
+"""
 
 
 class RectangleElementScene(ElementScene, QGraphicsPolygonItem):
@@ -15,11 +27,22 @@ class RectangleElementScene(ElementScene, QGraphicsPolygonItem):
     width: int = 120  # Ширина прямоугольника
 
     def draw(self):
+        """
+        Отрисовка фигуры полигона
+        """
+        self.setPolygon(self.__polygon)
+
+        if self.rotate:
+            self.setTransformOriginPoint(self.start_point)
+            self.setRotation(self.rotate)
+
+        self.scene.addItem(self)
+
+    @property
+    def __polygon(self) -> QPolygonF:
         indent_x = self.width / 2
         indent_y = self.height / 2
-
-        self.setPolygon(
-            QPolygonF(
+        return QPolygonF(
                 [
                     QPointF(
                         self.start_point_x - indent_x,
@@ -39,9 +62,6 @@ class RectangleElementScene(ElementScene, QGraphicsPolygonItem):
                     ),
                 ]
             )
-        )
-
-        self.scene.addItem(self)
 
     @property
     def start_point_x(self):
@@ -50,6 +70,10 @@ class RectangleElementScene(ElementScene, QGraphicsPolygonItem):
     @property
     def start_point_y(self):
         return self.point[1] + (self.height * self.bias[1])
+
+    @property
+    def start_point(self) -> QPointF:
+        return QPointF(self.start_point_x, self.start_point_y)
 
     def set_image(self, path, bias=(0, 0), scaled=True, scaled_size=None):
         """

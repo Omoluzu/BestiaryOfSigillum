@@ -17,8 +17,8 @@ class Factory(CircleElementScene):
         super().__init__(self.scene, *args, **kwargs)
 
         for tile in element:
-            Tile(self.scene, point=(self.start_point_x, self.start_point_y))
-            print(tile)
+            Tile(self.scene, point=(self.start_point_x, self.start_point_y), rotate=45)
+            # print(tile)
 
 
 class Factories:

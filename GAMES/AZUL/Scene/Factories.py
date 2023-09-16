@@ -1,27 +1,10 @@
-from src.wrapper.element import CircleElementScene, SquareElementScene
-
-
-class Tile(SquareElementScene):
-    size = 40
-
-
-class Factory(CircleElementScene):
-    size = 120
-
-    def __init__(self, scene, element: str, *args, **kwargs):
-        """
-
-        element (str) - yrdr
-        """
-        self.scene = scene
-        super().__init__(self.scene, *args, **kwargs)
-
-        for tile in element:
-            Tile(self.scene, point=self.start_point, rotate=45)
-            # print(tile)
+from .factory import Factory
 
 
 class Factories:
+    """
+    Класс отвечающий за отрисовку и работу всех фабрик игры.
+    """
     factory: list[Factory, ...]
     count_factory: int
     element: str
@@ -38,9 +21,4 @@ class Factories:
         self.count_factory = len(elements)
 
         for i, element in enumerate(elements):
-            Factory(scene=self.scene, element=element, point=((130*i), 0))
-
-        # self.draw()
-
-    # def draw(self):
-    #     Factory(self.scene)
+            Factory(scene=self.scene, element=element, point=((160*i), 0))

@@ -33,7 +33,7 @@ class RectangleElementScene(ElementScene, QGraphicsPolygonItem):
         self.setPolygon(self.__polygon)
 
         if self.rotate:
-            self.setTransformOriginPoint(self.start_point)
+            self.setTransformOriginPoint(QPointF(*self.start_point))
             self.setRotation(self.rotate)
 
         self.scene.addItem(self)
@@ -70,10 +70,6 @@ class RectangleElementScene(ElementScene, QGraphicsPolygonItem):
     @property
     def start_point_y(self):
         return self.point[1] + (self.height * self.bias[1])
-
-    @property
-    def start_point(self) -> QPointF:
-        return QPointF(self.start_point_x, self.start_point_y)
 
     def set_image(self, path, bias=(0, 0), scaled=True, scaled_size=None):
         """

@@ -59,6 +59,10 @@ class ElementScene:
         """ Центральная точка по оси Y """
         return self.point[1]
 
+    @property
+    def start_point(self) -> tuple:
+        return self.start_point_x, self.start_point_y
+
     def remove_item(self):
         """ Удаление текущего элемента """
         if self._pixmap:

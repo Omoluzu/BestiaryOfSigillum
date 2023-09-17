@@ -118,3 +118,13 @@ class ElementScene:
 
         """
         self.setPen(QPen(QColor(color), border))
+
+    def set_color(self, color: str = 'while') -> None:
+        """
+        Description:
+            Заливка фигуры цветом
+
+        Parameters:
+            color(str) - цвет фигуры, по умолчанию белый
+        """
+        self.setBrush(QColor(color))

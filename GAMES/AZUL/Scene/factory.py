@@ -1,13 +1,5 @@
-from src.wrapper.element import CircleElementScene, SquareElementScene
-
-
-class Tile(SquareElementScene):
-    size = 40
-
-    def __init__(self, type_tile: str, *args, **kwargs):
-        self.type_tile = type_tile
-        super().__init__(*args, **kwargs)
-        print(self.type_tile)
+from src.wrapper.element import CircleElementScene
+from .tile import Tile
 
 
 class Factory(CircleElementScene):

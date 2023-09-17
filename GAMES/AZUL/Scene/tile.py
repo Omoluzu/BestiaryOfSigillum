@@ -33,7 +33,12 @@ class Tile(SquareElementScene):
         if self.scene.active:
             self.scene.active.deactivated()
         self.scene.active = self
+        self.factory.select_tile_by_color(self.color)
 
+    def select_tile(self):
+        """
+        Графическое указание о том что текущий тайл выбран
+        """
         self.set_border(color=Color.green, border=4)
 
     def deactivated(self):

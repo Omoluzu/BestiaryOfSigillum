@@ -46,3 +46,17 @@ class Factory(CircleElementScene):
         )
 
         self.tiles = [up, left, right, button]
+
+    def select_tile_by_color(self, color: str) -> None:
+        """
+        Активация всех тайлов на фабрике выбранного цвета.
+        :param color: Цвет который необходимо выбрать
+        """
+        filter_tile_by_color = list(filter(
+            lambda x: x.color == color,
+            self.tiles
+        ))
+        list(map(
+            lambda x: x.select_tile(),
+            filter_tile_by_color
+        ))

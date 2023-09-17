@@ -7,6 +7,7 @@ class Color:
     dark_blue = "dark blue"
     yellow = "yellow"
     red = "red"
+    green = "green"
 
 
 tile_color = {
@@ -31,7 +32,7 @@ class Tile(SquareElementScene):
         if self.scene.active:
             self.scene.active.deactivated()
         self.scene.active = self
-        self.set_border(color=Color.red, border=4)
+        self.set_border(color=Color.green, border=4)
 
     def deactivated(self):
         self.set_border()

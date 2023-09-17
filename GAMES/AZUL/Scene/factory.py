@@ -7,14 +7,14 @@ class Factory(CircleElementScene):
     Класс отвечающий за работу конкретной фабрики
     """
     size = 150
+    tiles: [Tile, ...]
 
-    def __init__(self, scene, element: str, *args, **kwargs):
+    def __init__(self, element: str, *args, **kwargs):
         """
 
         element (str) - yrdr
         """
-        self.scene = scene
-        super().__init__(self.scene, *args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.draw_tile(element=element)
 
     def draw_tile(self, element) -> None:
@@ -28,19 +28,21 @@ class Factory(CircleElementScene):
             tile_button
         ) = list(element)
 
-        Tile(
-            type_tile=tile_up, scene=self.scene,
+        up = Tile(
+            type_tile=tile_up, factory=self,
             point=self.start_point, rotate=45, bias=(0, -1)
         )
-        Tile(
-            type_tile=tile_button, scene=self.scene,
+        button = Tile(
+            type_tile=tile_button, factory=self,
             point=self.start_point, rotate=45, bias=(0, 1)
         )
-        Tile(
-            type_tile=tile_left, scene=self.scene,
+        left = Tile(
+            type_tile=tile_left, factory=self,
             point=self.start_point, rotate=45, bias=(-1, 0)
         )
-        Tile(
-            type_tile=tile_right, scene=self.scene,
+        right = Tile(
+            type_tile=tile_right, factory=self,
             point=self.start_point, rotate=45, bias=(1, 0)
         )
+
+        self.tiles = [up, left, right, button]

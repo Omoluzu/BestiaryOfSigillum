@@ -31,7 +31,9 @@ class Tile(SquareElementScene):
 
     def activated(self):
         if self.scene.active:
-            self.scene.active.deactivated()
+            self.scene.active.factory.deactivated_tile_by_color(
+                color=self.scene.active.color
+            )
         self.scene.active = self
         self.factory.select_tile_by_color(self.color)
 
@@ -42,5 +44,4 @@ class Tile(SquareElementScene):
         self.set_border(color=Color.green, border=4)
 
     def deactivated(self):
-        self.set_border()
-
+        self.factory.deactivated_tile_by_color(color=self.color)

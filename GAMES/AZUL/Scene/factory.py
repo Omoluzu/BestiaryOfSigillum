@@ -47,16 +47,33 @@ class Factory(CircleElementScene):
 
         self.tiles = [up, left, right, button]
 
+    def get_tile(self, color) -> list[Tile, ...]:
+        """
+        Получение тайлов фабрики определенного цвета
+        :param color: Цвет который необходимо найти
+        :return: Список тайлов необходимого цвета
+        """
+        return list(filter(
+            lambda x: x.color == color,
+            self.tiles
+        ))
+
     def select_tile_by_color(self, color: str) -> None:
         """
         Активация всех тайлов на фабрике выбранного цвета.
         :param color: Цвет который необходимо выбрать
         """
-        filter_tile_by_color = list(filter(
-            lambda x: x.color == color,
-            self.tiles
-        ))
         list(map(
             lambda x: x.select_tile(),
-            filter_tile_by_color
+            self.get_tile(color=color)
+        ))
+
+    def deactivated_tile_by_color(self, color: str) -> None:
+        """
+        Деактивация тайлов на фабрике определенного цвета
+        :param color: Цвет который необходимо деактивировать.
+        """
+        list(map(
+            lambda x: x.set_border(),
+            self.get_tile(color=color)
         ))

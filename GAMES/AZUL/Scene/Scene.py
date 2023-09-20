@@ -1,5 +1,6 @@
 from wrapperQWidget5.modules.scene.Scene import Scene
 from .Factories import Factories
+from .tablet import Tablet
 
 
 class AzulScene(Scene):
@@ -12,6 +13,8 @@ class AzulScene(Scene):
         self.factories = Factories(self)
 
         super().__init__(app=app, *args, **kwargs)
+
+        self.tablet = Tablet(scene=self, point=(220, 340))
 
     def draw(self):
         """Отрисовка сцены."""

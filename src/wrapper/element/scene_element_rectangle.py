@@ -71,7 +71,7 @@ class RectangleElementScene(ElementScene, QGraphicsPolygonItem):
     def start_point_y(self):
         return self.point[1] + (self.height * self.bias[1])
 
-    def set_image(self, path, bias=(0, 0), scaled=True, scaled_size=None):
+    def set_image(self, bias=(0, 0), scaled=True, scaled_size=None):
         """
 
         update version 0.0.3:
@@ -79,7 +79,7 @@ class RectangleElementScene(ElementScene, QGraphicsPolygonItem):
         update version 0.0.4:
             - Добавлен необязательный атрибут scaled_size для указания новых размеров изображения.
         """
-        pixmap = QPixmap(path)
+        pixmap = QPixmap(self.image)
         if scaled:
             if not scaled_size:
                 pixmap = pixmap.scaled(QSize(int(self.width), int(self.height)))

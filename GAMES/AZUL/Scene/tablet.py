@@ -23,22 +23,24 @@ class PatternLine:
 
 
 class PatternLines(RectangleElementScene):
-    height = 300
     width = 300
 
-    def __init__(self, point, *args, **kwargs):
-        x = point[0] - (self.width / 2)
+    def __init__(self, tablet, point, *args, **kwargs):
+        self.height = tablet.height - 10
+        self.width = tablet.width / 2
+        x = point[0] - (self.width / 2) + 10
         y = point[1]
-        super().__init__(point=(x, y), *args, **kwargs)
+        super().__init__(scene=tablet.scene, point=(x, y), *args, **kwargs)
 
-        pattern_lines_3 = PatternLine(pattern_lines=self, count=3)
+        # pattern_lines_3 = PatternLine(pattern_lines=self, count=3)
 
 
 class Tablet(RectangleElementScene):
-    height = 350
-    width = 550
+    height = 309
+    width = 637.5
+    image = f"GAMES/AZUL/image/tablet.png"
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        self.pattern_lines = PatternLines(scene=self.scene, point=self.start_point)
+        self.pattern_lines = PatternLines(tablet=self, point=self.start_point)

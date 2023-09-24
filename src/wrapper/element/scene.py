@@ -38,14 +38,14 @@ class ElementScene:
             if not os.path.exists(self.image) and not self.image.startswith(":/"):
                 warnings.warn(f"Не найден файл с изображением {self.image}")
 
-            self.set_image(path=self.image)
+            self.set_image()
 
     @abstractmethod
     def draw(self):
         """ Отрисовка элемента """
         pass
 
-    def set_image(self, path, bias=(0, 0), scaled=True):
+    def set_image(self, bias=(0, 0), scaled=True):
         """ Установка изображения на Элемент """
         pass
 

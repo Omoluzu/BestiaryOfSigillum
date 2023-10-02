@@ -53,11 +53,17 @@ class PatternLines(RectangleElementScene):
         y = point[1]
         super().__init__(scene=tablet.scene, point=(x, y), *args, **kwargs)
 
-        pattern_lines_1 = PatternLine(pattern_lines=self, count=1)
-        pattern_lines_2 = PatternLine(pattern_lines=self, count=2)
-        pattern_lines_3 = PatternLine(pattern_lines=self, count=3)
-        pattern_lines_4 = PatternLine(pattern_lines=self, count=4)
-        pattern_lines_5 = PatternLine(pattern_lines=self, count=5)
+        self.lines_1 = PatternLine(pattern_lines=self, count=1)
+        self.lines_2 = PatternLine(pattern_lines=self, count=2)
+        self.lines_3 = PatternLine(pattern_lines=self, count=3)
+        self.lines_4 = PatternLine(pattern_lines=self, count=4)
+        self.lines_5 = PatternLine(pattern_lines=self, count=5)
+
+    def show_me_put_tile(self, color):
+        """
+        Отрисовка тайлов куда можно положить разместить тайл в Линии шаблона
+        """
+        print(f"show_me_put_tile: {color}")
 
 
 class Tablet(RectangleElementScene):
@@ -67,5 +73,10 @@ class Tablet(RectangleElementScene):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-
         self.pattern_lines = PatternLines(tablet=self, point=self.start_point)
+
+    def show_me_put_tile(self, color):
+        """
+        Отрисовка тайлов куда можно положить разместить тайл в Линии шаблона
+        """
+        self.pattern_lines.show_me_put_tile(color)

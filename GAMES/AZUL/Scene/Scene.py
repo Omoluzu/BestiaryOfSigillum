@@ -24,3 +24,9 @@ class AzulScene(Scene):
                     self.factories.init(elements=element.replace('fac:', ''))
                 case _:
                     print('Unknown')
+
+    def show_me_put_tile(self, color: str):
+        """
+        Отрисовка тайлов куда можно положить разместить тайл в Линии шаблона
+        """
+        self.tablet.show_me_put_tile(color)

@@ -1,5 +1,6 @@
 from .IGNIS import *
 from .AZUL import *
+from .LCG_ARKHAM_HORROR import *
 from modules.Aqualin import StartedConfiguration, GamesAqualin
 
 start_game = {

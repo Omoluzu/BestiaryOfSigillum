@@ -32,6 +32,21 @@ class {title_name}Games(WrapperGames):
 """
 
 
+dev_file = """from PyQt5.QtWidgets import QApplication
+from GAMES.{upper_name}.Games import {title_name}Games
+
+
+class Client:
+    action = False
+
+
+app = QApplication([])
+games = {title_name}Games(client=Client, data={data})
+games.start(close=False)
+app.exec_()
+"""
+
+
 def new_game(name_game):
     upper_name = name_game.upper().replace(' ', '_')
     title_name = name_game.title().replace(' ', '')
@@ -56,6 +71,12 @@ def new_game(name_game):
     ) as file:
         file.write(games_file.format(
             title_name=title_name, name_game=name_game))
+
+    with open(
+            os.path.join(path, 'develop.py'), 'w', encoding='utf-8'
+    ) as file:
+        file.write(dev_file.format(
+            upper_name=upper_name, title_name=title_name, data={}))
 
 
 if __name__ == '__main__':

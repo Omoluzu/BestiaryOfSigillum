@@ -46,7 +46,7 @@ class GuiAuth(QDialog):
         self.btn_register.clicked.connect(self.action_get_register)
         self.btn_register.setEnabled(False)
 
-        self.status_connect = QLabel("Ожинается подключение к серверу")
+        self.status_connect = QLabel("Ожидается подключение к серверу")
 
         self.layouts = {
             "vbox": [

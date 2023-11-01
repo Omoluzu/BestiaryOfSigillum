@@ -1,7 +1,10 @@
-import os
+from PySide6.QtWidgets import (
+    QApplication, QMainWindow, QPushButton, QHBoxLayout, QWidget
+)
+from asyncslot import AsyncSlotRunner
+import sys
 
-from PyQt5.QtWidgets import QApplication
-from PyQt5.QtWidgets import QMainWindow
+from src.engine import RunGames
 
 
 class BoardGamesEngine(QMainWindow):
@@ -9,14 +12,20 @@ class BoardGamesEngine(QMainWindow):
         super().__init__()
 
         # Todo: Кнопка. Создание новых игр.
-        # Todo: Кнопка. Запуск игр
 
-        name_folder = 'Games'
-        for name_games in os.listdir(name_folder):
-            if not name_games.startswith("__"):
-                list_dir = os.listdir(os.path.join(name_folder, name_games))
-                if 'develop.py' in list_dir:
-                    print(name_games)
+        btn_run = QPushButton("Запуск игр")
+        btn_run.clicked.connect(self.run_games)
+
+        layout = QHBoxLayout()
+        layout.addWidget(btn_run)
+        widget = QWidget()
+        widget.setLayout(layout)
+        self.setCentralWidget(widget)
+
+    def run_games(self):
+        self.hide()
+        widget = RunGames()
+        widget.exec()
 
 
 if __name__ == '__main__':
@@ -24,4 +33,5 @@ if __name__ == '__main__':
     app = QApplication([])
     games = BoardGamesEngine()
     games.show()
-    app.exec_()
+    with AsyncSlotRunner():
+        sys.exit(app.exec())

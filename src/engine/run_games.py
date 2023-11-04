@@ -1,6 +1,7 @@
-from PySide6.QtWidgets import QVBoxLayout, QDialog, QPushButton
+from PySide6.QtWidgets import QVBoxLayout, QDialog
 
 from src.script import get_games_name_develop
+from .btn_run_games import RunGamesButton
 
 
 class RunGames(QDialog):
@@ -10,6 +11,6 @@ class RunGames(QDialog):
         layout = QVBoxLayout()
 
         for games_name in get_games_name_develop():
-            layout.addWidget(QPushButton(games_name))
+            layout.addWidget(RunGamesButton(games_name))
 
         self.setLayout(layout)

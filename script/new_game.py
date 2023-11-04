@@ -48,6 +48,9 @@ app.exec_()
 
 
 def new_game(name_game):
+    # Todo: Перенести в модуль src.scripts
+    # Todo: Генерация новой игры на основании PySide6
+
     upper_name = name_game.upper().replace(' ', '_')
     title_name = name_game.title().replace(' ', '')
 
@@ -72,7 +75,7 @@ def new_game(name_game):
         file.write(games_file.format(
             title_name=title_name, name_game=name_game))
 
-    with open(
+    with open(  # Todo: develop.py не используется движком.
             os.path.join(path, 'develop.py'), 'w', encoding='utf-8'
     ) as file:
         file.write(dev_file.format(

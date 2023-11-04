@@ -19,5 +19,5 @@ def get_games_name_develop(name_folder='Games') -> Generator[str]:
     for name_games in os.listdir(name_folder):
         if not name_games.startswith("__"):
             list_dir = os.listdir(os.path.join(name_folder, name_games))
-            if 'develop.py' in list_dir:
+            if 'develop.py' in list_dir:  # Todo: develop.py для движка не нужен. Надо придумать новый вариант получения игр для запуска.
                 yield name_games

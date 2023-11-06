@@ -25,7 +25,7 @@ class WrapperGames(QMainWindow):
 
     def start(self):
         """ Активация приложения """
-        self.widget.action = self
+        self.app.action = self
         self.parent_widget and self.parent_widget.close()
         self.show()
 

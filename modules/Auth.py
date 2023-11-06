@@ -108,7 +108,7 @@ class GuiAuth(QDialog):
             self.close()
             self.widget.client.user = data['login']  # Todo: Нафига client'у информация о пользователе ?
 
-            board_list = BoardgamesList(client=self.widget.client)
+            board_list = BoardgamesList(widget=self.widget)
             board_list.start(user_connect=True)
 
         else:

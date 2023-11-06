@@ -22,7 +22,6 @@ class Client:
     protocol: ClientProtocol
 
     def __init__(self, widget):
-        self.version = __version__
         self.message = None  # Todo: Вроде бы не нужно
         self.action = None  # Todo: Проверить и избавиться от него либо перенести на BoardGames
 
@@ -68,6 +67,7 @@ class BoardGames:
         Основное приложение отвечающее за запуск Лобби комнаты и игровых сессий.
         Некий брокер
     """
+    version = __version__
     client: Client
     auth: GuiAuth
 

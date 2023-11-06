@@ -13,7 +13,7 @@ class WrapperGames(QMainWindow):
     def __init__(self, client, data):
         super().__init__()
 
-        self.client = client
+        self.client = client  # Todo: А нужен ли тут client, cкорее всего здесь нужен parent_widget
         self.data = data
 
         self.setWindowTitle(f"{self.title} ({self.version_game})")

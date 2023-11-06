@@ -16,19 +16,14 @@ class BoardgamesList(QDialog):
     """
 
     @wrapper_widget
-    def __init__(self, client):
+    def __init__(self, widget):
         super().__init__()
-        self.client = client  # Todo: Переделка на widget
+        self.widget = widget
 
-        self.setWindowTitle(f"BoardGames v{self.client.version}")
-
-        # self.config = {
-        #     "title": "BoardGames"
-        # }
+        self.setWindowTitle(f"BoardGames v{self.widget.version}")
 
         self.create_boardgames = BoardGamesCreate(parent=self)
-
-        self.list_boardgames = ListCreateGames(self.client)
+        self.list_boardgames = ListCreateGames(self.widget.client)
 
         scroll = QScrollArea()
         scroll.setFixedWidth(320)
@@ -93,8 +88,8 @@ class BoardgamesList(QDialog):
         data = self.create_boardgames.game_settings
 
         if data:
-            data['user'] = self.client.user
-            self.client.send_data(data)
+            data['user'] = self.widget.client.user  # Todo client.user
+            self.widget.client.send_data(data)  # Todo client.send_data
 
     def action_push_message(self):
         """ Отправка сообщения """
@@ -103,11 +98,11 @@ class BoardgamesList(QDialog):
             data = {
                 "command": "message",
                 "message": self.message.text(),
-                "user": self.client.user
+                "user": self.widget.client.user  # Todo client.user
             }
 
             self.message.clear()
-            self.client.send_data(data)
+            self.widget.client.send_data(data)  # Todo client.send_data
 
     def append_text(self, content: dict):
         """ Печать сообщения в чат """
@@ -144,7 +139,7 @@ class BoardgamesList(QDialog):
         init version 1.0.1:
         """
         match data['create_user']:
-            case self.client.user:
+            case self.widget.client.user:  # Todo client.user
                 self.command_approved_game(data)
             case _:
                 self.command_waiting_game()
@@ -169,7 +164,7 @@ class BoardgamesList(QDialog):
             # print(data)
 
             # if games := GAMES.start_game.get(data['games']):
-            self.client.send_data({
+            self.widget.client.send_data({  # Todo client.send_data
                 "command": "approved_games",
                 # "info_game": games(data),
                 "info_game": None,
@@ -201,22 +196,22 @@ class BoardgamesList(QDialog):
             - Нет необходимости каждый раз прописывать игру. Игры беруться автоматически из словаря GAMES
         """
         if games := GAMES.game.get(data['games']):
-            games(self.client, data).start(close=False)
+            games(self.widget.client, data).start(close=False)
 
     def start(self, user_connect=False):
         """ Запуск стартового окна после успешной авторизации пользователя и не только"""
         self.show()
-        self.client.widget.action = self
+        self.widget.action = self
 
         if not user_connect:
-            self.client.send_data({
+            self.widget.client.send_data({  # Todo client.send_data
                 "command": "update_list_games",
-                "user": self.client.user
+                "user": self.widget.client.user  # Todo client.user
             })
         else:
-            self.client.send_data({
+            self.widget.client.send_data({  # Todo client.send_data
                 "command": "user_connect",
-                "user": self.client.user
+                "user": self.widget.client.user  # Todo client.user
             })
 
     def close(self):

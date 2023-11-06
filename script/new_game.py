@@ -2,21 +2,21 @@ import os
 from pathlib import Path
 
 
-scene_file = """from wrapperQWidget5.modules.scene.Scene import Scene
+scene_file = """from src.wrapper.view import MainScene
 
 
-class {title_name}Scene(Scene):
+class {title_name}Scene(MainScene):
     pass
 """
 
 
-games_file = """from src.wrapper.view import WrapperGames
+games_file = """from src.wrapper.view import MainGames
 from .Scene.Scene import {title_name}Scene
 
 __version__ = "1.0.0"
 
 
-class {title_name}Games(WrapperGames):
+class {title_name}Games(MainGames):
     __scene__ = {title_name}Scene
     __scene__size__ = (1920, 1080)
     title = "{name_game}"
@@ -32,7 +32,7 @@ class {title_name}Games(WrapperGames):
 """
 
 
-dev_file = """from PyQt5.QtWidgets import QApplication
+dev_file = """from PySide6.QtWidgets import QApplication
 from GAMES.{upper_name}.Games import {title_name}Games
 
 
@@ -49,7 +49,6 @@ app.exec_()
 
 def new_game(name_game):
     # Todo: Перенести в модуль src.scripts
-    # Todo: Генерация новой игры на основании PySide6
 
     upper_name = name_game.upper().replace(' ', '_')
     title_name = name_game.title().replace(' ', '')

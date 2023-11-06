@@ -47,8 +47,17 @@ app.exec_()
 """
 
 
-def new_game(name_game):
-    # Todo: Перенести в модуль src.scripts
+def new_game(name_game: str) -> None:
+    """
+    Описание:
+        Генерация шаблона пустой игры на основании её наименования.
+        Игра будет создана в директории Games.
+
+    Parameters:
+        name_game (str) - Имя игры, на основании которой будет создана новая игра.
+    """
+    assert isinstance(name_game, str), (
+        f"new_game: Параметр name_game должен быть str в не {type(name_game)} ")
 
     upper_name = name_game.upper().replace(' ', '_')
     title_name = name_game.title().replace(' ', '')
@@ -59,7 +68,7 @@ def new_game(name_game):
 
     if os.path.exists(path):
         print(f"Игра и именем {name_game}, уже присутствует в системе")
-        exit(1)
+        exit(1)  # Todo: raisе при невозможности создания новой игры
 
     os.mkdir(path)
     os.mkdir(path_scene)

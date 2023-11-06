@@ -23,6 +23,7 @@ def formatted_data_received(data: bytes) -> list:
 
     new version 1.0.2
     """
+    # Todo: вынести в src.scripts
     for message in data.decode().split("}{"):
         if not message.endswith("}"):
             message = message + "}"
@@ -77,10 +78,11 @@ class ClientProtocol(asyncio.Protocol):
 
 
 class Client:
+    # Todo: Вынести в отдельный файл
     protocol: ClientProtocol
     auth: GuiAuth
     register: GuiRegistration
-    boardgames_list: BoardgamesList
+    boardgames_list: BoardgamesList  # Todo: Тут не должен быть. Переименовать в app наверное. Подумать
 
     def __init__(self):
         self.version = __version__
@@ -88,7 +90,7 @@ class Client:
         self.action = None
 
         self.auth = GuiAuth(client=self)  # Экземпляр приложения авторизации
-        self.register = GuiRegistration(client=self)  # Экземпляр приложения реистрации
+        self.register = GuiRegistration(client=self)  # Экземпляр приложения регистрации
         self.boardgames_list = BoardgamesList(client=self)
 
     def __repr__(self):

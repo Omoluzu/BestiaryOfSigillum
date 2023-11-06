@@ -12,51 +12,10 @@ from modules.CheckSettings import CheckSettings
 from modules.Registration import GuiRegistration
 from modules.configControl.configControl import Config
 from modules.LobbyRoom.BoardGamesList import BoardgamesList
-from src.script import split_data_received
+from src.client import ClientProtocol
 
 
 __version__ = '1.0.2'
-
-
-class ClientProtocol(asyncio.Protocol):
-    # Todo: Вынести в отдельный файл
-    transport: asyncio.transports.Transport
-    window: 'AppStart'
-    user: str = None  # Имя авторизированного пользователя
-
-    def __init__(self, chat: 'AppStart'):
-        self.window = chat
-
-    def __repr__(self):
-        return f"{self.__class__.__name__} ({self.user})"
-
-    def data_received(self, data: bytes):
-        """
-        Принимает сообщение
-        """
-        for message in split_data_received(data):
-            data_json = json.loads(message)
-            print(f"---> {data_json}")
-            self.window.action.data_received(data_json)
-
-    def send_data(self, message: str):
-        """ Отправляет сообщение """
-        # print(type(message), message)
-        # print(len(message.encode('utf-8')), sys.getsizeof(message.encode('utf-8')))
-        encoded = message.encode('utf-8')
-        # print(f"Размер передаваемого пакета = {len(encoded)}, содержимое {encoded}")
-        # print(struct.pack('>I', len(encoded)))
-        # print(struct.pack_into('>I', encoded))
-        print(f"<--- {message}")
-        self.transport.write(encoded)
-
-    def connection_made(self, transport: asyncio.transports.Transport):
-        # self.window.append_text("Подключенно")
-        self.transport = transport
-
-    def connection_lost(self, exception):
-        # self.window.append_text("Отключенно")
-        pass
 
 
 class Client:

@@ -9,7 +9,6 @@ from asyncqt import QEventLoop
 
 from modules.Auth import GuiAuth
 from modules.CheckSettings import CheckSettings
-from modules.Registration import GuiRegistration
 from modules.configControl.configControl import Config
 from modules.LobbyRoom.BoardGamesList import BoardgamesList
 from src.client import ClientProtocol
@@ -22,15 +21,14 @@ __version__ = '1.0.2'
 class Client:
     # Todo: Вынести в отдельный файл
     protocol: ClientProtocol
-    register: GuiRegistration
     boardgames_list: BoardgamesList  # Todo: Тут не должен быть. Переименовать в app наверное. Подумать
 
-    def __init__(self):
+    def __init__(self, widget):
         self.version = __version__
         self.message = None  # Todo: Вроде бы не нужно
         self.action = None  # Todo: Проверить и избавиться от него либо перенести на BoardGames
 
-        self.register = GuiRegistration(client=self)  # Todo: Запуск из GuiAuth()
+        self.widget = widget
         self.boardgames_list = BoardgamesList(client=self)  # Todo: Запуск из GuiAuth()
 
     def __repr__(self):
@@ -75,12 +73,12 @@ class BoardGames:
     """
     client: Client
     auth: GuiAuth
-    # register: GuiRegistration
     # boardgames_list: BoardgamesList
 
-    def __init__(self, client: Client):
-        self.client = client
-        self.auth = GuiAuth(client=self.client)
+    def __init__(self):
+        self.action = None
+        self.client = Client(self)
+        self.auth = GuiAuth(self)
 
     async def start(self):
         """
@@ -103,7 +101,7 @@ if __name__ == "__main__":
     loop = QEventLoop(app)
     asyncio.set_event_loop(loop)
 
-    board = BoardGames(client=Client())
+    board = BoardGames()
 
     loop.create_task(board.start())
     loop.run_forever()

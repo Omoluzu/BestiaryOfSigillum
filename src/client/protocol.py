@@ -24,7 +24,7 @@ class ClientProtocol(asyncio.Protocol):
         for message in split_data_received(data):
             data_json = json.loads(message)
             print(f"---> {data_json}")
-            self.client.action.data_received(data_json)
+            self.client.widget.action.data_received(data_json)
 
     def send_data(self, message: str):  # Todo: определить типизацию
         """ Отправляет сообщение """

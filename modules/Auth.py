@@ -3,11 +3,15 @@
 
 import base64
 
-from wrapperQWidget5.WrapperWidget import wrapper_widget
-from PyQt5.QtWidgets import *
+from PyQt5.QtWidgets import (
+    QDialog, QShortcut, QLineEdit, QPushButton, QLabel, QMessageBox
+)
 from PyQt5.QtGui import QKeySequence
+from wrapperQWidget5.WrapperWidget import wrapper_widget
+
 
 from modules.Settings import Settings
+from modules.Registration import GuiRegistration
 
 from images import recource
 
@@ -15,18 +19,14 @@ from images import recource
 class GuiAuth(QDialog):
     """ Главный виджет """
     client: 'Client'
-    register: 'Registration'
 
     @wrapper_widget
-    def __init__(self, client):
-        super().__init__()
+    def __init__(self, widget, *args, **kwargs):
+        super().__init__(*args, **kwargs)
 
-        self.client = client
+        self.widget = widget
 
         self.setWindowTitle("Авторизация")
-        # self.config = {
-        #     "title": "Авторизация"
-        # }
 
         self.setGeometry(700, 450, 300, 100)
 
@@ -68,10 +68,10 @@ class GuiAuth(QDialog):
         }
 
     def start(self):
-        """ Запус приложения """
+        """ Запуск приложения """
 
         self.show()
-        self.client.action = self
+        self.widget.action = self
 
     def connect(self):
         """ Клиент успешно подключен к серверу """
@@ -88,12 +88,17 @@ class GuiAuth(QDialog):
             "password": (base64.b64encode(self.password.text().encode())).decode()
         }
 
-        self.client.send_data(data)
+        self.widget.client.send_data(data)
 
     def action_get_register(self):
-        """ Вывод поля для регистрации пользователя """
+        """
+        Description:
+            Активация виджета регистрации новых пользователей.
+        """
         self.hide()
-        self.client.register.start()
+
+        register = GuiRegistration(self.widget)
+        register.start()
 
     def data_received(self, data: dict):
         if data['auth']:
@@ -102,8 +107,8 @@ class GuiAuth(QDialog):
             MessageInformation(message)
 
             self.close()
-            self.client.user = data['login']
-            self.client.boardgames_list.start(user_connect=True)
+            self.widget.client.user = data['login']  # Todo: Нафига client'у информация о пользователе ?
+            self.widget.client.boardgames_list.start(user_connect=True)
 
         else:
             self.password.setText("")

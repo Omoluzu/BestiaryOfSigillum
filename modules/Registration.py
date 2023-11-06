@@ -2,16 +2,20 @@
 # -*- coding: utf-8 -*-
 
 import base64
-from PyQt5.QtWidgets import *
+
+from PyQt5.QtWidgets import (
+    QMainWindow, QVBoxLayout, QHBoxLayout, QLabel,
+    QLineEdit, QPushButton, QWidget, QMessageBox
+)
 
 
 class GuiRegistration(QMainWindow):
     """ Главный виджет """
 
-    def __init__(self, client):
-        super().__init__()
+    def __init__(self, widget, *args, **kwargs):
+        super().__init__(*args, **kwargs)
 
-        self.client = client
+        self.widget = widget
 
         self.setWindowTitle("Регистрация")
         self.setGeometry(700, 450, 300, 100)
@@ -67,12 +71,15 @@ class GuiRegistration(QMainWindow):
     def start(self):
         """ Запуск приложения """
         self.show()
-        self.client.action = self
+        self.widget.action = self
 
-    def action_return(self):
-        """ Возвращение на авторизацию """
+    def action_return(self) -> None:
+        """
+        Description:
+            Закрытие приложения регистрации и открытия файла авторизации
+        """
         self.close()
-        self.client.auth.start()
+        self.widget.auth.start()
 
     def action_registration(self):
         """ Регистрация нового пользователя """
@@ -83,7 +90,7 @@ class GuiRegistration(QMainWindow):
                     "login": self.login.text(),
                     "password": (base64.b64encode(self.password_one.text().encode())).decode()
                 }
-                self.client.send_data(data)
+                self.widget.client.send_data(data)
             else:
                 MessageInformation(text="Вы ввели пустой Логин")
         else:

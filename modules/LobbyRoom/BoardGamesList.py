@@ -81,6 +81,13 @@ class BoardgamesList(QDialog):
             case _:
                 print(f"Необработанное сообщение: {data}\n")
 
+    def send_data(self, *args, **kwargs) -> None:
+        """
+        Description:
+            Отправка сообщения на сервер
+        """
+        self.widget.send_data(*args, **kwargs)
+
     def action_create_game(self):
         """ Запуск окна на создание игры """
         self.create_boardgames.exec_()
@@ -89,7 +96,7 @@ class BoardgamesList(QDialog):
 
         if data:
             data['user'] = self.widget.client.user  # Todo client.user
-            self.widget.client.send_data(data)  # Todo client.send_data
+            self.send_data(data)
 
     def action_push_message(self):
         """ Отправка сообщения """
@@ -102,7 +109,7 @@ class BoardgamesList(QDialog):
             }
 
             self.message.clear()
-            self.widget.client.send_data(data)  # Todo client.send_data
+            self.send_data(data)
 
     def append_text(self, content: dict):
         """ Печать сообщения в чат """
@@ -135,8 +142,6 @@ class BoardgamesList(QDialog):
 
         Parameters:
             ::data (dict) - Информация с сервера.
-
-        init version 1.0.1:
         """
         match data['create_user']:
             case self.widget.client.user:  # Todo client.user
@@ -164,7 +169,7 @@ class BoardgamesList(QDialog):
             # print(data)
 
             # if games := GAMES.start_game.get(data['games']):
-            self.widget.client.send_data({  # Todo client.send_data
+            self.send_data({
                 "command": "approved_games",
                 # "info_game": games(data),
                 "info_game": None,
@@ -204,12 +209,12 @@ class BoardgamesList(QDialog):
         self.widget.action = self
 
         if not user_connect:
-            self.widget.client.send_data({  # Todo client.send_data
+            self.send_data({
                 "command": "update_list_games",
                 "user": self.widget.client.user  # Todo client.user
             })
         else:
-            self.widget.client.send_data({  # Todo client.send_data
+            self.send_data({
                 "command": "user_connect",
                 "user": self.widget.client.user  # Todo client.user
             })

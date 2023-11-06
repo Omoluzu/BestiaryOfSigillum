@@ -24,7 +24,7 @@ class WrapperGames(QMainWindow):
 
     def start(self, close=True):
         """ Активация приложения """
-        self.client.action = self
+        self.client.widget.action = self  # Todo: action должен быть у parent_widget (widget)
         if close:
             self.client.boardgames_list.close()  # Todo: Убрать отсюда boardgames_list.close()
 

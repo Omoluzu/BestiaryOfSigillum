@@ -34,8 +34,14 @@ class Client:
         self.protocol = ClientProtocol(self)
         return self.protocol
 
-    def send_data(self, data: dict):
-        """ Отправка сообщения на сервер """
+    def send_data(self, data: dict) -> None:
+        """
+        Description:
+            Отправка сообщения на сервер
+
+        Parameters:
+            data (dict) - Сообщение которое необходимо отправить на сервер.
+        """
         self.protocol.send_data(json.dumps(data))
 
     async def start(self):
@@ -75,6 +81,13 @@ class BoardGames:
         self.action = None
         self.client = Client(self)
         self.auth = GuiAuth(self)
+
+    def send_data(self, *args, **kwargs) -> None:
+        """
+        Description:
+            Отправка сообщения на сервер
+        """
+        self.client.send_data(*args, **kwargs)
 
     async def start(self):
         """

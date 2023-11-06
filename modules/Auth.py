@@ -87,7 +87,7 @@ class GuiAuth(QDialog):
             "password": (base64.b64encode(self.password.text().encode())).decode()
         }
 
-        self.widget.client.send_data(data)
+        self.widget.send_data(data)
 
     def action_get_register(self):
         """

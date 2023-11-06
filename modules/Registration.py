@@ -90,7 +90,7 @@ class GuiRegistration(QMainWindow):
                     "login": self.login.text(),
                     "password": (base64.b64encode(self.password_one.text().encode())).decode()
                 }
-                self.widget.client.send_data(data)
+                self.widget.send_data(data)
             else:
                 MessageInformation(text="Вы ввели пустой Логин")
         else:

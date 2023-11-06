@@ -7,33 +7,19 @@ import asyncio
 from PyQt5.QtWidgets import QApplication
 from asyncqt import QEventLoop
 
-from modules.configControl.configControl import Config
 from modules.Auth import GuiAuth
-from modules.Registration import GuiRegistration
 from modules.CheckSettings import CheckSettings
+from modules.Registration import GuiRegistration
+from modules.configControl.configControl import Config
 from modules.LobbyRoom.BoardGamesList import BoardgamesList
+from src.script import split_data_received
 
 
 __version__ = '1.0.2'
 
 
-def formatted_data_received(data: bytes) -> list:
-    """
-    Форматирование поступающего сообщения
-
-    new version 1.0.2
-    """
-    # Todo: вынести в src.scripts
-    for message in data.decode().split("}{"):
-        if not message.endswith("}"):
-            message = message + "}"
-        if not message.startswith("{"):
-            message = "{" + message
-
-        yield message
-
-
 class ClientProtocol(asyncio.Protocol):
+    # Todo: Вынести в отдельный файл
     transport: asyncio.transports.Transport
     window: 'AppStart'
     user: str = None  # Имя авторизированного пользователя
@@ -47,12 +33,8 @@ class ClientProtocol(asyncio.Protocol):
     def data_received(self, data: bytes):
         """
         Принимает сообщение
-
-        new version 1.0.0
-        update version 1.0.2
-            - Ввел дополнительное форматирование поступающего сообщения (Костыльное решение)
         """
-        for message in formatted_data_received(data):
+        for message in split_data_received(data):
             data_json = json.loads(message)
             print(f"---> {data_json}")
             self.window.action.data_received(data_json)
@@ -122,7 +104,7 @@ class Client:
                 del _config
 
                 await asyncio.wait_for(coroutine, 1000)
-                self.auth.connect()
+                self.auth.connect()  # Todo: Решить как запускать приложение обойдя app Client. То есть Client должен быть частью self.auth а не наоборот.
                 connect = True
             except ConnectionRefusedError:
                 check = CheckSettings()

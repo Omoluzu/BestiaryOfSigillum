@@ -10,7 +10,6 @@ from asyncqt import QEventLoop
 from modules.Auth import GuiAuth
 from modules.CheckSettings import CheckSettings
 from modules.configControl.configControl import Config
-from modules.LobbyRoom.BoardGamesList import BoardgamesList
 from src.client import ClientProtocol
 
 
@@ -21,7 +20,6 @@ __version__ = '1.0.2'
 class Client:
     # Todo: Вынести в отдельный файл
     protocol: ClientProtocol
-    boardgames_list: BoardgamesList  # Todo: Тут не должен быть. Переименовать в app наверное. Подумать
 
     def __init__(self, widget):
         self.version = __version__
@@ -29,7 +27,6 @@ class Client:
         self.action = None  # Todo: Проверить и избавиться от него либо перенести на BoardGames
 
         self.widget = widget
-        self.boardgames_list = BoardgamesList(client=self)  # Todo: Запуск из GuiAuth()
 
     def __repr__(self):
         return self.__class__.__name__
@@ -73,7 +70,6 @@ class BoardGames:
     """
     client: Client
     auth: GuiAuth
-    # boardgames_list: BoardgamesList
 
     def __init__(self):
         self.action = None

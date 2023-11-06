@@ -18,7 +18,7 @@ class BoardgamesList(QDialog):
     @wrapper_widget
     def __init__(self, client):
         super().__init__()
-        self.client = client
+        self.client = client  # Todo: Переделка на widget
 
         self.setWindowTitle(f"BoardGames v{self.client.version}")
 
@@ -201,12 +201,12 @@ class BoardgamesList(QDialog):
             - Нет необходимости каждый раз прописывать игру. Игры беруться автоматически из словаря GAMES
         """
         if games := GAMES.game.get(data['games']):
-            games(self.client, data).start()
+            games(self.client, data).start(close=False)
 
     def start(self, user_connect=False):
         """ Запуск стартового окна после успешной авторизации пользователя и не только"""
         self.show()
-        self.client.action = self
+        self.client.widget.action = self
 
         if not user_connect:
             self.client.send_data({

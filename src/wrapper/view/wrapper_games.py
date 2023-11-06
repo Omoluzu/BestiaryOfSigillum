@@ -26,7 +26,7 @@ class WrapperGames(QMainWindow):
         """ Активация приложения """
         self.client.action = self
         if close:
-            self.client.boardgames_list.close()
+            self.client.boardgames_list.close()  # Todo: Убрать отсюда boardgames_list.close()
 
         self.show()
 
@@ -70,5 +70,5 @@ class WrapperGames(QMainWindow):
 
         new version 1.0.1
         """
-        self.client.boardgames_list.start()
+        # self.client.boardgames_list.start()    # Todo: Убрать отсюда boardgames_list.start()
         self.close()

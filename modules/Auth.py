@@ -3,22 +3,21 @@
 
 import base64
 
+from PyQt5.QtGui import QKeySequence
 from PyQt5.QtWidgets import (
     QDialog, QShortcut, QLineEdit, QPushButton, QLabel, QMessageBox
 )
-from PyQt5.QtGui import QKeySequence
-from wrapperQWidget5.WrapperWidget import wrapper_widget
-
 
 from modules.Settings import Settings
 from modules.Registration import GuiRegistration
+from wrapperQWidget5.WrapperWidget import wrapper_widget
+from modules.LobbyRoom.BoardGamesList import BoardgamesList
 
 from images import recource
 
 
 class GuiAuth(QDialog):
     """ Главный виджет """
-    client: 'Client'
 
     @wrapper_widget
     def __init__(self, widget, *args, **kwargs):
@@ -108,7 +107,9 @@ class GuiAuth(QDialog):
 
             self.close()
             self.widget.client.user = data['login']  # Todo: Нафига client'у информация о пользователе ?
-            self.widget.client.boardgames_list.start(user_connect=True)
+
+            board_list = BoardgamesList(client=self.widget.client)
+            board_list.start(user_connect=True)
 
         else:
             self.password.setText("")

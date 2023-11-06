@@ -8,13 +8,14 @@ __version__ = "1.1.0"
 class MainGames(QMainWindow):
     __scene__ = None
     __scene__size__ = (1110, 600)
-    title = "WrapperGames"
+    title = "MainGames"
     version_game = "0.0.0"
 
-    def __init__(self, client, data):
+    def __init__(self, app, data, parent_widget=None):
         super().__init__()
 
-        self.client = client
+        self.app = app
+        self.parent_widget = parent_widget
         self.data = data
 
         self.setWindowTitle(f"{self.title} ({self.version_game})")
@@ -23,19 +24,20 @@ class MainGames(QMainWindow):
         self.setCentralWidget(self.widget)
         self.scene = self.__scene__(self, size=self.__scene__size__)
 
-    def start(self, close=True):
+    def start(self):
         """ Активация приложения """
-        self.client.action = self
-        if close:
-            self.client.boardgames_list.close()
-
+        self.widget.action = self
+        self.parent_widget and self.parent_widget.close()
         self.show()
 
     def data_received(self, data: dict) -> None:
         """
         Точка входа поступающих сообщений от сервера
         """
-        if data['command'] == 'game_update' and self.data['game_id'] == data['game_id']:
+        if all([
+            data['command'] == 'game_update',
+            self.data['game_id'] == data['game_id']
+        ]):
             self.get_data(data)
 
     @abstractmethod
@@ -43,10 +45,10 @@ class MainGames(QMainWindow):
         pass
 
     def send_data(self, command, test=False):
-        self.client.send_data({
+        self.app.send_data({
             'test': test,
             'command': 'game_update',
-            'user': self.client.user,
+            'user': self.app.client.user,
             'games': self.data['games'],
             'game_id': self.data['game_id'],
             'game_command': command
@@ -65,5 +67,5 @@ class MainGames(QMainWindow):
         """
         Действие на закрытие игры
         """
-        self.client.boardgames_list.start()
+        self.parent_widget and self.parent_widget.start()
         self.close()

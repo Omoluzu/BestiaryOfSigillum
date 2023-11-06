@@ -1,7 +1,7 @@
 from abc import abstractmethod
 from PyQt5.QtWidgets import QMainWindow, QWidget
 
-__version__ = "1.0.1"
+__version__ = "1.0.2"
 
 
 class WrapperGames(QMainWindow):
@@ -10,10 +10,11 @@ class WrapperGames(QMainWindow):
     title = "WrapperGames"
     version_game = "0.0.0"
 
-    def __init__(self, client, data):
+    def __init__(self, app, data, parent_widget=None):
         super().__init__()
 
-        self.client = client  # Todo: А нужен ли тут client, cкорее всего здесь нужен parent_widget
+        self.app = app
+        self.parent_widget = parent_widget
         self.data = data
 
         self.setWindowTitle(f"{self.title} ({self.version_game})")
@@ -22,23 +23,20 @@ class WrapperGames(QMainWindow):
         self.setCentralWidget(self.widget)
         self.scene = self.__scene__(self, size=self.__scene__size__)
 
-    def start(self, close=True):
+    def start(self):
         """ Активация приложения """
-        self.client.widget.action = self  # Todo: action должен быть у parent_widget (widget)
-        if close:
-            self.client.boardgames_list.close()  # Todo: Убрать отсюда boardgames_list.close()
-
+        self.widget.action = self
+        self.parent_widget and self.parent_widget.close()
         self.show()
 
     def data_received(self, data: dict) -> None:
         """
         Точка входа поступающих сообщений от сервера
-
-        init version 1.0.0:
-        update version 1.0.1:
-            - Добавлена проверка на принимаемую команду с сервера game_update
         """
-        if data['command'] == 'game_update' and self.data['game_id'] == data['game_id']:
+        if all([
+                data['command'] == 'game_update',
+                self.data['game_id'] == data['game_id']
+        ]):
             self.get_data(data)
 
     @abstractmethod
@@ -46,10 +44,10 @@ class WrapperGames(QMainWindow):
         pass
 
     def send_data(self, command, test=False):
-        self.client.send_data({
+        self.app.send_data({
             'test': test,
             'command': 'game_update',
-            'user': self.client.user,
+            'user': self.app.client.user,
             'games': self.data['games'],
             'game_id': self.data['game_id'],
             'game_command': command
@@ -67,8 +65,6 @@ class WrapperGames(QMainWindow):
     def closeEvent(self, event):
         """
         Действие на закрытие игры
-
-        new version 1.0.1
         """
-        # self.client.boardgames_list.start()    # Todo: Убрать отсюда boardgames_list.start()
+        self.parent_widget and self.parent_widget.start()
         self.close()

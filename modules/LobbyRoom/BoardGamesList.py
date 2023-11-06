@@ -64,15 +64,9 @@ class BoardgamesList(QDialog):
 
         Parameters:
             ::data (dict) - Информация с сервера.
-
-        init version 1.0.0:
-        update version 1.0.1:
-            - Проверка условий реализованна с помощью match case
-            - Переопределен вызов команды для подключения к игре с command_game_connect на command_game_info
-            - Объединен вывод информационного сообщения о небрабатываемом типе сообщении.
         """
         match data['command']:
-            case "message":  # Отправка сообщеиня в чат
+            case "message":  # Отправка сообщения в чат
                 self.append_text(data)
             case "update_list_games":  # Запрос на обновление списка текущих игр
                 self.list_boardgames.update_list_games(data)
@@ -113,21 +107,21 @@ class BoardgamesList(QDialog):
 
     def append_text(self, content: dict):
         """ Печать сообщения в чат """
-        self.chat.append(f"<html><b>{content['user']}</b> >> {content['message']}</html>")
+        self.chat.append(
+            f"<html><b>{content['user']}</b> >> {content['message']}</html>")
 
     def command_game_info(self, data: dict) -> None:
         """
         Description:
-            Проверка на наличии информаии об игре.
-            Если информация есть то запускаем игру
-            Если информации нету то выводим информационное окно об ожидании или подтверждения игры.
+            Проверка на наличии информации об игре.
+            Если информация есть, то запускаем игру
+            Если информации нет, то выводим информационное окно об ожидании
+                или подтверждения игры.
 
         Parameters:
             ::data (dict) - Информация с сервера.
-
-        init version 1.0.1:
         """
-        match bool(data['game_info']):  # Проверка на наличие информации об игре.
+        match bool(data['game_info']):
             case True:  # Информация об игре есть
                 self.command_game_connect(data)
             case False:  # Информации об игре нет
@@ -136,9 +130,11 @@ class BoardgamesList(QDialog):
     def command_select_connect(self, data):
         """
         Description:
-            Проверка на то кто запускает игру, если нету информации об игре.
-            Если это делает игрок создавший игру, то он должен подтвердить создание игры
-            Если это делает игрок присоединивший к игре, то он ожидает подтверждения создания игры.
+            Проверка на то кто запускает игру, если нет информации об игре.
+            Если это делает игрок создавший игру, то он должен подтвердить
+                создание игры
+            Если это делает игрок присоединивший к игре, то он ожидает
+                подтверждения создания игры.
 
         Parameters:
             ::data (dict) - Информация с сервера.
@@ -152,26 +148,20 @@ class BoardgamesList(QDialog):
     def command_approved_game(self, data):
         """
         Description:
-            Вывод информационного диалога о подтверждении создния игры.
-            Если пользователь подтверждает создание игры. То происходит запрос на получение стaртовой информации об игре
-                и отправка информации на сервер. Для создани игры.
+            Вывод информационного диалога о подтверждении создания игры.
+            Если пользователь подтверждает создание игры. То происходит запрос
+                на получение начальной информации об игре
+                и отправка информации на сервер. Для создания игры.
 
         Parameters:
             ::data (dict) - Информация с сервера.
 
-        init version 1.0.1:
-        update version 1.0.2
         """
         approve = ApprovedGameDialog()
         approve.exec_()
         if approve.start_game:
-            # print(f'True approved game {data["games"]}')
-            # print(data)
-
-            # if games := GAMES.start_game.get(data['games']):
             self.send_data({
                 "command": "approved_games",
-                # "info_game": games(data),
                 "info_game": None,
                 "game_id": data['game_id']
             })
@@ -180,9 +170,8 @@ class BoardgamesList(QDialog):
     def command_waiting_game():
         """
         Description:
-            Вывод информационного диалога о ожидании создания игры, создателем игры.
-
-        init version 1.0.1:
+            Вывод информационного диалога ожидания создания игры,
+                создателем игры.
         """
         waiting = WaitingGameDialog()
         waiting.exec_()
@@ -190,21 +179,19 @@ class BoardgamesList(QDialog):
     def command_game_connect(self, data):
         """
         Description:
-            Инициализация подключения к выбраной игре.
+            Инициализация подключения к выбранной игре.
 
         Parameters:
             ::data (dict) - Информация с сервера.
-
-        init version 1.0.0:
-        update version 1.0.1:
-            - Разделения метода. Текущий метод теперь только инициализирует запуск игр.
-            - Нет необходимости каждый раз прописывать игру. Игры беруться автоматически из словаря GAMES
         """
         if games := GAMES.game.get(data['games']):
-            games(self.widget.client, data).start(close=False)
+            games(app=self.widget, data=data, parent_widget=self).start()
 
     def start(self, user_connect=False):
-        """ Запуск стартового окна после успешной авторизации пользователя и не только"""
+        """
+        Запуск стартового окна после успешной авторизации пользователя
+            и не только
+        """
         self.show()
         self.widget.action = self
 
@@ -220,7 +207,7 @@ class BoardgamesList(QDialog):
             })
 
     def close(self):
-        """ Cворачивание приложения """
+        """ Сворачивание приложения """
         self.hide()
 
 

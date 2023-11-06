@@ -23,7 +23,6 @@ class Client:
 
     def __init__(self, widget):
         self.message = None  # Todo: Вроде бы не нужно
-        self.action = None  # Todo: Проверить и избавиться от него либо перенести на BoardGames
 
         self.widget = widget
 

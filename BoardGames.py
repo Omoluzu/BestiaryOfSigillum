@@ -16,23 +16,22 @@ from src.client import ClientProtocol
 
 
 __version__ = '1.0.2'
+# Todo: ChangeLog please
 
 
 class Client:
     # Todo: Вынести в отдельный файл
     protocol: ClientProtocol
-    auth: GuiAuth
     register: GuiRegistration
     boardgames_list: BoardgamesList  # Todo: Тут не должен быть. Переименовать в app наверное. Подумать
 
     def __init__(self):
         self.version = __version__
-        self.message = None
-        self.action = None
+        self.message = None  # Todo: Вроде бы не нужно
+        self.action = None  # Todo: Проверить и избавиться от него либо перенести на BoardGames
 
-        self.auth = GuiAuth(client=self)  # Экземпляр приложения авторизации
-        self.register = GuiRegistration(client=self)  # Экземпляр приложения регистрации
-        self.boardgames_list = BoardgamesList(client=self)
+        self.register = GuiRegistration(client=self)  # Todo: Запуск из GuiAuth()
+        self.boardgames_list = BoardgamesList(client=self)  # Todo: Запуск из GuiAuth()
 
     def __repr__(self):
         return self.__class__.__name__
@@ -47,8 +46,6 @@ class Client:
 
     async def start(self):
         """ Запускаем приложение """
-        self.auth.start()
-
         connect = False
         while not connect:
             try:
@@ -63,12 +60,36 @@ class Client:
                 del _config
 
                 await asyncio.wait_for(coroutine, 1000)
-                self.auth.connect()  # Todo: Решить как запускать приложение обойдя app Client. То есть Client должен быть частью self.auth а не наоборот.
                 connect = True
             except ConnectionRefusedError:
-                check = CheckSettings()
+                check = CheckSettings()  # Todo: Тут то же не должно быть вызова графической оболочки.
                 check.exec_()
                 continue
+
+
+class BoardGames:
+    """
+    Description:
+        Основное приложение отвечающее за запуск Лобби комнаты и игровых сессий.
+        Некий брокер
+    """
+    client: Client
+    auth: GuiAuth
+    # register: GuiRegistration
+    # boardgames_list: BoardgamesList
+
+    def __init__(self, client: Client):
+        self.client = client
+        self.auth = GuiAuth(client=self.client)
+
+    async def start(self):
+        """
+        Description:
+            Асинхронный запуск приложения.
+        """
+        self.auth.start()
+        await self.client.start()
+        self.auth.connect()
 
 
 if __name__ == "__main__":
@@ -82,7 +103,7 @@ if __name__ == "__main__":
     loop = QEventLoop(app)
     asyncio.set_event_loop(loop)
 
-    client = Client()
+    board = BoardGames(client=Client())
 
-    loop.create_task(client.start())
+    loop.create_task(board.start())
     loop.run_forever()

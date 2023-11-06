@@ -17,7 +17,7 @@ class RunGamesButton(QPushButton):
     def active(self) -> None:
         """
         Description:
-            Активация запуска приложения с игрой для разработки
+            Активация запуска приложения с игрой для разработки.
 
         """
 
@@ -29,6 +29,6 @@ class RunGamesButton(QPushButton):
             'KingdomDeathGames'  # Todo: Автоматическое получение наименование импортируемой игры
         )
 
-        games(client=client, data={}).start(close=False)  # Todo: WrapperGames на работу с PySide6
+        games(client=client, data={}).start(close=False)
 
         # Todo: При открытии игры скрывать RunGames и запускать дополнительное App которое будет управлять поведенем игры.

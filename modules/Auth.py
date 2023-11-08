@@ -96,7 +96,7 @@ class GuiAuth(QDialog):
         """
         self.hide()
 
-        register = GuiRegistration(self.app)
+        register = GuiRegistration(app=self.app)  # Todo: Запуск из под BoardGames
         register.start()
 
     def data_received(self, data: dict):
@@ -108,7 +108,7 @@ class GuiAuth(QDialog):
             self.close()
             self.app.user = data['login']
 
-            board_list = BoardgamesList(app=self.app)
+            board_list = BoardgamesList(app=self.app)  # Todo: Запуск из под BoardGames
             board_list.start(user_connect=True)
 
         else:

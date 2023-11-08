@@ -12,10 +12,10 @@ from PyQt5.QtWidgets import (
 class GuiRegistration(QMainWindow):
     """ Главный виджет """
 
-    def __init__(self, widget, *args, **kwargs):
+    def __init__(self, app, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        self.widget = widget
+        self.app = app
 
         self.setWindowTitle("Регистрация")
         self.setGeometry(700, 450, 300, 100)
@@ -71,7 +71,7 @@ class GuiRegistration(QMainWindow):
     def start(self):
         """ Запуск приложения """
         self.show()
-        self.widget.action = self
+        self.app.action = self
 
     def action_return(self) -> None:
         """
@@ -79,7 +79,7 @@ class GuiRegistration(QMainWindow):
             Закрытие приложения регистрации и открытия файла авторизации
         """
         self.close()
-        self.widget.auth.start()
+        self.app.auth.start()  # Todo: Управление через BoardGames
 
     def action_registration(self):
         """ Регистрация нового пользователя """
@@ -90,7 +90,7 @@ class GuiRegistration(QMainWindow):
                     "login": self.login.text(),
                     "password": (base64.b64encode(self.password_one.text().encode())).decode()
                 }
-                self.widget.send_data(data)
+                self.app.send_data(data)
             else:
                 MessageInformation(text="Вы ввели пустой Логин")
         else:

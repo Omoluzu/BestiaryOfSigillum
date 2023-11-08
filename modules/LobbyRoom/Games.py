@@ -20,10 +20,10 @@ class Games(QWidget):
     data: dict
 
     @wrapper_widget
-    def __init__(self, data, client):  # Todo: Не должен знать о сlient ничего
+    def __init__(self, data, brd_list):
         super().__init__()
-        self.client = client
 
+        self.brd_list = brd_list
         self.data = data
         self.game_config = json.loads(self.data['games_config'])
 
@@ -53,22 +53,19 @@ class Games(QWidget):
         """
         Обработка действия при двойном клике
 
-        ВЫзов текущего состояния создаваемой игры
-
-        :param event:
-        :return:
+        Вызов текущего состояния создаваемой игры
         """
 
         if self.data['status'] == "Active":
-            self.client.send_data({
+            self.brd_list.send_data({
                 "command": "game_connect",
                 "game_id": self.data['id'],
-                "user": self.client.widget.user,  # Todo: self.client.widget.user
+                "user": self.brd_list.user,
             })
 
         elif self.data['status'] == "Await":
-            games = GamesWidget(self.data, self.client)
+            games = GamesWidget(self.data, self.brd_list.app.client)  # Todo: self.brd_list.app.client
             games.exec_()
 
             if games.command:
-                self.client.send_data(games.command)
+                self.brd_list.send_data(games.command)

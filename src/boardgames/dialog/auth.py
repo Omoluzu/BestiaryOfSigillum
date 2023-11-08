@@ -116,7 +116,7 @@ class AuthDialog(QDialog):
             MessageInformation(data['exception'])
 
 
-class MessageInformation(QMessageBox):
+class MessageInformation(QMessageBox):  # Todo: Отдельный виджет
 
     def __init__(self, text):
         super().__init__()

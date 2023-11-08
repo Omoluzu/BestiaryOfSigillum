@@ -7,7 +7,7 @@ import asyncio
 from PyQt5.QtWidgets import QApplication
 from asyncqt import QEventLoop
 
-from modules.Auth import AuthDialog
+from src import boardgames
 from modules.CheckSettings import CheckSettings
 from modules.configControl.configControl import Config
 from src.client import ClientProtocol
@@ -77,7 +77,6 @@ class BoardGames:
     action = None
 
     client: Client
-    auth: AuthDialog
 
     def __init__(self):
         self.client = Client(self)
@@ -94,7 +93,7 @@ class BoardGames:
         Description:
             Запуск авторизации и подключение к серверу.
         """
-        auth = AuthDialog(self)
+        auth = boardgames.dialog.AuthDialog(self)
         auth.start()
 
         await self.client.start()

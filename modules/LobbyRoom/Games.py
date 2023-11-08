@@ -20,7 +20,7 @@ class Games(QWidget):
     data: dict
 
     @wrapper_widget
-    def __init__(self, data, client):
+    def __init__(self, data, client):  # Todo: Не должен знать о сlient ничего
         super().__init__()
         self.client = client
 
@@ -63,7 +63,7 @@ class Games(QWidget):
             self.client.send_data({
                 "command": "game_connect",
                 "game_id": self.data['id'],
-                "user": self.client.user,
+                "user": self.client.widget.user,  # Todo: self.client.widget.user
             })
 
         elif self.data['status'] == "Await":

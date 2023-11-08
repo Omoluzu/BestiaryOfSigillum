@@ -11,7 +11,7 @@ class Bye(SquareScene):
         super().__init__(scene, *args, **kwargs)
 
     def activated(self):
-        if self.scene.app.app.client.user == self.scene.active_player:  # Todo: Какой то кавардак с self.scene.app.app.client.user
+        if self.scene.app.app.user == self.scene.active_player:  # Todo: Какой то кавардак с self.scene.app.app.user
             if self.scene.active:
                 self.scene.active.deactivated()
 

@@ -24,7 +24,7 @@ class Client:
     def __init__(self, widget):
         self.message = None  # Todo: Вроде бы не нужно
 
-        self.widget = widget
+        self.widget = widget  # Todo: То же от неё надо избавиться
 
     def __repr__(self):
         return self.__class__.__name__
@@ -48,7 +48,7 @@ class Client:
         connect = False
         while not connect:
             try:
-                _config = Config()
+                _config = Config()  # Todo: Тут не должно быть вызова файла настроек
                 event_loop = asyncio.get_running_loop()
 
                 coroutine = event_loop.create_connection(
@@ -61,7 +61,7 @@ class Client:
                 await asyncio.wait_for(coroutine, 1000)
                 connect = True
             except ConnectionRefusedError:
-                check = CheckSettings()  # Todo: Тут то же не должно быть вызова графической оболочки.
+                check = CheckSettings()  # Todo: Тут не должно быть вызова графической оболочки.
                 check.exec_()
                 continue
 
@@ -73,11 +73,14 @@ class BoardGames:
         Некий брокер
     """
     version = __version__
+    user: str = None
+
     client: Client
     auth: GuiAuth
 
     def __init__(self):
         self.action = None
+
         self.client = Client(self)
         self.auth = GuiAuth(self)
 
@@ -106,10 +109,9 @@ if __name__ == "__main__":
     del config
 
     app = QApplication([])
-    loop = QEventLoop(app)
-    asyncio.set_event_loop(loop)
-
     board = BoardGames()
 
+    loop = QEventLoop(app)
+    asyncio.set_event_loop(loop)
     loop.create_task(board.start())
     loop.run_forever()

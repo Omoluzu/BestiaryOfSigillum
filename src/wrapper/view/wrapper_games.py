@@ -47,7 +47,7 @@ class WrapperGames(QMainWindow):
         self.app.send_data({
             'test': test,
             'command': 'game_update',
-            'user': self.app.client.user,
+            'user': self.app.user,
             'games': self.data['games'],
             'game_id': self.data['game_id'],
             'game_command': command

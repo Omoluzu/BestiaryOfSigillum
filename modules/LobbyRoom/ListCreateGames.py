@@ -16,7 +16,7 @@ class ListCreateGames(QWidget):
     Виджет вывода списка активных игр.
     """
 
-    def __init__(self, client):
+    def __init__(self, client):  # Todo: Не должен знать о сlient ничего
         super().__init__()
 
         self.client = client
@@ -35,7 +35,7 @@ class ListCreateGames(QWidget):
             self.layout.itemAt(i).widget().deleteLater()
 
         for games in data['list_games']:
-            if games['status'] == "Active" and self.client.user not in games['users']:
+            if games['status'] == "Active" and self.client.widget.user not in games['users']:  # Todo: self.client.widget.user
                 continue
 
             self.layout.addWidget(Games(games, self.client))

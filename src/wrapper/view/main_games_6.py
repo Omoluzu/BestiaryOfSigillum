@@ -26,7 +26,7 @@ class MainGames(QMainWindow):
 
     def start(self):
         """ Активация приложения """
-        self.widget.action = self
+        self.app.action = self
         self.parent_widget and self.parent_widget.close()
         self.show()
 
@@ -48,7 +48,7 @@ class MainGames(QMainWindow):
         self.app.send_data({
             'test': test,
             'command': 'game_update',
-            'user': self.app.client.user,
+            'user': self.app.user,
             'games': self.data['games'],
             'game_id': self.data['game_id'],
             'game_command': command

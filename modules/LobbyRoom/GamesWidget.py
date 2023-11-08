@@ -13,7 +13,7 @@ class GamesWidget(QDialog):
     games_info: dict
 
     @wrapper_widget
-    def __init__(self, games_info, client):
+    def __init__(self, games_info, client):  # Todo: Не должен знать о сlient ничего
         super(GamesWidget, self).__init__()
 
         self.command = {}
@@ -24,7 +24,7 @@ class GamesWidget(QDialog):
             "title": self.games_info['games']
         }
 
-        if client.user == self.games_info['create_user']:
+        if client.widget.user == self.games_info['create_user']:  # Todo: client.widget.user
             btn = QPushButton("Отмена игры")
             btn.clicked.connect(self.action_game_canceled)
         else:
@@ -48,7 +48,7 @@ class GamesWidget(QDialog):
         self.command = {
             "command": "game_canceled",
             "game_id": self.games_info['id'],
-            "user": self.client.user,
+            "user": self.client.widget.user,  # Todo: self.client.widget.user
             "games": self.games_info['games']
         }
         self.close()
@@ -63,7 +63,7 @@ class GamesWidget(QDialog):
         self.command = {
             "command": "game_join",
             "game_id": self.games_info['id'],
-            "user": self.client.user,
+            "user": self.client.widget.user,  # Todo: self.client.widget.user
             "games": self.games_info['games']
         }
         self.close()

@@ -20,10 +20,10 @@ class GuiAuth(QDialog):
     """ Главный виджет """
 
     @wrapper_widget
-    def __init__(self, widget, *args, **kwargs):
+    def __init__(self, app, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        self.widget = widget
+        self.app = app
 
         self.setWindowTitle("Авторизация")
 
@@ -70,7 +70,7 @@ class GuiAuth(QDialog):
         """ Запуск приложения """
 
         self.show()
-        self.widget.action = self
+        self.app.action = self
 
     def connect(self):
         """ Клиент успешно подключен к серверу """
@@ -87,7 +87,7 @@ class GuiAuth(QDialog):
             "password": (base64.b64encode(self.password.text().encode())).decode()
         }
 
-        self.widget.send_data(data)
+        self.app.send_data(data)
 
     def action_get_register(self):
         """
@@ -96,7 +96,7 @@ class GuiAuth(QDialog):
         """
         self.hide()
 
-        register = GuiRegistration(self.widget)
+        register = GuiRegistration(self.app)
         register.start()
 
     def data_received(self, data: dict):
@@ -106,9 +106,9 @@ class GuiAuth(QDialog):
             MessageInformation(message)
 
             self.close()
-            self.widget.client.user = data['login']  # Todo: Нафига client'у информация о пользователе ?
+            self.app.user = data['login']
 
-            board_list = BoardgamesList(widget=self.widget)
+            board_list = BoardgamesList(app=self.app)
             board_list.start(user_connect=True)
 
         else:

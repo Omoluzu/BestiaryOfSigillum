@@ -7,7 +7,7 @@ import asyncio
 from PyQt5.QtWidgets import QApplication
 from asyncqt import QEventLoop
 
-from modules.Auth import GuiAuth
+from modules.Auth import AuthDialog
 from modules.CheckSettings import CheckSettings
 from modules.configControl.configControl import Config
 from src.client import ClientProtocol
@@ -24,7 +24,7 @@ class Client:
     def __init__(self, widget):
         self.message = None  # Todo: Вроде бы не нужно
 
-        self.widget = widget  # Todo: То же от неё надо избавиться
+        self.widget = widget  # Todo: То же от неё надо избавиться (Использует Protocol)
 
     def __repr__(self):
         return self.__class__.__name__
@@ -74,15 +74,13 @@ class BoardGames:
     """
     version = __version__
     user: str = None
+    action = None
 
     client: Client
-    auth: GuiAuth
+    auth: AuthDialog
 
     def __init__(self):
-        self.action = None
-
         self.client = Client(self)
-        self.auth = GuiAuth(self)
 
     def send_data(self, *args, **kwargs) -> None:
         """
@@ -94,11 +92,14 @@ class BoardGames:
     async def start(self):
         """
         Description:
-            Асинхронный запуск приложения.
+            Запуск авторизации и подключение к серверу.
         """
-        self.auth.start()
+        auth = AuthDialog(self)
+        auth.start()
+
         await self.client.start()
-        self.auth.connect()
+
+        auth.connect()
 
 
 if __name__ == "__main__":

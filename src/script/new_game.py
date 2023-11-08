@@ -41,7 +41,7 @@ class Client:
 
 
 app = QApplication([])
-games = {title_name}Games(client=Client, data={data})
+games = {title_name}Games(client=Client, data={data})  # Todo: Тут больше не client
 games.start(close=False)
 app.exec_()
 """

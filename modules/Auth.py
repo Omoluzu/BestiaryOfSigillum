@@ -16,7 +16,7 @@ from modules.LobbyRoom.BoardGamesList import BoardgamesList
 from images import recource
 
 
-class GuiAuth(QDialog):
+class AuthDialog(QDialog):
     """ Главный виджет """
 
     @wrapper_widget

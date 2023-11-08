@@ -35,4 +35,4 @@ class ListCreateGames(QWidget):
             if games['status'] == "Active" and self.brd_list.user not in games['users']:
                 continue
 
-            self.layout.addWidget(Games(data=games, brd_list=self.brd_list))  # Fixme: self.brd_list.app.client
+            self.layout.addWidget(Games(data=games, brd_list=self.brd_list))

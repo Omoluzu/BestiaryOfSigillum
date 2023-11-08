@@ -29,6 +29,6 @@ class RunGamesButton(QPushButton):
             'KingdomDeathGames'  # Todo: Автоматическое получение наименование импортируемой игры
         )
 
-        games(client=client, data={}).start(close=False)
+        games(client=client, data={}).start(close=False)  # Todo: Тут больше не client
 
         # Todo: При открытии игры скрывать RunGames и запускать дополнительное App которое будет управлять поведенем игры.

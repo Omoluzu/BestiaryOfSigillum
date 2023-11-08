@@ -64,7 +64,7 @@ class Games(QWidget):
             })
 
         elif self.data['status'] == "Await":
-            games = GamesWidget(self.data, self.brd_list.app.client)  # Todo: self.brd_list.app.client
+            games = GamesWidget(games_info=self.data, brd_list=self.brd_list)
             games.exec_()
 
             if games.command:

@@ -24,7 +24,7 @@ class BoardgamesList(QDialog):
         self.setWindowTitle(f"BoardGames v{self.app.version}")
 
         self.create_boardgames = BoardGamesCreate(parent=self)
-        self.list_boardgames = ListCreateGames(self.app.client)
+        self.list_boardgames = ListCreateGames(self)
 
         scroll = QScrollArea()
         scroll.setFixedWidth(320)
@@ -57,6 +57,10 @@ class BoardgamesList(QDialog):
                 ]}
             ]
         }
+
+    @property
+    def user(self) -> str:
+        return self.app.user
 
     def data_received(self, data: dict) -> None:
         """

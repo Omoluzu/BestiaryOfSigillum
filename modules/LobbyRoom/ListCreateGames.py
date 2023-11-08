@@ -16,10 +16,9 @@ class ListCreateGames(QWidget):
     Виджет вывода списка активных игр.
     """
 
-    def __init__(self, client):  # Todo: Не должен знать о сlient ничего
+    def __init__(self, brd_list):
         super().__init__()
-
-        self.client = client
+        self.brd_list = brd_list
 
         self.setFixedWidth(310)
         self.layout = QVBoxLayout(self)
@@ -28,14 +27,12 @@ class ListCreateGames(QWidget):
     def update_list_games(self, data: dict) -> None:
         """
 
-        :param data:
-        :return:
         """
         for i in range(self.layout.count()):
             self.layout.itemAt(i).widget().deleteLater()
 
         for games in data['list_games']:
-            if games['status'] == "Active" and self.client.widget.user not in games['users']:  # Todo: self.client.widget.user
+            if games['status'] == "Active" and self.brd_list.user not in games['users']:
                 continue
 
-            self.layout.addWidget(Games(games, self.client))
+            self.layout.addWidget(Games(games, self.brd_list.app.client))  # Fixme: self.brd_list.app.client

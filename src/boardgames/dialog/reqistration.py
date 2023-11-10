@@ -4,12 +4,12 @@
 import base64
 
 from PyQt5.QtWidgets import (
-    QMainWindow, QVBoxLayout, QHBoxLayout, QLabel,
-    QLineEdit, QPushButton, QWidget, QMessageBox
+    QDialog, QVBoxLayout, QHBoxLayout, QLabel,
+    QLineEdit, QPushButton, QMessageBox
 )
 
 
-class GuiRegistration(QMainWindow):
+class RegistrationDialog(QDialog):
     """ Главный виджет """
 
     def __init__(self, app, *args, **kwargs):
@@ -56,9 +56,7 @@ class GuiRegistration(QMainWindow):
         self.general_layout.addWidget(self.btn_return)
         self.btn_return.clicked.connect(self.action_return)
 
-        widget = QWidget()
-        widget.setLayout(self.general_layout)
-        self.setCentralWidget(widget)
+        self.setLayout(self.general_layout)
 
     def data_received(self, data: dict):
         """ Возвращаемые сообщения с сервера """
@@ -97,7 +95,7 @@ class GuiRegistration(QMainWindow):
             MessageInformation(text="Пароли не совпадаю. Попробуйте еще раз")
 
 
-class MessageInformation(QMessageBox):
+class MessageInformation(QMessageBox):  # Todo: Тут тебя не должно быть
 
     def __init__(self, text):
         super().__init__()

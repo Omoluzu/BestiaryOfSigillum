@@ -9,7 +9,8 @@ from PyQt5.QtWidgets import (
 )
 
 from modules.Settings import Settings
-from modules.Registration import GuiRegistration
+# from modules.Registration import GuiRegistration
+from src import boardgames
 from wrapperQWidget5.WrapperWidget import wrapper_widget
 from modules.LobbyRoom.BoardGamesList import BoardgamesList
 
@@ -96,7 +97,7 @@ class AuthDialog(QDialog):
         """
         self.hide()
 
-        register = GuiRegistration(app=self.app)  # Todo: Запуск из под BoardGames
+        register = boardgames.RegistrationDialog(app=self.app)  # Todo: Запуск из под BoardGames
         register.start()
 
     def data_received(self, data: dict):

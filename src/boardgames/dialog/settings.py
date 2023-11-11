@@ -7,12 +7,13 @@ from wrapperQWidget5.WrapperWidget import wrapper_widget
 from modules.configControl.configControl import Config
 
 
-class Settings(QDialog):
+class SettingsDialog(QDialog):
 
     @wrapper_widget
-    def __init__(self):
-        super().__init__()
+    def __init__(self, app, *args, **kwargs):
+        super().__init__(*args, **kwargs)
 
+        self.app = app
         self.settings = Config()
 
         group_address = QGroupBox("Адрес сервера: ")

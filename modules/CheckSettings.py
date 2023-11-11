@@ -4,7 +4,7 @@
 from PyQt5.QtWidgets import QDialog, QPushButton, QLabel
 from wrapperQWidget5.WrapperWidget import wrapper_widget
 
-from modules.Settings import Settings
+from src.boardgames.dialog.settings import SettingsDialog
 
 
 class CheckSettings(QDialog):
@@ -36,7 +36,7 @@ class CheckSettings(QDialog):
 
     def action_open_settings(self):
         """ Открыние файла настроек """
-        settings = Settings()
+        settings = SettingsDialog(app=self)   # Todo: moved to brd
         settings.exec_()
 
         self.close()

@@ -6,7 +6,7 @@ import base64
 from PyQt5.QtGui import QKeySequence
 from PyQt5.QtWidgets import QDialog, QShortcut, QLineEdit, QPushButton, QLabel
 
-from modules.Settings import Settings  # Todo: Tут тебя не должно быть
+from src.boardgames.dialog.settings import SettingsDialog  # Todo: Tут тебя не должно быть
 from wrapperQWidget5.WrapperWidget import wrapper_widget
 from modules.LobbyRoom.BoardGamesList import BoardgamesList  # Todo: Tут тебя не должно быть
 
@@ -59,7 +59,7 @@ class AuthDialog(QDialog):
                 self.btn_auth,
                 {"hbox": [
                     self.btn_register,
-                    BtnSettings()
+                    BtnSettings(app=self.app)
                 ]},
                 self.status_connect
             ]
@@ -109,8 +109,9 @@ class AuthDialog(QDialog):
 class BtnSettings(QPushButton):
 
     @wrapper_widget
-    def __init__(self):
+    def __init__(self, app):
         super().__init__()
+        self.app = app
 
         self.clicked.connect(self.action)
 
@@ -126,5 +127,5 @@ class BtnSettings(QPushButton):
 
     def action(self):
         """ Вызов файла настроек подключения к серверу """
-        settings = Settings()
+        settings = SettingsDialog(self.app)  # Todo: moved to brd
         settings.exec_()

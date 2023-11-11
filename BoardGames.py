@@ -104,9 +104,16 @@ class BoardGames:
         """
         Description:
             Действия для открытия окна диалога (QDialog).
+
+        Parameters:
+            dialog - # Todo: docstring
+            close_before_dialog - # Todo: docstring
         """
         assert issubclass(dialog, QDialog), \
             f"Возможно открытие виджета унаследованного только от QDialog"
+
+        if self.action.__class__.__name__ == dialog.__name__:
+            return
 
         if self.action and close_before_dialog:
             self.action.close()
@@ -132,6 +139,10 @@ class BoardGames:
         Description:
             Открытие окна регистрации нового пользователя
         """
+        if self.before.__class__.__name__ == boardgames.AuthDialog.__name__:
+            self.action.close()
+            self.action = self.before
+
         self.open_dialog(boardgames.RegistrationDialog)
 
     def open_setting_dialog(self) -> None:
@@ -139,7 +150,10 @@ class BoardGames:
         Description:
             Открытие окна настроек подключения к серверу
         """
-        self.open_dialog(boardgames.SettingsDialog, close_before_dialog=False)
+        self.open_dialog(
+            dialog=boardgames.SettingsDialog,
+            close_before_dialog=False
+        )
 
 
 if __name__ == "__main__":

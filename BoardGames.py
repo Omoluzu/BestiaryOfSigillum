@@ -100,7 +100,7 @@ class BoardGames:
 
         self.action.connect()
 
-    def open_dialog(self, dialog) -> None:
+    def open_dialog(self, dialog, close_before_dialog=True) -> None:
         """
         Description:
             Действия для открытия окна диалога (QDialog).
@@ -108,9 +108,9 @@ class BoardGames:
         assert issubclass(dialog, QDialog), \
             f"Возможно открытие виджета унаследованного только от QDialog"
 
-        if self.action:
+        if self.action and close_before_dialog:
             self.action.close()
-            self.before = self.action
+        self.before = self.action
 
         apps = dialog(app=self)
         self.action = apps
@@ -133,6 +133,13 @@ class BoardGames:
             Открытие окна регистрации нового пользователя
         """
         self.open_dialog(boardgames.RegistrationDialog)
+
+    def open_setting_dialog(self) -> None:
+        """
+        Description:
+            Открытие окна настроек подключения к серверу
+        """
+        self.open_dialog(boardgames.SettingsDialog, close_before_dialog=False)
 
 
 if __name__ == "__main__":

@@ -6,7 +6,6 @@ import base64
 from PyQt5.QtGui import QKeySequence
 from PyQt5.QtWidgets import QDialog, QShortcut, QLineEdit, QPushButton, QLabel
 
-from src.boardgames.dialog.settings import SettingsDialog  # Todo: Tут тебя не должно быть
 from wrapperQWidget5.WrapperWidget import wrapper_widget
 from modules.LobbyRoom.BoardGamesList import BoardgamesList  # Todo: Tут тебя не должно быть
 
@@ -41,10 +40,13 @@ class AuthDialog(QDialog):
         self.btn_auth.setEnabled(False)
 
         self.btn_register = QPushButton("Регистрация")
-        self.btn_register.clicked.connect(self.action_get_register)
+        self.btn_register.clicked.connect(self.app.open_registration_dialog)
         self.btn_register.setEnabled(False)
 
         self.status_connect = QLabel("Ожидается подключение к серверу")
+
+        setting = BtnSettings()
+        setting.clicked.connect(self.app.open_setting_dialog)
 
         self.layouts = {
             "vbox": [
@@ -59,7 +61,7 @@ class AuthDialog(QDialog):
                 self.btn_auth,
                 {"hbox": [
                     self.btn_register,
-                    BtnSettings(app=self.app)
+                    setting
                 ]},
                 self.status_connect
             ]
@@ -77,17 +79,12 @@ class AuthDialog(QDialog):
         data = {
             "command": "auth",
             "login": self.login.text(),
-            "password": (base64.b64encode(self.password.text().encode())).decode()
+            "password": (
+                base64.b64encode(self.password.text().encode())
+            ).decode()
         }
 
         self.app.send_data(data)
-
-    def action_get_register(self) -> None:
-        """
-        Description:
-            Активация виджета регистрации новых пользователей.
-        """
-        self.app.open_registration_dialog()
 
     def data_received(self, data: dict):
         if data['auth']:
@@ -109,12 +106,8 @@ class AuthDialog(QDialog):
 class BtnSettings(QPushButton):
 
     @wrapper_widget
-    def __init__(self, app):
+    def __init__(self):
         super().__init__()
-        self.app = app
-
-        self.clicked.connect(self.action)
-
         self.config = {
             'size': 25,
             'flat': True,
@@ -125,7 +118,3 @@ class BtnSettings(QPushButton):
             }
         }
 
-    def action(self):
-        """ Вызов файла настроек подключения к серверу """
-        settings = SettingsDialog(self.app)  # Todo: moved to brd
-        settings.exec_()

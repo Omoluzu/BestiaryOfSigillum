@@ -46,3 +46,10 @@ class SettingsDialog(QDialog):
         self.settings.update("SERVER", "port", self.text_port.text())
 
         self.close()
+
+    def closeEvent(self, a0):
+        """
+        Description:
+            Действия при закрытии виджета
+        """
+        self.app.close_dialog()

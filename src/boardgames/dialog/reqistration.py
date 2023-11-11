@@ -66,11 +66,6 @@ class RegistrationDialog(QDialog):
         else:
             MessageInformation(text=data['exception'])
 
-    def start(self):
-        """ Запуск приложения """
-        self.show()
-        self.app.action = self
-
     # Todo: Переопределить кнопку закрытия виджета (Крестик)
     def action_return(self) -> None:
         """

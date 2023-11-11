@@ -101,6 +101,19 @@ class BoardGames:
 
         auth.connect()
 
+    def open_registration_dialog(self) -> None:
+        """
+        Description:
+            Действия при открытии окна регистрации
+        """
+        self.action.close()
+
+        self.before = self.action
+        register = boardgames.RegistrationDialog(app=self)
+
+        self.action = register
+        self.action.show()
+
     def close_dialog(self) -> None:
         """
         Description:

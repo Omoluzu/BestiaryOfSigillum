@@ -70,7 +70,7 @@ class AuthDialog(QDialog):
     def start(self):
         """ Запуск приложения """
 
-        self.show()
+        self.show()  # Todo: Переопределить на app
         self.app.action = self
 
     def connect(self):
@@ -90,16 +90,12 @@ class AuthDialog(QDialog):
 
         self.app.send_data(data)
 
-    def action_get_register(self):
+    def action_get_register(self) -> None:
         """
         Description:
             Активация виджета регистрации новых пользователей.
         """
-        self.hide()
-
-        self.app.before = self
-        register = boardgames.RegistrationDialog(app=self.app)  # Todo: Запуск из под BoardGames
-        register.start()
+        self.app.open_registration_dialog()
 
     def data_received(self, data: dict):
         if data['auth']:

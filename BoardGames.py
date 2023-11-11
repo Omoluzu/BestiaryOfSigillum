@@ -75,6 +75,7 @@ class BoardGames:
     version = __version__
     user: str = None
     action = None
+    before = None
 
     client: Client
 
@@ -99,6 +100,16 @@ class BoardGames:
         await self.client.start()
 
         auth.connect()
+
+    def close_dialog(self) -> None:
+        """
+        Description:
+            Закрытие активного окна диалога (QDialog).
+            И открытия виджета который провоцировал открытия текущего виджета
+        """
+        self.action.close()
+        if self.before:
+            self.before.start()
 
 
 if __name__ == "__main__":

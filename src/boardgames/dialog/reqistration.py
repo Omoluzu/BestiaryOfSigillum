@@ -71,13 +71,13 @@ class RegistrationDialog(QDialog):
         self.show()
         self.app.action = self
 
+    # Todo: Переопределить кнопку закрытия виджета (Крестик)
     def action_return(self) -> None:
         """
         Description:
-            Закрытие приложения регистрации и открытия файла авторизации
+            Закрытие виджета
         """
-        self.close()
-        self.app.auth.start()  # Todo: Управление через BoardGames
+        self.app.close_dialog()
 
     def action_registration(self):
         """ Регистрация нового пользователя """

@@ -97,6 +97,7 @@ class AuthDialog(QDialog):
         """
         self.hide()
 
+        self.app.before = self
         register = boardgames.RegistrationDialog(app=self.app)  # Todo: Запуск из под BoardGames
         register.start()
 

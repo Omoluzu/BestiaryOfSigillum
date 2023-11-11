@@ -1,10 +1,13 @@
 #! /usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-from PyQt5.QtWidgets import *
+from PyQt5.QtGui import QCloseEvent
+from PyQt5.QtWidgets import (
+    QDialog, QGroupBox, QHBoxLayout, QLineEdit, QPushButton
+)
 
-from wrapperQWidget5.WrapperWidget import wrapper_widget
 from modules.configControl.configControl import Config
+from wrapperQWidget5.WrapperWidget import wrapper_widget
 
 
 class SettingsDialog(QDialog):
@@ -39,15 +42,17 @@ class SettingsDialog(QDialog):
             ]
         }
 
-    def action_save_setting(self):
-        """ активауия сохранения настроек """
-
+    def action_save_setting(self) -> None:
+        """
+        Description:
+            активация сохранения настроек
+        """
         self.settings.update("SERVER", "address", self.text_address.text())
         self.settings.update("SERVER", "port", self.text_port.text())
 
-        self.close()
+        self.app.close_dialog()
 
-    def closeEvent(self, a0):
+    def closeEvent(self, a0: QCloseEvent) -> None:
         """
         Description:
             Действия при закрытии виджета

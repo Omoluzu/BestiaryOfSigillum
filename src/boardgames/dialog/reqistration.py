@@ -3,11 +3,12 @@
 
 import base64
 
-from PyQt5.QtWidgets import (
-    QDialog, QVBoxLayout, QHBoxLayout, QLabel,
-    QLineEdit, QPushButton, QMessageBox
-)
 from PyQt5.QtGui import QCloseEvent
+from PyQt5.QtWidgets import (
+    QDialog, QVBoxLayout, QHBoxLayout, QLabel, QLineEdit, QPushButton
+)
+
+from src.boardgames import message
 
 
 class RegistrationDialog(QDialog):
@@ -62,10 +63,10 @@ class RegistrationDialog(QDialog):
     def data_received(self, data: dict):
         """ Возвращаемые сообщения с сервера """
         if data['register']:
-            MessageInformation(text="Вы успешно зарегистрировались")
+            message.MessageInformation(text="Вы успешно зарегистрировались")
             self.action_return()
         else:
-            MessageInformation(text=data['exception'])
+            message.MessageInformation(text=data['exception'])
 
     def action_return(self) -> None:
         """
@@ -88,21 +89,13 @@ class RegistrationDialog(QDialog):
                 data = {
                     "command": "register",
                     "login": self.login.text(),
-                    "password": (base64.b64encode(self.password_one.text().encode())).decode()
+                    "password": (
+                        base64.b64encode(self.password_one.text().encode())
+                    ).decode()
                 }
                 self.app.send_data(data)
             else:
-                MessageInformation(text="Вы ввели пустой Логин")
+                message.MessageInformation(text="Вы ввели пустой Логин")
         else:
-            MessageInformation(text="Пароли не совпадаю. Попробуйте еще раз")
-
-
-class MessageInformation(QMessageBox):  # Todo: Тут тебя не должно быть
-
-    def __init__(self, text):
-        super().__init__()
-        self.setIcon(QMessageBox.Warning)
-        self.setText(text)
-        self.setWindowTitle("Information")
-        self.exec_()
-
+            message.MessageInformation(
+                text="Пароли не совпадаю. Попробуйте еще раз")

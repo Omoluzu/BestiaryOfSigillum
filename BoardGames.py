@@ -4,13 +4,13 @@
 import json
 import asyncio
 
-from PyQt5.QtWidgets import QApplication
 from asyncqt import QEventLoop
+from PyQt5.QtWidgets import QApplication, QDialog
 
 from src import boardgames
+from src.client import ClientProtocol
 from modules.CheckSettings import CheckSettings
 from modules.configControl.configControl import Config
-from src.client import ClientProtocol
 
 
 __version__ = '1.0.2'
@@ -113,19 +113,6 @@ class BoardGames:
         self.action = apps
         self.action.show()
 
-    def open_registration_dialog(self) -> None:
-        """
-        Description:
-            Действия при открытии окна регистрации
-        """
-        self.action.close()
-
-        self.before = self.action
-        register = boardgames.RegistrationDialog(app=self)
-
-        self.action = register
-        self.action.show()
-
     def close_dialog(self) -> None:
         """
         Description:
@@ -136,6 +123,13 @@ class BoardGames:
         if self.before:
             self.before.show()
             self.action = self.before
+
+    def open_registration_dialog(self) -> None:
+        """
+        Description:
+            Действия при открытии окна регистрации
+        """
+        self.open_dialog(boardgames.RegistrationDialog)
 
 
 if __name__ == "__main__":

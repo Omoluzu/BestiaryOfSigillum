@@ -9,7 +9,7 @@ from PyQt5.QtWidgets import QApplication, QDialog
 
 from src import boardgames
 from src.client import ClientProtocol
-from modules.CheckSettings import CheckSettings
+# from src.boardgames.dialog.not_available_server import CheckSettings
 from modules.configControl.configControl import Config
 
 
@@ -43,27 +43,18 @@ class Client:
         """
         self.protocol.send_data(json.dumps(data))
 
-    async def start(self):
-        """ Запускаем приложение """
-        connect = False
-        while not connect:
-            try:
-                _config = Config()  # Todo: Тут не должно быть вызова файла настроек
-                event_loop = asyncio.get_running_loop()
+    async def start(self, address, port):
+        """
+        Todo: Docstring
+        """
+        event_loop = asyncio.get_running_loop()
 
-                coroutine = event_loop.create_connection(
-                    self.build_protocol,
-                    _config.get("SERVER", "address"),
-                    int(_config.get("SERVER", "port"))
-                )
-                del _config
+        coroutine = event_loop.create_connection(
+            protocol_factory=self.build_protocol,
+            host=address, port=port
+        )
 
-                await asyncio.wait_for(coroutine, 1000)
-                connect = True
-            except ConnectionRefusedError:
-                check = CheckSettings()  # Todo: Тут не должно быть вызова графической оболочки.
-                check.exec_()
-                continue
+        await asyncio.wait_for(coroutine, 1000)
 
 
 class BoardGames:
@@ -96,7 +87,22 @@ class BoardGames:
         """
         self.open_dialog(boardgames.dialog.AuthDialog)
 
-        await self.client.start()
+        connect = False
+
+        while not connect:
+            try:
+                _config = Config()
+
+                await self.client.start(
+                    address=_config.get("SERVER", "address"),
+                    port=int(_config.get("SERVER", "port"))
+                )
+
+            except ConnectionRefusedError:
+                boardgames.dialog.NotAvailableServerDialog(self).exec_()
+                continue
+            else:
+                connect = True
 
         self.action.connect()
 

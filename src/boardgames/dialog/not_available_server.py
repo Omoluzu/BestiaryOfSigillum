@@ -7,11 +7,13 @@ from wrapperQWidget5.WrapperWidget import wrapper_widget
 from src.boardgames.dialog.settings import SettingsDialog
 
 
-class CheckSettings(QDialog):
+class NotAvailableServerDialog(QDialog):
 
     @wrapper_widget
-    def __init__(self):
+    def __init__(self, app):
         super().__init__()
+
+        self.app = app
 
         btn_close = QPushButton("Закрыть")
         btn_close.clicked.connect(self.action_close)

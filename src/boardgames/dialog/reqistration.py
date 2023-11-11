@@ -7,6 +7,7 @@ from PyQt5.QtWidgets import (
     QDialog, QVBoxLayout, QHBoxLayout, QLabel,
     QLineEdit, QPushButton, QMessageBox
 )
+from PyQt5.QtGui import QCloseEvent
 
 
 class RegistrationDialog(QDialog):
@@ -66,11 +67,17 @@ class RegistrationDialog(QDialog):
         else:
             MessageInformation(text=data['exception'])
 
-    # Todo: Переопределить кнопку закрытия виджета (Крестик)
     def action_return(self) -> None:
         """
         Description:
             Закрытие виджета
+        """
+        self.app.close_dialog()
+
+    def closeEvent(self, a0: QCloseEvent):
+        """
+        Description:
+            Переопределение действий закрытия виджета через крестик.
         """
         self.app.close_dialog()
 

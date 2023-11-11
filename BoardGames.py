@@ -74,8 +74,8 @@ class BoardGames:
     """
     version = __version__
     user: str = None
-    action = None
-    before = None
+    action: QDialog = None
+    before: QDialog = None
 
     client: Client
 
@@ -103,8 +103,11 @@ class BoardGames:
     def open_dialog(self, dialog) -> None:
         """
         Description:
-            Действия для открытия окна диалога.
+            Действия для открытия окна диалога (QDialog).
         """
+        assert issubclass(dialog, QDialog), \
+            f"Возможно открытие виджета унаследованного только от QDialog"
+
         if self.action:
             self.action.close()
             self.before = self.action
@@ -117,7 +120,7 @@ class BoardGames:
         """
         Description:
             Закрытие активного окна диалога (QDialog).
-            И открытия виджета который провоцировал открытия текущего виджета
+            И открытия окна который инициализировал открытия закрываемого окна.
         """
         self.action.close()
         if self.before:
@@ -127,7 +130,7 @@ class BoardGames:
     def open_registration_dialog(self) -> None:
         """
         Description:
-            Действия при открытии окна регистрации
+            Открытие окна регистрации нового пользователя
         """
         self.open_dialog(boardgames.RegistrationDialog)
 

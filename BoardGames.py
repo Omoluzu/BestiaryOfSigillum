@@ -94,12 +94,24 @@ class BoardGames:
         Description:
             Запуск авторизации и подключение к серверу.
         """
-        auth = boardgames.dialog.AuthDialog(self)
-        auth.start()
+        self.open_dialog(boardgames.dialog.AuthDialog)
 
         await self.client.start()
 
-        auth.connect()
+        self.action.connect()
+
+    def open_dialog(self, dialog) -> None:
+        """
+        Description:
+            Действия для открытия окна диалога.
+        """
+        if self.action:
+            self.action.close()
+            self.before = self.action
+
+        apps = dialog(app=self)
+        self.action = apps
+        self.action.show()
 
     def open_registration_dialog(self) -> None:
         """
@@ -122,7 +134,8 @@ class BoardGames:
         """
         self.action.close()
         if self.before:
-            self.before.start()
+            self.before.show()
+            self.action = self.before
 
 
 if __name__ == "__main__":

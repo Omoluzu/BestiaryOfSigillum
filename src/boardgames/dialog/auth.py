@@ -9,8 +9,6 @@ from PyQt5.QtWidgets import (
 )
 
 from modules.Settings import Settings
-# from modules.Registration import GuiRegistration
-from src import boardgames
 from wrapperQWidget5.WrapperWidget import wrapper_widget
 from modules.LobbyRoom.BoardGamesList import BoardgamesList
 
@@ -67,17 +65,11 @@ class AuthDialog(QDialog):
             ]
         }
 
-    def start(self):
-        """ Запуск приложения """
-
-        self.show()  # Todo: Переопределить на app
-        self.app.action = self
-
     def connect(self):
         """ Клиент успешно подключен к серверу """
         self.btn_auth.setEnabled(True)
         self.btn_register.setEnabled(True)
-        self.status_connect.setText("К серверу успешно подключенно")
+        self.status_connect.setText("Соединение с сервером установлено")
 
     def action_get_auth(self):
         """ Отправка логина и пароль на авторизацию """

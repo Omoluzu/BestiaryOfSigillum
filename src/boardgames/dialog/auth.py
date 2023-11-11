@@ -4,13 +4,13 @@
 import base64
 
 from PyQt5.QtGui import QKeySequence
-from PyQt5.QtWidgets import (
-    QDialog, QShortcut, QLineEdit, QPushButton, QLabel, QMessageBox
-)
+from PyQt5.QtWidgets import QDialog, QShortcut, QLineEdit, QPushButton, QLabel
 
-from modules.Settings import Settings
+from modules.Settings import Settings  # Todo: Tут тебя не должно быть
 from wrapperQWidget5.WrapperWidget import wrapper_widget
-from modules.LobbyRoom.BoardGamesList import BoardgamesList
+from modules.LobbyRoom.BoardGamesList import BoardgamesList  # Todo: Tут тебя не должно быть
+
+from src.boardgames import message
 
 from images import recource
 
@@ -92,8 +92,8 @@ class AuthDialog(QDialog):
     def data_received(self, data: dict):
         if data['auth']:
 
-            message = f"Welcome, {data['login']}\n"
-            MessageInformation(message)
+            text = f"Welcome, {data['login']}\n"
+            message.MessageInformation(text)
 
             self.close()
             self.app.user = data['login']
@@ -103,17 +103,7 @@ class AuthDialog(QDialog):
 
         else:
             self.password.setText("")
-            MessageInformation(data['exception'])
-
-
-class MessageInformation(QMessageBox):  # Todo: Отдельный виджет
-
-    def __init__(self, text):
-        super().__init__()
-        self.setIcon(QMessageBox.Information)
-        self.setText(text)
-        self.setWindowTitle("Information")
-        self.exec_()
+            message.MessageInformation(data['exception'])
 
 
 class BtnSettings(QPushButton):

@@ -7,9 +7,8 @@ import asyncio
 from asyncqt import QEventLoop
 from PyQt5.QtWidgets import QApplication, QDialog
 
-from src import boardgames
+from src.boardgames import dialog
 from src.client import ClientProtocol
-# from src.boardgames.dialog.not_available_server import CheckSettings
 from modules.configControl.configControl import Config
 
 
@@ -65,7 +64,7 @@ class BoardGames:
     """
     version = __version__
     user: str = None
-    action: QDialog = None
+    action: QDialog | dialog.AuthDialog = None
     before: QDialog = None
 
     client: Client
@@ -85,7 +84,7 @@ class BoardGames:
         Description:
             Запуск авторизации и подключение к серверу.
         """
-        self.open_dialog(boardgames.dialog.AuthDialog)
+        self.open_dialog(dialog.AuthDialog)
 
         connect = False
 
@@ -99,7 +98,8 @@ class BoardGames:
                 )
 
             except ConnectionRefusedError:
-                boardgames.dialog.NotAvailableServerDialog(self).exec_()
+                t = dialog.NotAvailableServerDialog(self)
+                t.exec()
                 continue
             else:
                 connect = True
@@ -112,8 +112,9 @@ class BoardGames:
             Действия для открытия окна диалога (QDialog).
 
         Parameters:
-            dialog - # Todo: docstring
-            close_before_dialog - # Todo: docstring
+            dialog - QDialog который необходимо отобразить.
+            close_before_dialog - Указание о том что родительский dialog
+                не нужно закрывать.
         """
         assert issubclass(dialog, QDialog), \
             f"Возможно открытие виджета унаследованного только от QDialog"
@@ -145,11 +146,11 @@ class BoardGames:
         Description:
             Открытие окна регистрации нового пользователя
         """
-        if self.before.__class__.__name__ == boardgames.AuthDialog.__name__:
+        if self.before.__class__.__name__ == dialog.AuthDialog.__name__:
             self.action.close()
             self.action = self.before
 
-        self.open_dialog(boardgames.RegistrationDialog)
+        self.open_dialog(dialog.RegistrationDialog)
 
     def open_setting_dialog(self) -> None:
         """
@@ -157,7 +158,7 @@ class BoardGames:
             Открытие окна настроек подключения к серверу
         """
         self.open_dialog(
-            dialog=boardgames.SettingsDialog,
+            dialog=dialog.SettingsDialog,
             close_before_dialog=False
         )
 

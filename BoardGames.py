@@ -20,16 +20,16 @@ class Client:
     # Todo: Вынести в отдельный файл
     protocol: ClientProtocol
 
-    def __init__(self, widget):
+    def __init__(self, app):
         self.message = None  # Todo: Вроде бы не нужно
 
-        self.widget = widget  # Todo: То же от неё надо избавиться (Использует Protocol)
+        self.app = app
 
     def __repr__(self):
         return self.__class__.__name__
 
     def build_protocol(self):
-        self.protocol = ClientProtocol(self)
+        self.protocol = ClientProtocol(self.app)
         return self.protocol
 
     def send_data(self, data: dict) -> None:

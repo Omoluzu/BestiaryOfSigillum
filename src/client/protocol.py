@@ -1,20 +1,20 @@
 import json
 import asyncio
 
+from dataclasses import dataclass, field
+
 from src.script import split_data_received
 
 __all__ = ['ClientProtocol']
 
 
+@dataclass
 class ClientProtocol(asyncio.Protocol):
-    transport: asyncio.transports.Transport
-    user: str = None  # Имя авторизированного пользователя  # Todo: Что то мне подсказывает что user тут не нужен
-
-    def __init__(self, app):
-        self.app = app
+    app: None
+    transport: asyncio.transports.Transport = field(init=False)
 
     def __repr__(self):
-        return f"{self.__class__.__name__} ({self.user})"
+        return f"{self.__class__.__name__}"
 
     def data_received(self, data: bytes):
         """

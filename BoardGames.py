@@ -5,6 +5,7 @@ import json
 import asyncio
 
 from asyncqt import QEventLoop
+from dataclasses import dataclass, field
 from PyQt5.QtWidgets import QApplication, QDialog
 
 from src.boardgames import dialog
@@ -16,14 +17,11 @@ __version__ = '1.0.2'
 # Todo: ChangeLog please
 
 
+@dataclass
 class Client:
     # Todo: Вынести в отдельный файл
-    protocol: ClientProtocol
-
-    def __init__(self, app):
-        self.message = None  # Todo: Вроде бы не нужно
-
-        self.app = app
+    app: None
+    protocol: ClientProtocol = field(init=False)
 
     def __repr__(self):
         return self.__class__.__name__

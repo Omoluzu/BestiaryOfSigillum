@@ -17,44 +17,27 @@ __version__ = '1.0.2'
 # Todo: ChangeLog please
 
 
-@dataclass
 class Client:
     # Todo: Вынести в отдельный файл
-    app: None
-    protocol: ClientProtocol = field(init=False)
 
     def __repr__(self):
         return self.__class__.__name__
 
-    def build_protocol(self):
-        self.protocol = ClientProtocol(self.app)
-        return self.protocol
-
-    def send_data(self, data: dict) -> None:
-        """
-        Description:
-            Отправка сообщения на сервер
-
-        Parameters:
-            data (dict) - Сообщение которое необходимо отправить на сервер.
-        """
-        self.protocol.send_data(json.dumps(data))
-
-    async def start(self, address, port):
+    async def start(self, address, port, protocol):
         """
         Todo: Docstring
         """
         event_loop = asyncio.get_running_loop()
 
         coroutine = event_loop.create_connection(
-            protocol_factory=self.build_protocol,
+            protocol_factory=protocol,
             host=address, port=port
         )
 
         await asyncio.wait_for(coroutine, 1000)
 
 
-class BoardGames:
+class BoardGames(object):
     """
     Description:
         Основное приложение отвечающее за запуск Лобби комнаты и игровых сессий.
@@ -66,16 +49,21 @@ class BoardGames:
     before: QDialog = None
 
     client: Client
+    protocol: ClientProtocol
 
     def __init__(self):
-        self.client = Client(self)
+        self.client = Client()
 
-    def send_data(self, *args, **kwargs) -> None:
+    def build_protocol(self):
+        self.protocol = ClientProtocol(self)
+        return self.protocol
+
+    def send_data(self, data: dict) -> None:
         """
         Description:
             Отправка сообщения на сервер
         """
-        self.client.send_data(*args, **kwargs)
+        self.protocol.send_data(json.dumps(data))
 
     async def start(self):
         """
@@ -91,6 +79,7 @@ class BoardGames:
                 _config = Config()
 
                 await self.client.start(
+                    protocol=self.build_protocol,
                     address=_config.get("SERVER", "address"),
                     port=int(_config.get("SERVER", "port"))
                 )

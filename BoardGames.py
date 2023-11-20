@@ -11,8 +11,7 @@ from src.boardgames import dialog
 from modules.configControl.configControl import Config
 
 
-__version__ = '1.0.2'
-# Todo: ChangeLog please
+__version__ = '1.0.3'
 
 
 class BoardGames:

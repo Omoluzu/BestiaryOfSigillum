@@ -1,12 +1,15 @@
 import asyncio
 
 from abc import abstractmethod
+from dataclasses import dataclass, field
 
 from src import client
 
 
+@dataclass
 class Client:
-    protocol: client.ClientProtocol
+    app: object
+    protocol: client.ClientProtocol = field(init=False)
 
     def __repr__(self):
         return self.__class__.__name__
@@ -22,13 +25,15 @@ class Client:
         """
         self.protocol.send_data(data)
 
-    @abstractmethod
     def data_received(self, data: dict):
         """
         Description
             Приемка сообщения с сервера
         """
-        pass
+        if hasattr(self.app, 'data_received'):
+            self.app.data_received(data)
+            return
+        print(data)
 
     async def connect(self, address, port):
         """

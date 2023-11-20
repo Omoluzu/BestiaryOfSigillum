@@ -15,7 +15,7 @@ __version__ = '1.0.2'
 # Todo: ChangeLog please
 
 
-class BoardGames(client.Client):
+class BoardGames:
     """
     Description:
         Основное приложение отвечающее за запуск Лобби комнаты и игровых сессий.
@@ -25,6 +25,16 @@ class BoardGames(client.Client):
     user: str = None
     action: QDialog | dialog.AuthDialog = None
     before: QDialog = None
+
+    def __init__(self):
+        self.client = client.Client(self)
+
+    def send_data(self, *args, **kwargs):
+        """
+        Description:
+            Отправка сообщения на сервер
+        """
+        self.client.send_data(*args, **kwargs)
 
     def data_received(self, data: dict):
         """
@@ -46,7 +56,7 @@ class BoardGames(client.Client):
             try:
                 _config = Config()
 
-                await self.connect(
+                await self.client.connect(
                     address=_config.get("SERVER", "address"),
                     port=int(_config.get("SERVER", "port"))
                 )

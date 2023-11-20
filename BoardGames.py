@@ -5,11 +5,13 @@ import json
 import asyncio
 
 from asyncqt import QEventLoop
+from abc import abstractmethod
 from dataclasses import dataclass, field
 from PyQt5.QtWidgets import QApplication, QDialog
 
 from src.boardgames import dialog
 from src.client import ClientProtocol
+from src.script import split_data_received
 from modules.configControl.configControl import Config
 
 
@@ -19,40 +21,10 @@ __version__ = '1.0.2'
 
 class Client:
     # Todo: Вынести в отдельный файл
+    protocol: ClientProtocol
 
     def __repr__(self):
         return self.__class__.__name__
-
-    async def start(self, address, port, protocol):
-        """
-        Todo: Docstring
-        """
-        event_loop = asyncio.get_running_loop()
-
-        coroutine = event_loop.create_connection(
-            protocol_factory=protocol,
-            host=address, port=port
-        )
-
-        await asyncio.wait_for(coroutine, 1000)
-
-
-class BoardGames(object):
-    """
-    Description:
-        Основное приложение отвечающее за запуск Лобби комнаты и игровых сессий.
-        Некий брокер
-    """
-    version = __version__
-    user: str = None
-    action: QDialog | dialog.AuthDialog = None
-    before: QDialog = None
-
-    client: Client
-    protocol: ClientProtocol
-
-    def __init__(self):
-        self.client = Client()
 
     def build_protocol(self):
         self.protocol = ClientProtocol(self)
@@ -64,6 +36,44 @@ class BoardGames(object):
             Отправка сообщения на сервер
         """
         self.protocol.send_data(json.dumps(data))
+
+    @abstractmethod
+    def data_received(self, data: bytes):
+        """
+        Принимает сообщение
+        """
+        pass
+
+    async def connect(self, address, port):
+        """
+        Todo: Docstring
+        """
+        event_loop = asyncio.get_running_loop()
+
+        coroutine = event_loop.create_connection(
+            protocol_factory=self.build_protocol,
+            host=address, port=port
+        )
+
+        await asyncio.wait_for(coroutine, 1000)
+
+
+class BoardGames(Client):
+    """
+    Description:
+        Основное приложение отвечающее за запуск Лобби комнаты и игровых сессий.
+        Некий брокер
+    """
+    version = __version__
+    user: str = None
+    action: QDialog | dialog.AuthDialog = None
+    before: QDialog = None
+
+    def data_received(self, data: dict):
+        """
+        Принимает сообщение
+        """
+        self.action.data_received(data)
 
     async def start(self):
         """
@@ -78,8 +88,7 @@ class BoardGames(object):
             try:
                 _config = Config()
 
-                await self.client.start(
-                    protocol=self.build_protocol,
+                await self.connect(
                     address=_config.get("SERVER", "address"),
                     port=int(_config.get("SERVER", "port"))
                 )

@@ -1,17 +1,13 @@
 #! /usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import json
 import asyncio
 
 from asyncqt import QEventLoop
-from abc import abstractmethod
-from dataclasses import dataclass, field
 from PyQt5.QtWidgets import QApplication, QDialog
 
+from src import client
 from src.boardgames import dialog
-from src.client import ClientProtocol
-from src.script import split_data_received
 from modules.configControl.configControl import Config
 
 
@@ -19,46 +15,7 @@ __version__ = '1.0.2'
 # Todo: ChangeLog please
 
 
-class Client:
-    # Todo: Вынести в отдельный файл
-    protocol: ClientProtocol
-
-    def __repr__(self):
-        return self.__class__.__name__
-
-    def build_protocol(self):
-        self.protocol = ClientProtocol(self)
-        return self.protocol
-
-    def send_data(self, data: dict) -> None:
-        """
-        Description:
-            Отправка сообщения на сервер
-        """
-        self.protocol.send_data(json.dumps(data))
-
-    @abstractmethod
-    def data_received(self, data: bytes):
-        """
-        Принимает сообщение
-        """
-        pass
-
-    async def connect(self, address, port):
-        """
-        Todo: Docstring
-        """
-        event_loop = asyncio.get_running_loop()
-
-        coroutine = event_loop.create_connection(
-            protocol_factory=self.build_protocol,
-            host=address, port=port
-        )
-
-        await asyncio.wait_for(coroutine, 1000)
-
-
-class BoardGames(Client):
+class BoardGames(client.Client):
     """
     Description:
         Основное приложение отвечающее за запуск Лобби комнаты и игровых сессий.
@@ -71,7 +28,8 @@ class BoardGames(Client):
 
     def data_received(self, data: dict):
         """
-        Принимает сообщение
+        Description:
+            Получение сообщения с сервера и отправка его активному приложению
         """
         self.action.data_received(data)
 
@@ -102,7 +60,7 @@ class BoardGames(Client):
 
         self.action.connect()
 
-    def open_dialog(self, dialog, close_before_dialog=True) -> None:
+    def open_dialog(self, _dialog, close_before_dialog=True) -> None:
         """
         Description:
             Действия для открытия окна диалога (QDialog).
@@ -112,17 +70,17 @@ class BoardGames(Client):
             close_before_dialog - Указание о том что родительский dialog
                 не нужно закрывать.
         """
-        assert issubclass(dialog, QDialog), \
+        assert issubclass(_dialog, QDialog), \
             f"Возможно открытие виджета унаследованного только от QDialog"
 
-        if self.action.__class__.__name__ == dialog.__name__:
+        if self.action.__class__.__name__ == _dialog.__name__:
             return
 
         if self.action and close_before_dialog:
             self.action.close()
         self.before = self.action
 
-        apps = dialog(app=self)
+        apps = _dialog(app=self)
         self.action = apps
         self.action.show()
 
@@ -154,7 +112,7 @@ class BoardGames(Client):
             Открытие окна настроек подключения к серверу
         """
         self.open_dialog(
-            dialog=dialog.SettingsDialog,
+            dialog.SettingsDialog,
             close_before_dialog=False
         )
 

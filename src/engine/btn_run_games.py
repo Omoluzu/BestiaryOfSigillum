@@ -3,11 +3,6 @@ import importlib
 from PySide6.QtWidgets import QPushButton
 
 
-class Client:
-    # Todo: Возможность подключаться к реальному Серверу а не фейковому как сейчас.
-    action = False
-
-
 class RunGamesButton(QPushButton):
     def __init__(self, name_games, *args, **kwargs):
         super().__init__(name_games, *args, **kwargs)
@@ -21,7 +16,6 @@ class RunGamesButton(QPushButton):
 
         """
 
-        client = Client()
         games = getattr(
             importlib.import_module(
                 f"GAMES.{self.name_games}.Games"
@@ -29,6 +23,6 @@ class RunGamesButton(QPushButton):
             'KingdomDeathGames'  # Todo: Автоматическое получение наименование импортируемой игры
         )
 
-        games(client=client, data={}).start(close=False)  # Todo: Тут больше не client
+        games(app=self, data={}).start()
 
         # Todo: При открытии игры скрывать RunGames и запускать дополнительное App которое будет управлять поведенем игры.

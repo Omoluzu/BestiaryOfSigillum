@@ -36,13 +36,17 @@ dev_file = """from PySide6.QtWidgets import QApplication
 from GAMES.{upper_name}.Games import {title_name}Games
 
 
-class Client:
+class App:
     action = False
+
+    @staticmethod
+    def send_data(data):
+        print(data)
 
 
 app = QApplication([])
-games = {title_name}Games(client=Client, data={data})  # Todo: Тут больше не client
-games.start(close=False)
+games = {title_name}Games(app=App(), data={data})
+games.start()
 app.exec_()
 """
 
@@ -63,7 +67,7 @@ def new_game(name_game: str) -> None:
     title_name = name_game.title().replace(' ', '')
 
     path = os.path.join(
-        Path(__file__).resolve().parents[1], 'Games', upper_name)
+        Path(__file__).resolve().parents[2], 'Games', upper_name)
     path_scene = os.path.join(path, 'Scene')
 
     if os.path.exists(path):

@@ -15,12 +15,13 @@ class RunGamesButton(QPushButton):
             Активация запуска приложения с игрой для разработки.
 
         """
+        title_name = self.name_games.title().replace('_', '')
 
         games = getattr(
             importlib.import_module(
                 f"GAMES.{self.name_games}.Games"
             ),
-            'KingdomDeathGames'  # Todo: Автоматическое получение наименование импортируемой игры
+            f'{title_name}Games'
         )
 
         games(app=self, data={}).start()

@@ -48,10 +48,15 @@ class PatternLine:
             self.pattern_tiles.append(pattern)
 
     def show_me_put_tile(self, color):
-        """Отрисовка тайлов куда можно положить разместить тайл в Линии шаблона
+        """Отображение маркеров размещения плиток.
 
         Args:
             color: Выбранный цвет тайла который планируется для размещения.
         """
         for pattern in self.pattern_tiles:
             pattern.get_active()
+
+    def hide_put_tile(self):
+        """Сокрытие маркеров размещение плиток"""
+        for pattern in self.pattern_tiles:
+            pattern.get_deactivate()

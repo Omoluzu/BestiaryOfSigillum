@@ -21,3 +21,7 @@ class Tablet(RectangleElementScene):
         Отрисовка тайлов куда можно положить разместить тайл в Линии шаблона
         """
         self.pattern_lines.show_me_put_tile(color)
+
+    def hide_put_tile(self):
+        """Сокрытие маркеров размещение плиток"""
+        self.pattern_lines.hide_put_tile()

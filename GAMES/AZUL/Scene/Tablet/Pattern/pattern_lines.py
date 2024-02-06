@@ -33,3 +33,9 @@ class PatternLines(RectangleElementScene):
         for index in range(1, 6):
             pattern_line = getattr(self, f"lines_{index}")
             pattern_line.show_me_put_tile(color=color)
+
+    def hide_put_tile(self):
+        """Сокрытие маркеров размещение плиток"""
+        for index in range(1, 6):
+            pattern_line = getattr(self, f"lines_{index}")
+            pattern_line.hide_put_tile()

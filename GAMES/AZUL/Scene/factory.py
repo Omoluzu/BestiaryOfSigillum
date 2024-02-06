@@ -67,6 +67,7 @@ class Factory(CircleElementScene):
             lambda x: x.select_tile(),
             self.get_tile(color=color)
         ))
+        self.scene.show_me_put_tile(color)
 
     def deactivated_tile_by_color(self, color: str) -> None:
         """
@@ -77,3 +78,4 @@ class Factory(CircleElementScene):
             lambda x: x.set_border(),
             self.get_tile(color=color)
         ))
+        self.scene.hide_put_tile()

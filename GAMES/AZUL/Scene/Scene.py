@@ -30,3 +30,7 @@ class AzulScene(Scene):
         Отрисовка тайлов куда можно положить разместить тайл в Линии шаблона
         """
         self.tablet.show_me_put_tile(color)
+
+    def hide_put_tile(self):
+        """Сокрытие маркеров размещение плиток"""
+        self.tablet.hide_put_tile()

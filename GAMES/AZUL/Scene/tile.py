@@ -36,7 +36,6 @@ class Tile(SquareElementScene):
                 color=self.scene.active.color
             )
         self.factory.select_tile_by_color(self)
-        self.scene.active = self
 
     def select_tile(self):
         """

@@ -68,6 +68,7 @@ class Factory(CircleElementScene):
             tile.deactivated()
             return
 
+        self.scene.active = tile
         list(map(
             lambda x: x.select_tile(),
             self.get_tile(color=tile.color)

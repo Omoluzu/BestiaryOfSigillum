@@ -24,18 +24,22 @@ class PatternLines(RectangleElementScene):
                 PatternLine(pattern_lines=self, count=index)
             )
 
+    @property
+    def pattern_line(self):
+        """Получение всех линий маркеров размещений"""
+        for index in range(1, 6):
+            yield getattr(self, f"lines_{index}")
+
     def show_me_put_tile(self, color):
         """Отрисовка плиток куда можно положить разместить тайл в Линии шаблона
 
         Args:
             color: Выбранный цвет тайла который планируется для размещения.
         """
-        for index in range(1, 6):
-            pattern_line = getattr(self, f"lines_{index}")
+        for pattern_line in self.pattern_line:
             pattern_line.show_me_put_tile(color=color)
 
     def hide_put_tile(self):
         """Сокрытие маркеров размещение плиток"""
-        for index in range(1, 6):
-            pattern_line = getattr(self, f"lines_{index}")
+        for pattern_line in self.pattern_line:
             pattern_line.hide_put_tile()

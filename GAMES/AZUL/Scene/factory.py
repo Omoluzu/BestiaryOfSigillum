@@ -65,14 +65,14 @@ class Factory(CircleElementScene):
             tile: Тайл который необходимо активировать
         """
         if self.scene.active and self.scene.active.color == tile.color:
-            tile.deactivated()
-            return
+            if self.scene.active.factory == self:
+                tile.deactivated()
+                return
 
         self.scene.active = tile
-        list(map(
-            lambda x: x.select_tile(),
-            self.get_tile(color=tile.color)
-        ))
+        for tile in self.get_tile(color=tile.color):
+            tile.select_tile()
+
         self.scene.show_me_put_tile(tile.color)
 
     def deactivated_tile_by_color(self, color: str) -> None:
@@ -80,8 +80,7 @@ class Factory(CircleElementScene):
         Деактивация плиток на фабрике определенного цвета
         :param color: Цвет который необходимо деактивировать.
         """
-        list(map(
-            lambda x: x.set_border(),
-            self.get_tile(color=color)
-        ))
+        for tile in self.get_tile(color=color):
+            tile.set_border()
+
         self.scene.hide_put_tile()

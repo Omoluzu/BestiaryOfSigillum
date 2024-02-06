@@ -45,4 +45,5 @@ class Tile(SquareElementScene):
         self.set_border(color=Color.green, border=4)
 
     def deactivated(self):
+        self.scene.active = None
         self.factory.deactivated_tile_by_color(color=self.color)

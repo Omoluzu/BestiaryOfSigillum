@@ -7,7 +7,7 @@ class Factory(CircleElementScene):
     Класс отвечающий за работу конкретной фабрики
     """
     size = 150
-    tiles: [Tile, ...]
+    tiles: [Tile]
 
     def __init__(self, element: str, *args, **kwargs):
         """
@@ -47,19 +47,19 @@ class Factory(CircleElementScene):
 
         self.tiles = [up, left, right, button]
 
-    def get_tile(self, color) -> list[Tile, ...]:
+    def get_tile(self, color) -> list[Tile]:
         """
         Получение тайлов фабрики определенного цвета
         :param color: Цвет который необходимо найти
         :return: Список тайлов необходимого цвета
         """
-        return list(filter(
+        return filter(
             lambda x: x.color == color,
             self.tiles
-        ))
+        )
 
     def select_tile_by_color(self, tile: Tile) -> None:
-        """Активация всех тайлов на фабрике выбранного цвета.
+        """Активация всех плиток на фабрике выбранного цвета.
 
         Args:
             tile: Тайл который необходимо активировать

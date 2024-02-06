@@ -119,7 +119,7 @@ class ElementScene:
         """
         self.setPen(QPen(QColor(color), border))
 
-    def set_color(self, color: str = 'while') -> None:
+    def set_color(self, color: str = 'transparent') -> None:
         """
         Description:
             Заливка фигуры цветом

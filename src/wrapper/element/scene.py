@@ -1,20 +1,11 @@
-import os
 import warnings
+import os
 
-from abc import abstractmethod
-from PyQt5.QtGui import QPen, QColor
 from PyQt5.QtWidgets import QGraphicsPolygonItem, QGraphicsScene
+from PyQt5.QtGui import QPen, QColor
+from abc import abstractmethod
 
-__version__ = "1.0.0"
-
-
-"""
-version 1.0.1
-    - Добавлен параметр rotate для поворачивание фигуры
-
-version 1.0.0
-    - Инициализация
-"""
+__version__ = "1.0.1"
 
 
 class ElementScene:

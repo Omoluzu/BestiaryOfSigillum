@@ -2,7 +2,6 @@
 Шаблон размещения тайлов
 """
 
-
 from src.wrapper.element import SquareElementScene
 
 

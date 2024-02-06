@@ -1,22 +1,10 @@
 from PyQt5.QtWidgets import QGraphicsPixmapItem, QGraphicsPolygonItem
-from PyQt5.QtCore import QPointF, QSize
 from PyQt5.QtGui import QPolygonF, QPixmap
+from PyQt5.QtCore import QPointF, QSize
 
 from src.wrapper.element.scene import ElementScene
 
 __version__ = "1.0.1"
-
-
-"""
-version 1.0.1
-    - Реализованна возможность вращения фигуры ключём rotate
-    - Добавлен параметр start_point для получения начальной позиции фигруры
-    - Получение фигуры выведен в атрибут __polygon
-    
-
-version 1.0.0
-    - Инициализация
-"""
 
 
 class RectangleElementScene(ElementScene, QGraphicsPolygonItem):

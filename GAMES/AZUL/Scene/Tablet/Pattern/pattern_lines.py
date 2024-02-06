@@ -2,7 +2,7 @@
 Группа отвечающая за место ввода выбранных тайлов
 """
 
-from src.wrapper.element import RectangleElementScene, SquareElementScene
+from src.wrapper.element import RectangleElementScene
 
 from .pattern_line import PatternLine
 
@@ -25,7 +25,7 @@ class PatternLines(RectangleElementScene):
             )
 
     def show_me_put_tile(self, color):
-        """Отрисовка тайлов куда можно положить разместить тайл в Линии шаблона
+        """Отрисовка плиток куда можно положить разместить тайл в Линии шаблона
 
         Args:
             color: Выбранный цвет тайла который планируется для размещения.

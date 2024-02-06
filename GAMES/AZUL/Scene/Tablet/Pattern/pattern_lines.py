@@ -1,5 +1,5 @@
 """
-Группа отвечающая за место ввода выбранных тайлов
+Группа линий маркеров размещения плиток
 """
 
 from src.wrapper.element import RectangleElementScene

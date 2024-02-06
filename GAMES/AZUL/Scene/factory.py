@@ -58,20 +58,25 @@ class Factory(CircleElementScene):
             self.tiles
         ))
 
-    def select_tile_by_color(self, color: str) -> None:
+    def select_tile_by_color(self, tile: Tile) -> None:
+        """Активация всех тайлов на фабрике выбранного цвета.
+
+        Args:
+            tile: Тайл который необходимо активировать
         """
-        Активация всех тайлов на фабрике выбранного цвета.
-        :param color: Цвет который необходимо выбрать
-        """
+        if self.scene.active and self.scene.active.color == tile.color:
+            tile.deactivated()
+            return
+
         list(map(
             lambda x: x.select_tile(),
-            self.get_tile(color=color)
+            self.get_tile(color=tile.color)
         ))
-        self.scene.show_me_put_tile(color)
+        self.scene.show_me_put_tile(tile.color)
 
     def deactivated_tile_by_color(self, color: str) -> None:
         """
-        Деактивация тайлов на фабрике определенного цвета
+        Деактивация плиток на фабрике определенного цвета
         :param color: Цвет который необходимо деактивировать.
         """
         list(map(

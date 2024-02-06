@@ -27,7 +27,7 @@ class AuthDialog(QDialog):
 
         self.setGeometry(700, 450, 300, 100)
 
-        key_enter = QShortcut(QKeySequence('Return'), self)
+        key_enter = QShortcut(QKeySequence('Return'), self)  # Todo: PySide6 не использует QShortcut (PyQt - его мог использовать в PySide6.QtWidgets)
         key_enter.activated.connect(self.action_get_auth)
 
         self.login = QLineEdit()

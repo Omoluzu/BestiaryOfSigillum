@@ -1,6 +1,6 @@
 from wrapperQWidget5.modules.scene.Scene import Scene
 from .Factories import Factories
-from .tablet import Tablet
+from .Tablet.tablet import Tablet
 
 
 class AzulScene(Scene):

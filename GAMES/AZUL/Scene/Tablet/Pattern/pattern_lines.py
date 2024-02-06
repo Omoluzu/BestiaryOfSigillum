@@ -17,11 +17,12 @@ class PatternLines(RectangleElementScene):
         y = point[1]
         super().__init__(scene=tablet.scene, point=(x, y), *args, **kwargs)
 
-        self.lines_1 = PatternLine(pattern_lines=self, count=1)
-        self.lines_2 = PatternLine(pattern_lines=self, count=2)
-        self.lines_3 = PatternLine(pattern_lines=self, count=3)
-        self.lines_4 = PatternLine(pattern_lines=self, count=4)
-        self.lines_5 = PatternLine(pattern_lines=self, count=5)
+        for index in range(1, 6):
+            setattr(
+                self,
+                f"lines_{index}",
+                PatternLine(pattern_lines=self, count=index)
+            )
 
     def show_me_put_tile(self, color):
         """Отрисовка тайлов куда можно положить разместить тайл в Линии шаблона
@@ -29,4 +30,6 @@ class PatternLines(RectangleElementScene):
         Args:
             color: Выбранный цвет тайла который планируется для размещения.
         """
-        print(f"show_me_put_tile: {color}")
+        for index in range(1, 6):
+            pattern_line = getattr(self, f"lines_{index}")
+            pattern_line.show_me_put_tile(color=color)

@@ -37,3 +37,11 @@ class PatternLine:
                 point=self.start_point,
                 bias=(bias_x, self.bias_y)
             )
+
+    def show_me_put_tile(self, color):
+        """Отрисовка тайлов куда можно положить разместить тайл в Линии шаблона
+
+        Args:
+            color: Выбранный цвет тайла который планируется для размещения.
+        """
+        print(f"show_me_put_tile: {color}")

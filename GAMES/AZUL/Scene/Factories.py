@@ -21,4 +21,7 @@ class Factories:
         self.count_factory = len(elements)
 
         for i, element in enumerate(elements):
-            Factory(scene=self.scene, element=element, point=((160*i), 0))
+            Factory(
+                scene=self.scene, element=element,
+                number=i + 1, point=((160*i), 0)
+            )

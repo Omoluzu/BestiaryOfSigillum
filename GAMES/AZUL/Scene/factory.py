@@ -8,13 +8,19 @@ class Factory(CircleElementScene):
     """
     size = 150
     tiles: [Tile]
+    number: int
 
-    def __init__(self, element: str, *args, **kwargs):
+    def __init__(self, element: str, number: int, *args, **kwargs):
         """
 
-        element (str) - yrdr
+        Args:
+            number - Порядковый номер Фабрики
+            element - Список расположенных плиток на фабрике
+                Пример: yrdr
         """
+        self.number = number
         super().__init__(*args, **kwargs)
+
         self.draw_tile(element=element)
 
     def draw_tile(self, element) -> None:

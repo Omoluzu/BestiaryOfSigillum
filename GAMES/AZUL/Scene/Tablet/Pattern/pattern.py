@@ -21,5 +21,7 @@ class Pattern(SquareElementScene):
 
     def activated(self):
         """Активация перемещения тайла на планшет"""
-        if self.scene.active:
-            print(self.select)
+        if self.scene.active and self.select:
+            factory_number = self.scene.active.factory.number
+            # Номер линии.
+            # Цвет тайла.

@@ -41,7 +41,8 @@ class PatternLine:
     def draw(self):
         for bias_x in [2.4, 1.2, 0, -1.2, -2.4][:self.count]:
             pattern = Pattern(
-                self.scene,
+                scene=self.scene,
+                line=self.count,
                 point=self.start_point,
                 bias=(bias_x, self.bias_y)
             )

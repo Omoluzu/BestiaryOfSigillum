@@ -8,6 +8,15 @@ from src.wrapper.element import SquareElementScene
 class Pattern(SquareElementScene):
     size = 50
     select = False
+    line: int
+
+    def __init__(self, line: int, *args, **kwargs):
+        """
+        Args:
+            line - Номер линии
+        """
+        self.line = line
+        super().__init__(*args, **kwargs)
 
     def get_active(self):
         """Подсветка маркеров размещения плиток"""
@@ -23,5 +32,5 @@ class Pattern(SquareElementScene):
         """Активация перемещения тайла на планшет"""
         if self.scene.active and self.select:
             factory_number = self.scene.active.factory.number
-            # Номер линии.
+            number_line = self.line  # Номер линии.
             # Цвет тайла.

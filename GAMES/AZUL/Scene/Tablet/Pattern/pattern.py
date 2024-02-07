@@ -3,7 +3,7 @@
 """
 
 from src.wrapper.element import SquareElementScene
-
+from GAMES.AZUL.Scene.color import tile_color_reverse
 
 class Pattern(SquareElementScene):
     size = 50
@@ -31,6 +31,8 @@ class Pattern(SquareElementScene):
     def activated(self):
         """Активация перемещения тайла на планшет"""
         if self.scene.active and self.select:
-            factory_number = self.scene.active.factory.number
-            number_line = self.line  # Номер линии.
-            # Цвет тайла.
+            factory = self.scene.active.factory.number
+            color = tile_color_reverse[self.scene.active.color]
+
+            print(f"command:post;fact:{factory};color:{color};line:{self.line}")
+            self.scene.active.deactivated()

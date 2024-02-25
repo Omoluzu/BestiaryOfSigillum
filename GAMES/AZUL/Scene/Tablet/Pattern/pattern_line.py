@@ -1,5 +1,5 @@
 """
-Группа отвечающая за одну линию ввода тайлов
+Группа отвечающая за одну линию ввода плиток
 """
 
 from .pattern import Pattern
@@ -10,8 +10,8 @@ class PatternLine:
 
     Args:
         count - Длина линии от 1 до 5.
-        pattern_tiles - Список шаблонов или тайлов для размещения
-            или хранения информации о тайлах.
+        pattern_tiles - Список шаблонов или плиток для размещения
+            или хранения информации о плитках.
     """
     def __init__(self, pattern_lines: 'PatternLines', count: int):
         self.pattern_lines = pattern_lines

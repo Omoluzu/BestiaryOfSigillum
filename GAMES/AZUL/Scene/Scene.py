@@ -34,3 +34,7 @@ class AzulScene(Scene):
     def hide_put_tile(self):
         """Сокрытие маркеров размещение плиток"""
         self.tablet.hide_put_tile()
+
+    def sent_post_tile(self, info):
+        self.app.send_data(command=info, test=True)
+

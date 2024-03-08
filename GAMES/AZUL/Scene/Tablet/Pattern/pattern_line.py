@@ -42,7 +42,7 @@ class PatternLine:
     def draw(self):
         bias_x = [2.4, 1.2, 0, -1.2, -2.4]
 
-        for index, tile in enumerate(self.tiles):
+        for index, tile in enumerate(self.tiles[::-1]):
             pattern = Pattern(
                 scene=self.scene,
                 line=self.count,
@@ -51,6 +51,14 @@ class PatternLine:
                 bias=(bias_x[index], self.bias_y)
             )
             self.pattern_tiles.append(pattern)
+
+    def color(self) -> str:
+        """Получение использованного в линии цвета плиток
+        :returns: Цвет плитки или '-' если плитка еще не выставлена"""
+        for pattern in self.pattern_tiles:
+            if pattern:
+                return pattern.tile
+        return '-'
 
     def show_me_put_tile(self, color):
         """Отображение маркеров размещения плиток.

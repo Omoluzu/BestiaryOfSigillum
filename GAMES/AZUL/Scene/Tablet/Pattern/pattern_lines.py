@@ -3,6 +3,7 @@
 """
 
 from src.wrapper.element import RectangleElementScene
+from GAMES.AZUL.Scene.color import tile_color_reverse
 
 from .pattern_line import PatternLine
 
@@ -31,14 +32,17 @@ class PatternLines(RectangleElementScene):
         for index in range(1, 6):
             yield getattr(self, f"lines_{index}")
 
-    def show_me_put_tile(self, color):
+    def show_me_put_tile(self, color: str):
         """Отрисовка плиток куда можно положить разместить тайл в Линии шаблона
 
         Args:
             color: Выбранный цвет тайла который планируется для размещения.
+                'blue'
         """
         for pattern_line in self.pattern_line:
-            pattern_line.show_me_put_tile(color=color)
+            pattern_color = pattern_line.color()
+            if pattern_color == '-' or pattern_color == tile_color_reverse[color]:
+                pattern_line.show_me_put_tile(color=color)
 
     def hide_put_tile(self):
         """Сокрытие маркеров размещение плиток"""

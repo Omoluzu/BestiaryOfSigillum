@@ -20,18 +20,23 @@ class Pattern(SquareElementScene):
         self.tile = tile
         super().__init__(*args, **kwargs)
 
-        if self.tile != '-':
+        if self:
             self.set_color(tile_color[self.tile])
+
+    def __bool__(self):
+        return self.tile != '-'
 
     def get_active(self):
         """Подсветка маркеров размещения плиток"""
-        self.set_color(color="green")
-        self.select = True
+        if not self:
+            self.set_color(color="green")
+            self.select = True
 
     def get_deactivate(self):
         """Сокрытие маркеров размещение плиток"""
-        self.set_color()
-        self.select = False
+        if self.select:
+            self.set_color()
+            self.select = False
 
     def activated(self):
         """Активация перемещения тайла на планшет"""

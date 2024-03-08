@@ -21,10 +21,20 @@ class Factory(CircleElementScene):
         self.number = number
         super().__init__(*args, **kwargs)
 
-        self.draw_tile(element=element)
+        self.draw_element(element=element)
 
     def __repr__(self):
         return f"<class={self.__class__.__name__} number={self.number}>"
+
+    def draw_element(self, element: str) -> None:
+        """Отрисовка элементов фабрики
+        :param element: Элементы фабрики для отрисовки
+            'rgyd' - список плиток для отрисовки
+            '-' - Плитки на данной фабрике отсутствуют
+        """
+        if element == '-':
+            return
+        self.draw_tile(element)
 
     def draw_tile(self, element) -> None:
         """

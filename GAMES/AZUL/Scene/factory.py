@@ -1,5 +1,11 @@
+import random
+
 from src.wrapper.element import CircleElementScene
 from .tile import Tile
+
+CHOICE_ZERO = [-.05, -.1, 0, .1, .05]
+CHOICE_ONE = [.95, .9, 1, 1.1, 1.05]
+CHOICE_MUNIS_ONE = [-.95, -.9, -1, -1.1, -1.05]
 
 
 class Factory(CircleElementScene):
@@ -49,19 +55,23 @@ class Factory(CircleElementScene):
 
         up = Tile(
             type_tile=tile_up, factory=self,
-            point=self.start_point, rotate=45, bias=(0, -1)
+            point=self.start_point, rotate=random.randint(35, 55),
+            bias=(random.choice(CHOICE_ZERO), random.choice(CHOICE_MUNIS_ONE))
         )
         button = Tile(
             type_tile=tile_button, factory=self,
-            point=self.start_point, rotate=45, bias=(0, 1)
+            point=self.start_point, rotate=random.randint(35, 55),
+            bias=(random.choice(CHOICE_ZERO), random.choice(CHOICE_ONE))
         )
         left = Tile(
             type_tile=tile_left, factory=self,
-            point=self.start_point, rotate=45, bias=(-1, 0)
+            point=self.start_point, rotate=random.randint(35, 55),
+            bias=(random.choice(CHOICE_MUNIS_ONE), random.choice(CHOICE_ZERO))
         )
         right = Tile(
             type_tile=tile_right, factory=self,
-            point=self.start_point, rotate=45, bias=(1, 0)
+            point=self.start_point, rotate=random.randint(35, 55),
+            bias=(random.choice(CHOICE_ONE), random.choice(CHOICE_ZERO))
         )
 
         self.tiles = [up, left, right, button]

@@ -3,6 +3,19 @@ from .Tablet.tablet import Tablet
 from .Factories import Factories
 
 
+def split_game_command(info: str) -> dict:
+    """
+    'command:post;fact:5;color:r;line:3'
+    ->
+    {'command': 'post', 'fact': 5, 'color': 'r', 'line': 3}
+    """
+    data = {}
+    for i in info.split(';'):
+        x = i.split(':')
+        data[x[0]] = int(x[1]) if x[1].isdigit() else x[1]
+    return data
+
+
 class AzulScene(Scene):
     def __init__(self, app: 'AzulGames', *args, **kwargs):
         """
@@ -16,14 +29,11 @@ class AzulScene(Scene):
 
         self.tablet = Tablet(scene=self, point=(220, 340))
 
-    def draw(self):
-        """Отрисовка сцены."""
-        for element in self.app.data['game_info'].split(";"):
-            match element:
-                case text if text.startswith('fact'):
-                    self.factories.init(elements=element.replace('fact:', ''))
-                case _:
-                    print('Unknown')
+    def draw(self) -> None:
+        """Отрисовка элементов сцены игры"""
+        game_info = split_game_command(self.app.data['game_info'])
+
+        self.factories.init(elements=game_info['fact'])
 
     def show_me_put_tile(self, color: str):
         """

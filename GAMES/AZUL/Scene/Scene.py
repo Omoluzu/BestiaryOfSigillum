@@ -24,14 +24,33 @@ class AzulScene(Scene):
             app (GAMES.AZUL.Games.AzulGames)
         """
         self.factories = Factories(self)
+        self.user = app.app.user
 
         super().__init__(app=app, *args, **kwargs)
 
         self.tablet = Tablet(scene=self, point=(220, 340))
 
+    @property
+    def kind(self):
+        """Форматирование игроков
+        :returns: {name: position}
+        """
+        kind = self.app.game_info['kind']
+        data = {}
+        for k in kind.split(','):
+            position, name = k.split('.')
+            data[name] = position
+
+        return data
+
     def draw(self) -> None:
         """Отрисовка элементов сцены игры"""
+        position = self.kind[self.user]
+        pattern = self.app.game_info[f'pattern{position}']
+
         self.factories.init(elements=self.app.game_info['fact'])
+
+        print(pattern)
 
     def show_me_put_tile(self, color: str):
         """

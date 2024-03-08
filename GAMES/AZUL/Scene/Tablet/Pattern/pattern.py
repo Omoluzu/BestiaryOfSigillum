@@ -44,6 +44,6 @@ class Pattern(SquareElementScene):
             factory = self.scene.active.factory.number
             color = tile_color_reverse[self.scene.active.color]
 
-            info = f"command:post;fact:{factory};color:{color};line:{self.line}"
+            info = f"command:post;fact:{factory};color:{color};line:{self.line};player:{self.scene.position}"
             self.scene.active.deactivated()
             self.scene.sent_post_tile(info=info)

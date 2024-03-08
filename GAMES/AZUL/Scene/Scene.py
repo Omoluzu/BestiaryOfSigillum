@@ -44,10 +44,17 @@ class AzulScene(Scene):
 
         return data
 
+    @property
+    def position(self) -> str:
+        """Получение позиции хода игрока
+        Returns:
+            one, two
+        """
+        return self.kind[self.user]
+
     def draw(self) -> None:
         """Отрисовка элементов сцены игры"""
-        position = self.kind[self.user]
-        pattern = self.app.game_info[f'pattern{position}']
+        pattern = self.app.game_info[f'pattern{self.position}']
 
         self.tablet = Tablet(scene=self, point=(220, 340), pattern_line=pattern)
 

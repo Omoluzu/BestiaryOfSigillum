@@ -23,8 +23,20 @@ class Pattern(SquareElementScene):
         if self:
             self.set_color(tile_color[self.tile])
 
+    def __repr__(self):
+        return f"{self.__class__.__name__}(tile={self.tile})"
+
     def __bool__(self):
         return self.tile != '-'
+
+    def action_pattern_line(self, tile: str) -> None:
+        """Выставление плитки на планшет игрока
+
+        Args:
+            tile: Плитка которую необходимо выставить на планшет: r
+        """
+        self.tile = tile
+        self.set_color(color=tile_color[tile])
 
     def get_active(self):
         """Подсветка маркеров размещения плиток"""

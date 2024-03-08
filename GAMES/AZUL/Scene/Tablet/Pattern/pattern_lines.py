@@ -48,3 +48,14 @@ class PatternLines(RectangleElementScene):
         """Сокрытие маркеров размещение плиток"""
         for pattern_line in self.pattern_line:
             pattern_line.hide_put_tile()
+
+    def action_pattern_line(self, line: int, tile: str, count: int) -> None:
+        """Выставление плитки на планшет игрока
+
+        Args:
+            line: Линия выставления плитки: 3
+            tile: Плитка которую необходимо выставить на планшет: r
+            count: Количество плиток на выставление: 2
+        """
+        pattern = getattr(self, f"lines_{line}")
+        pattern.action_pattern_line(tile=tile, count=count)

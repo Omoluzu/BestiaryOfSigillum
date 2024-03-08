@@ -4,15 +4,15 @@ from PyQt5.QtWidgets import QMainWindow, QWidget
 __version__ = "1.0.3"
 
 
-def split_game_command(info: str) -> dict:
+def split_game_command(info: str, sep1: str = ';', sep2: str = ':') -> dict:
     """
     'command:post;fact:5;color:r;line:3'
     ->
     {'command': 'post', 'fact': 5, 'color': 'r', 'line': 3}
     """
     data = {}
-    for i in info.split(';'):
-        x = i.split(':')
+    for i in info.split(sep1):
+        x = i.split(sep2)
         data[x[0]] = int(x[1]) if x[1].isdigit() else x[1]
     return data
 

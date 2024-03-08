@@ -22,6 +22,10 @@ class PatternLine:
 
         self.draw()
 
+    def __repr__(self):
+        return (f"{self.__class__.__name__}(pattern_lines={self.pattern_lines}, "
+                f"tiles={self.tiles})")
+
     @property
     def start_point(self) -> tuple:
         return (
@@ -73,3 +77,18 @@ class PatternLine:
         """Сокрытие маркеров размещение плиток"""
         for pattern in self.pattern_tiles:
             pattern.get_deactivate()
+
+    def action_pattern_line(self, tile: str, count: int) -> None:
+        """Выставление плитки на планшет игрока
+
+        Args:
+            tile: Плитка которую необходимо выставить на планшет: r
+            count: Количество плиток на выставление: 2
+        """
+        n = 0
+        for pattern in self.pattern_tiles:
+            if not pattern:
+                pattern.action_pattern_line(tile=tile)
+                n += 1
+                if n == count:
+                    break

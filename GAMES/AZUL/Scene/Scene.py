@@ -80,3 +80,16 @@ class AzulScene(Scene):
         """
         self.factories.action_clean_fact(fact)
 
+    def action_pattern_line(
+            self, line: int, player: str, tile: str, count: int
+    ) -> None:
+        """Выставление плитки на планшет игрока
+
+        Args:
+            line: Линия выставления плитки: 3
+            player: Игрок: one, two
+            tile: Плитка которую необходимо выставить на планшет: r
+            count: Количество плиток на выставление: 2
+        """
+        if self.position == player:
+            self.tablet.action_pattern_line(line, tile, count)

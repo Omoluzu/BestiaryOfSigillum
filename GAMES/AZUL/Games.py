@@ -26,5 +26,8 @@ class AzulGames(WrapperGames):
                     ...
                 case 'count':
                     ...
+                case 'post_pattern_line':
+                    self.scene.action_pattern_line(
+                        **split_game_command(value, sep1=',', sep2='.'))
                 case _:
                     print(f'Unsupported command {key}: {value}')

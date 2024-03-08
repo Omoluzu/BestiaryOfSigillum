@@ -31,3 +31,14 @@ class Tablet(RectangleElementScene):
     def hide_put_tile(self):
         """Сокрытие маркеров размещение плиток"""
         self.pattern_lines.hide_put_tile()
+
+    def action_pattern_line(self, line: int, tile: str, count: int) -> None:
+        """Выставление плитки на планшет игрока
+
+        Args:
+            line: Линия выставления плитки: 3
+            tile: Плитка которую необходимо выставить на планшет: r
+            count: Количество плиток на выставление: 2
+        """
+        self.pattern_lines.action_pattern_line(
+            line=line, tile=tile, count=count)

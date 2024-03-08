@@ -3,7 +3,7 @@
 """
 
 from src.wrapper.element import SquareElementScene
-from GAMES.AZUL.Scene.color import tile_color_reverse
+from GAMES.AZUL.Scene.color import tile_color_reverse, tile_color
 
 
 class Pattern(SquareElementScene):
@@ -11,13 +11,17 @@ class Pattern(SquareElementScene):
     select = False
     line: int
 
-    def __init__(self, line: int, *args, **kwargs):
-        """
-        Args:
-            line - Номер линии
+    def __init__(self, line: int, tile: str, *args, **kwargs) -> None:
+        """Инициализация шаблона размещения плиток
+        :param line: Номер линии
+        :param tile: Информация о лежащей плитки
         """
         self.line = line
+        self.tile = tile
         super().__init__(*args, **kwargs)
+
+        if self.tile != '-':
+            self.set_color(tile_color[self.tile])
 
     def get_active(self):
         """Подсветка маркеров размещения плиток"""

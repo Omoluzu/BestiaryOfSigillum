@@ -9,14 +9,15 @@ class PatternLine:
     """
 
     Args:
-        count - Длина линии от 1 до 5.
+        tiles - Информация о плитках на планшете игрока
         pattern_tiles - Список шаблонов или плиток для размещения
             или хранения информации о плитках.
     """
-    def __init__(self, pattern_lines: 'PatternLines', count: int):
+    def __init__(self, pattern_lines: 'PatternLines', tiles: str):
         self.pattern_lines = pattern_lines
         self.scene = pattern_lines.scene
-        self.count = count
+        self.tiles = tiles
+        self.count = len(tiles)
         self.pattern_tiles: list[Pattern] = []
 
         self.draw()
@@ -39,12 +40,15 @@ class PatternLine:
         }.get(self.count)
 
     def draw(self):
-        for bias_x in [2.4, 1.2, 0, -1.2, -2.4][:self.count]:
+        bias_x = [2.4, 1.2, 0, -1.2, -2.4]
+
+        for index, tile in enumerate(self.tiles):
             pattern = Pattern(
                 scene=self.scene,
                 line=self.count,
+                tile=tile,
                 point=self.start_point,
-                bias=(bias_x, self.bias_y)
+                bias=(bias_x[index], self.bias_y)
             )
             self.pattern_tiles.append(pattern)
 

@@ -10,19 +10,20 @@ from .pattern_line import PatternLine
 class PatternLines(RectangleElementScene):
     width = 300
 
-    def __init__(self, tablet, point, *args, **kwargs):
+    def __init__(self, tablet, point, pattern_line, *args, **kwargs):
         self.height = tablet.height - 10
         self.width = tablet.width / 2
         x = point[0] - (self.width / 2) + 7
         y = point[1]
         super().__init__(scene=tablet.scene, point=(x, y), *args, **kwargs)
 
-        for index in range(1, 6):
-            setattr(
-                self,
-                f"lines_{index}",
-                PatternLine(pattern_lines=self, count=index)
-            )
+        one, two, thee, four, five = pattern_line.split('.')
+
+        self.lines_1 = PatternLine(pattern_lines=self, tiles=one)
+        self.lines_2 = PatternLine(pattern_lines=self, tiles=two)
+        self.lines_3 = PatternLine(pattern_lines=self, tiles=thee)
+        self.lines_4 = PatternLine(pattern_lines=self, tiles=four)
+        self.lines_5 = PatternLine(pattern_lines=self, tiles=five)
 
     @property
     def pattern_line(self):

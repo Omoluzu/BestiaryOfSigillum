@@ -1,22 +1,5 @@
 from src.wrapper.element import SquareElementScene
-
-
-class Color:
-    black = "black"
-    blue = "blue"
-    dark_blue = "dark blue"
-    yellow = "yellow"
-    red = "red"
-    green = "green"
-
-
-tile_color = {
-    "d": Color.black,
-    "b": Color.blue,
-    "g": Color.dark_blue,
-    "y": Color.yellow,
-    "r": Color.red
-}
+from .color import tile_color, Color
 
 
 class Tile(SquareElementScene):

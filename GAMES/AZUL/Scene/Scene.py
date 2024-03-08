@@ -17,6 +17,8 @@ def split_game_command(info: str) -> dict:
 
 
 class AzulScene(Scene):
+    tablet: Tablet
+
     def __init__(self, app: 'AzulGames', *args, **kwargs):
         """
 
@@ -28,7 +30,6 @@ class AzulScene(Scene):
 
         super().__init__(app=app, *args, **kwargs)
 
-        self.tablet = Tablet(scene=self, point=(220, 340))
 
     @property
     def kind(self):
@@ -48,9 +49,9 @@ class AzulScene(Scene):
         position = self.kind[self.user]
         pattern = self.app.game_info[f'pattern{position}']
 
-        self.factories.init(elements=self.app.game_info['fact'])
+        self.tablet = Tablet(scene=self, point=(220, 340), pattern_line=pattern)
 
-        print(pattern)
+        self.factories.init(elements=self.app.game_info['fact'])
 
     def show_me_put_tile(self, color: str):
         """

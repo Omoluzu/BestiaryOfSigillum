@@ -12,9 +12,15 @@ class Tablet(RectangleElementScene):
     width = 637.5
     image = f"GAMES/AZUL/image/tablet.png"
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, pattern_line, *args, **kwargs):
+        """Инициализация планшета игрока
+        :param pattern_line: информация о линия размещения
+            -.gg.---.----.-----
+        """
         super().__init__(*args, **kwargs)
-        self.pattern_lines = PatternLines(tablet=self, point=self.start_point)
+        self.pattern_lines = PatternLines(
+            tablet=self, point=self.start_point, pattern_line=pattern_line
+        )
 
     def show_me_put_tile(self, color):
         """

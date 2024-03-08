@@ -1,7 +1,20 @@
 from abc import abstractmethod
 from PyQt5.QtWidgets import QMainWindow, QWidget
 
-__version__ = "1.0.2"
+__version__ = "1.0.3"
+
+
+def split_game_command(info: str) -> dict:
+    """
+    'command:post;fact:5;color:r;line:3'
+    ->
+    {'command': 'post', 'fact': 5, 'color': 'r', 'line': 3}
+    """
+    data = {}
+    for i in info.split(';'):
+        x = i.split(':')
+        data[x[0]] = int(x[1]) if x[1].isdigit() else x[1]
+    return data
 
 
 class WrapperGames(QMainWindow):
@@ -16,6 +29,7 @@ class WrapperGames(QMainWindow):
         self.app = app
         self.parent_widget = parent_widget
         self.data = data
+        self.game_info = split_game_command(self.data['game_info'])
 
         self.setWindowTitle(f"{self.title} ({self.version_game})")
 
@@ -38,9 +52,16 @@ class WrapperGames(QMainWindow):
                 self.data['game_id'] == data['game_id']
         ]):
             self.get_data(data)
+            self.get_commands(split_game_command(data['game_command']))
 
     @abstractmethod
     def get_data(self, data: dict):
+        pass
+
+    def get_commands(self, commands: dict) -> None:
+        """Передача информации об обновлении игры с сервера.
+        :param commands: Список команд с сервера для обновления информации об игре
+        """
         pass
 
     def send_data(self, command, test=False):

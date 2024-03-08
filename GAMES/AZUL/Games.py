@@ -1,20 +1,7 @@
-from src.wrapper.view import WrapperGames
+from src.wrapper.view import WrapperGames, split_game_command
 from .Scene import AzulScene
 
 __version__ = "1.0.0"
-
-
-def split_game_command(info: str) -> dict:
-    """
-    'command:post;fact:5;color:r;line:3'
-    ->
-    {'command': 'post', 'fact': 5, 'color': 'r', 'line': 3}
-    """
-    data = {}
-    for i in info.split(';'):
-        x = i.split(':')
-        data[x[0]] = int(x[1]) if x[1].isdigit() else x[1]
-    return data
 
 
 class AzulGames(WrapperGames):
@@ -29,10 +16,9 @@ class AzulGames(WrapperGames):
         self.setFixedSize(*self.__scene__size__)
         self.setContentsMargins(0, 0, 0, 0)
 
-    def get_data(self, data: dict) -> None:
-        commands = split_game_command(data['game_command'])
+    def get_commands(self, command: dict) -> None:
 
-        for key, value in commands.items():
+        for key, value in command.items():
             match key:
                 case 'clean_fact':
                     self.scene.action_clean_fact(value)

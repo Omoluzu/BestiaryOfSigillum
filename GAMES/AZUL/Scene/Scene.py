@@ -31,9 +31,7 @@ class AzulScene(Scene):
 
     def draw(self) -> None:
         """Отрисовка элементов сцены игры"""
-        game_info = split_game_command(self.app.data['game_info'])
-
-        self.factories.init(elements=game_info['fact'])
+        self.factories.init(elements=self.app.game_info['fact'])
 
     def show_me_put_tile(self, color: str):
         """

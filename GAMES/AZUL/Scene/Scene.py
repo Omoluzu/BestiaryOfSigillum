@@ -20,14 +20,14 @@ class AzulScene(Scene):
         """Отрисовка сцены."""
         for element in self.app.data['game_info'].split(";"):
             match element:
-                case text if text.startswith('fac'):
-                    self.factories.init(elements=element.replace('fac:', ''))
+                case text if text.startswith('fact'):
+                    self.factories.init(elements=element.replace('fact:', ''))
                 case _:
                     print('Unknown')
 
     def show_me_put_tile(self, color: str):
         """
-        Отрисовка тайлов куда можно положить разместить тайл в Линии шаблона
+        Отрисовка плиток куда можно положить разместить тайл в Линии шаблона
         """
         self.tablet.show_me_put_tile(color)
 
@@ -36,5 +36,12 @@ class AzulScene(Scene):
         self.tablet.hide_put_tile()
 
     def sent_post_tile(self, info):
+        """Отправка команды на сервер о размещении плитки на планшет игрока"""
         self.app.send_data(command=info, test=True)
+
+    def action_clean_fact(self, fact: int) -> None:
+        """Очистка плиток с фабрики
+        :param fact: Номер фабрики
+        """
+        self.factories.action_clean_fact(fact)
 

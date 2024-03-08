@@ -5,7 +5,7 @@ class Factories:
     """
     Класс отвечающий за отрисовку и работу всех фабрик игры.
     """
-    factory: list[Factory, ...]
+    factory: list[Factory, ...] = []
     count_factory: int
     element: str
 
@@ -21,7 +21,14 @@ class Factories:
         self.count_factory = len(elements)
 
         for i, element in enumerate(elements):
-            Factory(
+            factory = Factory(
                 scene=self.scene, element=element,
                 number=i + 1, point=((160*i), 0)
             )
+            self.factory.append(factory)
+
+    def action_clean_fact(self, fact: int) -> None:
+        """Очистка плиток с фабрики
+        :param fact: Номер фабрики
+        """
+        self.factory[fact - 1].clean()

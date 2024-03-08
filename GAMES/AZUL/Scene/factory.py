@@ -7,7 +7,7 @@ class Factory(CircleElementScene):
     Класс отвечающий за работу конкретной фабрики
     """
     size = 150
-    tiles: [Tile]
+    tiles: [Tile, ...]
     number: int
 
     def __init__(self, element: str, number: int, *args, **kwargs):
@@ -22,6 +22,9 @@ class Factory(CircleElementScene):
         super().__init__(*args, **kwargs)
 
         self.draw_tile(element=element)
+
+    def __repr__(self):
+        return f"<class={self.__class__.__name__} number={self.number}>"
 
     def draw_tile(self, element) -> None:
         """
@@ -55,7 +58,7 @@ class Factory(CircleElementScene):
 
     def get_tile(self, color) -> list[Tile]:
         """
-        Получение тайлов фабрики определенного цвета
+        Получение плиток фабрики определенного цвета
         :param color: Цвет который необходимо найти
         :return: Список тайлов необходимого цвета
         """
@@ -90,3 +93,8 @@ class Factory(CircleElementScene):
             tile.set_border()
 
         self.scene.hide_put_tile()
+
+    def clean(self) -> None:
+        """Очищение текущей фабрики от плиток"""
+        for tile in self.tiles:
+            tile.remove_item()

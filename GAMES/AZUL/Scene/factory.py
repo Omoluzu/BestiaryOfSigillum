@@ -7,8 +7,10 @@ CHOICE_ZERO = [-.05, -.1, 0, .1, .05]
 CHOICE_ONE = [.95, .9, 1, 1.1, 1.05]
 CHOICE_MUNIS_ONE = [-.95, -.9, -1, -1.1, -1.05]
 
+from .abc_factory import ABCFactory
 
-class Factory(CircleElementScene):
+
+class Factory(ABCFactory, CircleElementScene):
     """
     Класс отвечающий за работу конкретной фабрики
     """
@@ -75,44 +77,6 @@ class Factory(CircleElementScene):
         )
 
         self.tiles = [up, left, right, button]
-
-    def get_tile(self, color) -> list[Tile]:
-        """
-        Получение плиток фабрики определенного цвета
-        :param color: Цвет который необходимо найти
-        :return: Список тайлов необходимого цвета
-        """
-        return filter(
-            lambda x: x.color == color,
-            self.tiles
-        )
-
-    def select_tile_by_color(self, tile: Tile) -> None:
-        """Активация всех плиток на фабрике выбранного цвета.
-
-        Args:
-            tile: Тайл который необходимо активировать
-        """
-        if self.scene.active and self.scene.active.color == tile.color:
-            if self.scene.active.factory == self:
-                tile.deactivated()
-                return
-
-        self.scene.active = tile
-        for tile in self.get_tile(color=tile.color):
-            tile.select_tile()
-
-        self.scene.show_me_put_tile(tile.color)
-
-    def deactivated_tile_by_color(self, color: str) -> None:
-        """
-        Деактивация плиток на фабрике определенного цвета
-        :param color: Цвет который необходимо деактивировать.
-        """
-        for tile in self.get_tile(color=color):
-            tile.set_border()
-
-        self.scene.hide_put_tile()
 
     def clean(self) -> None:
         """Очищение текущей фабрики от плиток"""

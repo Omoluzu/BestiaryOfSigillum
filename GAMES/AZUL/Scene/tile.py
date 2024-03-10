@@ -21,9 +21,7 @@ class Tile(SquareElementScene):
         self.factory.select_tile_by_color(self)
 
     def select_tile(self):
-        """
-        Графическое указание о том что текущий тайл выбран
-        """
+        """Графическое указание о том что текущий тайл выбран"""
         self.set_border(color=Color.green, border=4)
 
     def deactivated(self):

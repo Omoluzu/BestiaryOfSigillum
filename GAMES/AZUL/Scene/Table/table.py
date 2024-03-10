@@ -1,26 +1,18 @@
 """Стол для хранения и использования плиток помещенных из фабрики"""
 import random
 
-from src.wrapper.element import SquareElementScene
-from .color import tile_color
+from .tile import TableTile
+from GAMES.AZUL.Scene import abc_factory
 
 
-class TemplateTile(SquareElementScene):
-    size = 50
-
-    def __init__(self, color: str, *args, **kwargs) -> None:
-        self.color = color
-
-        super().__init__(*args, **kwargs)
-
-        self.set_color(color=tile_color[self.color])
-
-
-class Table:
+class Table(abc_factory.ABCFactory):
+    tiles: [TableTile, ...]
+    free_point: [tuple[int, int], ...]
 
     def __init__(self, scene):
         self.scene = scene
         self.free_point = []
+        self.tiles = []
 
     def get_free_point(self) -> tuple[int, int]:
         """Получить свободную точку для размещения плитки, и удаление её из
@@ -62,6 +54,7 @@ class Table:
         self.fill_free_point(x=center_point[0], y=center_point[1], size=size)
 
         for element in elements:
-            TemplateTile(
-                scene=self.scene, color=element, point=self.get_free_point()
+            tile = TableTile(
+                factory=self, type_tile=element, point=self.get_free_point()
             )
+            self.tiles.append(tile)

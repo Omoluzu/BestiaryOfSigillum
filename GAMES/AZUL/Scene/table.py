@@ -23,12 +23,14 @@ class Table:
         self.free_point = []
 
     def get_free_point(self) -> tuple[int, int]:
-        """Получить свободную точку для размещения плитки
+        """Получить свободную точку для размещения плитки, и удаление её из
+        массива свободных точек размещения
 
         Returns:
             (0, 0)
         """
-        return self.free_point.pop(random.randint(0, len(self.free_point) - 1))
+        randint = random.randint(0, len(self.free_point) - 1)
+        return self.free_point.pop(randint)
 
     def fill_free_point(self, x: int, y: int, size: int = 100) -> None:
         """Заполнить список свободных точек размещения плиток
@@ -42,9 +44,9 @@ class Table:
         bias_y = (size * 3) / 4
         start_y = y - (size * 3) / 4
 
-        for x in list(start_x + (size * x) for x in range(1, 6)):
-            for y in [y, start_y, start_y + bias_y + bias_y]:
-                self.free_point.append((x, y))
+        for _x in list(start_x + (size * x) for x in range(1, 6)):
+            for _y in [y, start_y, start_y + bias_y + bias_y]:
+                self.free_point.append((_x, _y))
 
     def init(
             self, elements: str, center_point: tuple = (0, 0), size: int = 100

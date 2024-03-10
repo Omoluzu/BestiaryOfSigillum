@@ -7,7 +7,8 @@ class Tile(SquareElementScene):
 
     def __init__(self, factory: 'Factory', type_tile: str, *args, **kwargs):
         self.factory = factory
-        self.color = tile_color[type_tile]
+        self.type = type_tile
+        self.color = tile_color[self.type]
         super().__init__(scene=self.factory.scene, *args, **kwargs)
 
         self.set_color(color=self.color)

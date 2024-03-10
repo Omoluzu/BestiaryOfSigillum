@@ -1,3 +1,4 @@
+from .color import Color
 
 
 class ABCFactory:
@@ -5,9 +6,10 @@ class ABCFactory:
     tiles: ['Tile', ...]
 
     def deactivated_tile_by_color(self, color: str) -> None:
-        """
-        Деактивация плиток на фабрике определенного цвета
-        :param color: Цвет который необходимо деактивировать.
+        """Деактивация плиток на фабрике определенного цвета
+
+        Args
+            color - Цвет который необходимо деактивировать.
         """
         for tile in self.get_tile(color=color):
             tile.set_border()
@@ -15,13 +17,16 @@ class ABCFactory:
         self.scene.hide_put_tile()
 
     def get_tile(self, color) -> list['Tile']:
-        """
-        Получение плиток фабрики определенного цвета
-        :param color: Цвет который необходимо найти
-        :return: Список тайлов необходимого цвета
+        """Получение плиток фабрики определенного цвета
+
+        Args:
+            color - Цвет который необходимо найти
+
+        Returns:
+             Список тайлов необходимого цвета
         """
         return filter(
-            lambda x: x.color == color,
+            lambda x: x.color == color or x.color == Color.first_player,
             self.tiles
         )
 
@@ -37,7 +42,7 @@ class ABCFactory:
                 return
 
         self.scene.active = tile
-        for tile in self.get_tile(color=tile.color):
-            tile.select_tile()
+        for _tile in self.get_tile(color=tile.color):
+            _tile.select_tile()
 
         self.scene.show_me_put_tile(tile.color)

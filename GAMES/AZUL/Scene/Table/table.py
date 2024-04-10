@@ -2,14 +2,23 @@
 import random
 
 from .tile import TableTile
-from GAMES.AZUL.Scene import abc_factory
+from GAMES.AZUL import Scene
 
 
-class Table(abc_factory.ABCFactory):
+class Table(Scene.abc_factory.ABCFactory):
+    """
+    Attributes:
+        tiles: Список плиток расположенных на столе
+        free_point: Список доступных клеток для размещения новых плиток на стол
+            Список генерируется с помощью метода .fill_free_point()
+        number: Номер фабрики, так как это стол имеет порядковый номер 0
+        scene: AzulScene
+    """
     tiles: [TableTile, ...]
     free_point: [tuple[int, int], ...]
+    number: int = 0
 
-    def __init__(self, scene):
+    def __init__(self, scene: 'Scene.AzulScene'):
         self.scene = scene
         self.free_point = []
         self.tiles = []

@@ -33,6 +33,14 @@ class Table(Scene.abc_factory.ABCFactory):
         randint = random.randint(0, len(self.free_point) - 1)
         return self.free_point.pop(randint)
 
+    def add_free_point(self, point: tuple[int, int]) -> None:
+        """Добавить точку размещения в массив свободных точек
+
+        Args:
+            point: Адрес точки для добавления
+        """
+        self.free_point.append(point)
+
     def fill_free_point(self, x: int, y: int, size: int = 100) -> None:
         """Заполнить список свободных точек размещения плиток
 
@@ -67,3 +75,15 @@ class Table(Scene.abc_factory.ABCFactory):
                 factory=self, type_tile=element, point=self.get_free_point()
             )
             self.tiles.append(tile)
+
+    def action_clean_table(self, tiles: str) -> None:
+        """Очистка плиток с игрового стола
+
+        Args:
+            tiles: Информация о плитках необходимых для удаления со стола
+        """
+        tiles = list(tiles)
+        for tile in self.tiles:
+            if tile.type in tiles:
+                self.add_free_point(tile.start_point)
+                tile.remove_item()

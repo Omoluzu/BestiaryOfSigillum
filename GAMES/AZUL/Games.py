@@ -22,6 +22,8 @@ class AzulGames(WrapperGames):
             match key:
                 case 'clean_fact':
                     self.scene.action_clean_fact(value)
+                case 'clean_table':
+                    self.scene.action_clean_table(value)
                 case 'add_desc':
                     ...
                 case 'count':

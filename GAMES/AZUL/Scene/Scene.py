@@ -83,6 +83,14 @@ class AzulScene(Scene):
         """
         self.factories.action_clean_fact(fact)
 
+    def action_clean_table(self, tile: str) -> None:
+        """Очистка плиток с игрового стола
+
+        Args:
+            tile: Информация о плитках необходимых для удаления со стола
+        """
+        self.table.action_clean_table(tile)
+
     def action_pattern_line(
             self, line: int, player: str, tile: str, count: int
     ) -> None:

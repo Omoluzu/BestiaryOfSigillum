@@ -25,7 +25,7 @@ class AzulGames(WrapperGames):
                 case 'clean_table':
                     self.scene.action_clean_table(value)
                 case 'add_desc':
-                    ...
+                    self.scene.action_add_table(value)
                 case 'count':
                     ...
                 case 'post_pattern_line':

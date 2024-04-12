@@ -91,6 +91,15 @@ class AzulScene(Scene):
         """
         self.table.action_clean_table(tile)
 
+    def action_add_table(self, tiles: str) -> None:
+        """Выкладывание плиток на стол
+
+        Args:
+            tiles: Плитки которые необходимо выложить на стол.
+                'bg'
+        """
+        self.table.action_add_table(tiles)
+
     def action_pattern_line(
             self, line: int, player: str, tile: str, count: int
     ) -> None:

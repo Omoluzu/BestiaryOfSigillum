@@ -38,7 +38,9 @@ class AzulScene(Scene):
     @property
     def kind(self):
         """Форматирование игроков
-        :returns: {name: position}
+
+        Returns:
+             {name: position}
         """
         kind = self.app.game_info['kind']
         data = {}
@@ -51,6 +53,7 @@ class AzulScene(Scene):
     @property
     def position(self) -> str:
         """Получение позиции хода игрока
+
         Returns:
             one, two
         """
@@ -116,3 +119,13 @@ class AzulScene(Scene):
         """
         if self.position == player:
             self.tablet.action_pattern_line(line, tile, count)
+
+    def action_post_floor(self, player: str, tile: str) -> None:
+        """Выставление плиток на линию пола
+
+        Args:
+            player: Игрок: one, two
+            tile: Плитки которые необходимо выставить на линию пола: xb
+        """
+        if self.position == player:
+            self.floor.action_post_floor(tile)

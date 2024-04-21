@@ -2,6 +2,7 @@ from wrapperQWidget5.modules.scene.Scene import Scene
 from .Tablet.tablet import Tablet
 from .Factories import Factories
 from .Table import Table
+from .floor import Floor
 
 
 def split_game_command(info: str) -> dict:
@@ -28,6 +29,7 @@ class AzulScene(Scene):
         """
         self.factories = Factories(self)
         self.table = Table(self)
+        self.floor = Floor(self)
         self.user = app.app.user
 
         super().__init__(app=app, *args, **kwargs)
@@ -58,6 +60,7 @@ class AzulScene(Scene):
         """Отрисовка элементов сцены игры"""
         pattern = self.app.game_info[f'pattern{self.position}']
 
+        self.floor.draw(start_point=(60, 720))
         self.tablet = Tablet(scene=self, point=(220, 500), pattern_line=pattern)
         self.factories.init(elements=self.app.game_info['fact'])
         self.table.init(

@@ -19,7 +19,7 @@ def split_game_command(info: str) -> dict:
 
 
 class AzulScene(Scene):
-    tablet: Tablet
+    tablet_your: Tablet
 
     def __init__(self, app: 'AzulGames', *args, **kwargs):
         """
@@ -28,7 +28,7 @@ class AzulScene(Scene):
             app (GAMES.AZUL.Games.AzulGames)
         """
         self.factories = Factories(self)
-        self.table = Table(self)
+        self.table = Table(self)  # Стол
         self.floor = Floor(self)
         self.user = app.app.user
 
@@ -36,7 +36,7 @@ class AzulScene(Scene):
 
 
     @property
-    def kind(self):
+    def kind(self) -> dict:
         """Форматирование игроков
 
         Returns:
@@ -59,12 +59,34 @@ class AzulScene(Scene):
         """
         return self.kind[self.user]
 
+    @property
+    def alien_up(self) -> str:
+        """Получение позиции противника напротив игрока
+
+        Returns:
+            one, two
+        """
+        # Данным незамысловатым действием я решил решить вопрос вычленения игрока сидящим на против.
+        # Для решения с уровнем зависящем от кол-ва игроков, тут предлагаеться добавить еще одно условие в match
+        # match (self.position, count_player):
+        #     case ('one', 3):
+        #         return 'tree'
+        #     ...
+
+        match self.position:
+            case 'one':
+                return 'two'
+            case 'two':
+                return 'one'
+
     def draw(self) -> None:
         """Отрисовка элементов сцены игры"""
         pattern = self.app.game_info[f'pattern{self.position}']
+        pattern_up = self.app.game_info[f'pattern{self.alien_up}']
 
         self.floor.draw(start_point=(60, 720))
-        self.tablet = Tablet(scene=self, point=(220, 500), pattern_line=pattern)
+        # self.tablet_your = Tablet(scene=self, point=(220, 500), pattern_line=pattern)
+        self.tablet_alien_up = Tablet(scene=self, point=(220, 500), pattern_line=pattern_up)
         self.factories.init(elements=self.app.game_info['fact'])
         self.table.init(
             elements=self.app.game_info['table'], center_point=(250, 200))
@@ -73,11 +95,11 @@ class AzulScene(Scene):
         """
         Отрисовка плиток куда можно положить разместить тайл в Линии шаблона
         """
-        self.tablet.show_me_put_tile(color)
+        self.tablet_your.show_me_put_tile(color)
 
     def hide_put_tile(self):
         """Сокрытие маркеров размещение плиток"""
-        self.tablet.hide_put_tile()
+        self.tablet_your.hide_put_tile()
 
     def sent_post_tile(self, info):
         """Отправка команды на сервер о размещении плитки на планшет игрока"""
@@ -118,7 +140,7 @@ class AzulScene(Scene):
             count: Количество плиток на выставление: 2
         """
         if self.position == player:
-            self.tablet.action_pattern_line(line, tile, count)
+            self.tablet_your.action_pattern_line(line, tile, count)
 
     def action_post_floor(self, player: str, tile: str) -> None:
         """Выставление плиток на линию пола

@@ -6,7 +6,7 @@ __version__ = "1.0.0"
 
 class AzulGames(WrapperGames):
     __scene__ = AzulScene
-    __scene__size__ = (1920, 1080)
+    __scene__size__ = (1920, 1350)
     title = "AZUL"
     version_game = __version__
 

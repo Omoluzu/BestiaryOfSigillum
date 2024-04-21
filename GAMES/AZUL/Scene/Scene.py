@@ -20,6 +20,7 @@ def split_game_command(info: str) -> dict:
 
 class AzulScene(Scene):
     tablet_your: Tablet
+    tablet_alien_up: Tablet
 
     def __init__(self, app: 'AzulGames', *args, **kwargs):
         """
@@ -85,8 +86,10 @@ class AzulScene(Scene):
         pattern_up = self.app.game_info[f'pattern{self.alien_up}']
 
         self.floor.draw(start_point=(60, 720))
-        # self.tablet_your = Tablet(scene=self, point=(220, 500), pattern_line=pattern)
-        self.tablet_alien_up = Tablet(scene=self, point=(220, 500), pattern_line=pattern_up)
+        self.tablet_your = Tablet(
+            scene=self, point=(330, 500), pattern_line=pattern)
+        self.tablet_alien_up = Tablet(
+            scene=self, point=(330, -300), pattern_line=pattern_up)
         self.factories.init(elements=self.app.game_info['fact'])
         self.table.init(
             elements=self.app.game_info['table'], center_point=(250, 200))

@@ -16,17 +16,23 @@ class PatternLines(RectangleElementScene):
     def __init__(self, tablet, point, pattern_line, *args, **kwargs):
         self.height = tablet.height - 10
         self.width = tablet.width / 2
+        self.tablet = tablet
         x = point[0] - (self.width / 2) + 7
         y = point[1]
         super().__init__(scene=tablet.scene, point=(x, y), *args, **kwargs)
 
         one, two, thee, four, five = pattern_line.split('.')
 
-        self.lines_1 = PatternLine(pattern_lines=self, tiles=one)
-        self.lines_2 = PatternLine(pattern_lines=self, tiles=two)
-        self.lines_3 = PatternLine(pattern_lines=self, tiles=thee)
-        self.lines_4 = PatternLine(pattern_lines=self, tiles=four)
-        self.lines_5 = PatternLine(pattern_lines=self, tiles=five)
+        self.lines_1 = PatternLine(
+            pattern_lines=self, tiles=one, rotate=self.rotate)
+        self.lines_2 = PatternLine(
+            pattern_lines=self, tiles=two, rotate=self.rotate)
+        self.lines_3 = PatternLine(
+            pattern_lines=self, tiles=thee, rotate=self.rotate)
+        self.lines_4 = PatternLine(
+            pattern_lines=self, tiles=four, rotate=self.rotate)
+        self.lines_5 = PatternLine(
+            pattern_lines=self, tiles=five, rotate=self.rotate)
 
         if self.rotate:
             self.setTransformOriginPoint(QPointF(*tablet.start_point))

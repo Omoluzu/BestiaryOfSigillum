@@ -1,21 +1,24 @@
 """
 Группа отвечающая за одну линию ввода плиток
 """
+from PyQt5.QtCore import QPointF
 
 from .pattern import Pattern
 
 
 class PatternLine:
-    """
 
-    Args:
-        tiles - Информация о плитках на планшете игрока
-        pattern_tiles - Список шаблонов или плиток для размещения
-            или хранения информации о плитках.
-    """
-    def __init__(self, pattern_lines: 'PatternLines', tiles: str):
+    def __init__(self, pattern_lines: 'PatternLines', tiles: str, rotate):
+        """
+
+        Args:
+            tiles - Информация о плитках на планшете игрока
+            pattern_tiles - Список шаблонов или плиток для размещения
+                или хранения информации о плитках.
+        """
         self.pattern_lines = pattern_lines
         self.scene = pattern_lines.scene
+        self.rotate = rotate
         self.tiles = tiles
         self.count = len(tiles)
         self.pattern_tiles: list[Pattern] = []
@@ -52,8 +55,13 @@ class PatternLine:
                 line=self.count,
                 tile=tile,
                 point=self.start_point,
-                bias=(bias_x[index], self.bias_y)
+                bias=(bias_x[index], self.bias_y),
+                rotate=self.rotate
             )
+            if self.rotate:
+                pattern.setTransformOriginPoint(
+                    QPointF(*self.pattern_lines.tablet.start_point))
+                pattern.setRotation(self.rotate)
             self.pattern_tiles.append(pattern)
 
     def color(self) -> str:

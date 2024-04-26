@@ -10,7 +10,7 @@ from .Pattern.pattern_lines import PatternLines
 class Tablet(RectangleElementScene):
     height = 309
     width = 637.5
-    image = f"GAMES/AZUL/image/tablet.png"
+    # image = f"GAMES/AZUL/image/tablet.png"
 
     def __init__(self, pattern_line, *args, **kwargs):
         """Инициализация планшета игрока
@@ -19,7 +19,8 @@ class Tablet(RectangleElementScene):
         """
         super().__init__(*args, **kwargs)
         self.pattern_lines = PatternLines(
-            tablet=self, point=self.start_point, pattern_line=pattern_line
+            tablet=self, point=self.start_point,
+            pattern_line=pattern_line, rotate=self.rotate,
         )
 
     def show_me_put_tile(self, color):

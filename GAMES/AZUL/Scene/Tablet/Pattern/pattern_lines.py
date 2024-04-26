@@ -2,6 +2,8 @@
 Группа линий маркеров размещения плиток
 """
 
+from PyQt5.QtCore import QPointF
+
 from src.wrapper.element import RectangleElementScene
 from GAMES.AZUL.Scene.color import tile_color_reverse
 
@@ -25,6 +27,10 @@ class PatternLines(RectangleElementScene):
         self.lines_3 = PatternLine(pattern_lines=self, tiles=thee)
         self.lines_4 = PatternLine(pattern_lines=self, tiles=four)
         self.lines_5 = PatternLine(pattern_lines=self, tiles=five)
+
+        if self.rotate:
+            self.setTransformOriginPoint(QPointF(*tablet.start_point))
+            self.setRotation(self.rotate)
 
     @property
     def pattern_line(self):

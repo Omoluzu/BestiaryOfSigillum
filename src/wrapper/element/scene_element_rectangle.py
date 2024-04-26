@@ -1,5 +1,5 @@
-from PyQt5.QtWidgets import QGraphicsPixmapItem, QGraphicsPolygonItem, QGraphicsProxyWidget
-from PyQt5.QtGui import QPolygonF, QPixmap, QPainter
+from PyQt5.QtWidgets import QGraphicsPixmapItem, QGraphicsPolygonItem
+from PyQt5.QtGui import QPolygonF, QPixmap
 from PyQt5.QtCore import QPointF, QSize
 
 from typing import Optional

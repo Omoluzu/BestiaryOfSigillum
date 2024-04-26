@@ -1,6 +1,8 @@
-from PyQt5.QtWidgets import QGraphicsPixmapItem, QGraphicsPolygonItem
-from PyQt5.QtGui import QPolygonF, QPixmap
+from PyQt5.QtWidgets import QGraphicsPixmapItem, QGraphicsPolygonItem, QGraphicsProxyWidget
+from PyQt5.QtGui import QPolygonF, QPixmap, QPainter
 from PyQt5.QtCore import QPointF, QSize
+
+from typing import Optional
 
 from src.wrapper.element.scene import ElementScene
 
@@ -14,10 +16,9 @@ class RectangleElementScene(ElementScene, QGraphicsPolygonItem):
     height: int = 60  # высота прямоугольника
     width: int = 120  # Ширина прямоугольника
 
-    def draw(self):
-        """
-        Отрисовка фигуры полигона
-        """
+    def draw(self) -> None:
+        """Отрисовка фигуры полигона"""
+
         self.setPolygon(self.__polygon)
 
         if self.rotate:
@@ -28,15 +29,16 @@ class RectangleElementScene(ElementScene, QGraphicsPolygonItem):
 
     @property
     def __polygon(self) -> QPolygonF:
+        """Получение списка точек для отрисовки элемента прямоугольника сцены
+
+        Returns:
+            QPolygonF
+        """
         indent_x = self.width / 2
         indent_y = self.height / 2
         return QPolygonF(
                 [
                     QPointF(
-                        self.start_point_x - indent_x,
-                        self.start_point_y + indent_y
-                    ),
-                    QPointF(
                         self.start_point_x + indent_x,
                         self.start_point_y + indent_y
                     ),
@@ -47,6 +49,10 @@ class RectangleElementScene(ElementScene, QGraphicsPolygonItem):
                     QPointF(
                         self.start_point_x - indent_x,
                         self.start_point_y - indent_y
+                    ),
+                    QPointF(
+                        self.start_point_x - indent_x,
+                        self.start_point_y + indent_y
                     ),
                 ]
             )
@@ -59,24 +65,36 @@ class RectangleElementScene(ElementScene, QGraphicsPolygonItem):
     def start_point_y(self):
         return self.point[1] + (self.height * self.bias[1])
 
-    def set_image(self, bias=(0, 0), scaled=True, scaled_size=None):
+    def set_image(
+            self, bias: tuple[int, int] = (0, 0),
+            scaled: bool = True,
+            scaled_size: Optional[tuple[int, int]] = None
+    ) -> None:
         """
+        Отрисовка картинки элемента.
 
-        update version 0.0.3:
-            - Добавлен необязательный атрибут scaled.
-        update version 0.0.4:
-            - Добавлен необязательный атрибут scaled_size для указания новых размеров изображения.
+        Args:
+            bias:
+            scaled: Растягивание изображение под размеры элемента
+            scaled_size: Растягивание изображения по указанным параметрам.
         """
         pixmap = QPixmap(self.image)
         if scaled:
             if not scaled_size:
                 pixmap = pixmap.scaled(QSize(int(self.width), int(self.height)))
             else:
-                pixmap = pixmap.scaled(QSize(int(scaled_size[0]), int(scaled_size[1])))
+                pixmap = pixmap.scaled(
+                    QSize(int(scaled_size[0]), int(scaled_size[1]))
+                )
 
         self._pixmap = QGraphicsPixmapItem(pixmap)
         self.scene.addItem(self._pixmap)
-        self._pixmap.setPos(
+        self._pixmap.setPos(QPointF(
             self.start_point_x - self.width / 2 + bias[0],
             self.start_point_y - self.height / 2 + bias[1]
-        )
+        ))
+
+        if self.rotate:
+            self._pixmap.setTransformOriginPoint(
+                QPointF(self.width / 2, self.height / 2))
+            self._pixmap.setRotation(self.rotate)

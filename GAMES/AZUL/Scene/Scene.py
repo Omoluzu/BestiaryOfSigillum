@@ -35,7 +35,6 @@ class AzulScene(Scene):
 
         super().__init__(app=app, *args, **kwargs)
 
-
     @property
     def kind(self) -> dict:
         """Форматирование игроков
@@ -89,7 +88,7 @@ class AzulScene(Scene):
         self.tablet_your = Tablet(
             scene=self, point=(330, 500), pattern_line=pattern)
         self.tablet_alien_up = Tablet(
-            scene=self, point=(330, -300), pattern_line=pattern_up)
+            scene=self, point=(330, -300), pattern_line=pattern_up, rotate=180)
         self.factories.init(elements=self.app.game_info['fact'])
         self.table.init(
             elements=self.app.game_info['table'], center_point=(250, 200))

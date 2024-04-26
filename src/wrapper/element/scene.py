@@ -4,6 +4,7 @@ import os
 from PyQt5.QtWidgets import QGraphicsPolygonItem, QGraphicsScene
 from PyQt5.QtGui import QPen, QColor
 from abc import abstractmethod
+from typing import Optional
 
 __version__ = "1.0.1"
 
@@ -34,10 +35,6 @@ class ElementScene:
     @abstractmethod
     def draw(self):
         """ Отрисовка элемента """
-        pass
-
-    def set_image(self, bias=(0, 0), scaled=True):
-        """ Установка изображения на Элемент """
         pass
 
     @property
@@ -80,7 +77,7 @@ class ElementScene:
 
         self.draw()
         if self.image:
-            self.set_image(path=self.image)
+            self.set_image()
 
         if deactivated:
             self.deactivated()
@@ -119,3 +116,11 @@ class ElementScene:
             color(str) - цвет фигуры, по умолчанию белый
         """
         self.setBrush(QColor(color))
+
+    def set_image(
+            self, bias: tuple[int, int] = (0, 0),
+            scaled: bool = True,
+            scaled_size: Optional[tuple[int, int]] = None
+    ):
+        """ Установка изображения на Элемент """
+        pass

@@ -16,7 +16,9 @@ class Tile(SquareElementScene):
             tile: Плитка для отрисовки: x
         """
         self.tile = tile
-        self.set_color(tile_color[tile])
+        self.image = f"Games/AZUL/Image/{tile_color[self.tile]}.png"
+        self.set_image()
+
 
 class Floor:
     def __init__(self, scene):
@@ -31,8 +33,7 @@ class Floor:
         """
         for index in range(7):
             self.tiles.append(
-                Tile(self.scene, point=start_point, bias=(1.2 * index, 0))
-            )
+                Tile(self.scene, point=start_point, bias=(1.2 * index, 0)))
 
     def action_post_floor(self, tiles: str) -> None:
         """Выставление плиток на линию пола

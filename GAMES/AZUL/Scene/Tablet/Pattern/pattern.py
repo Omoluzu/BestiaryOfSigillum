@@ -18,10 +18,11 @@ class Pattern(SquareElementScene):
         """
         self.line = line
         self.tile = tile
-        super().__init__(*args, **kwargs)
 
         if self:
-            self.set_color(tile_color[self.tile])
+            self.image = f"Games/AZUL/Image/{tile_color[self.tile]}.png"
+
+        super().__init__(*args, **kwargs)
 
     def __repr__(self):
         return f"{self.__class__.__name__}(tile={self.tile})"
@@ -36,7 +37,8 @@ class Pattern(SquareElementScene):
             tile: Плитка которую необходимо выставить на планшет: r
         """
         self.tile = tile
-        self.set_color(color=tile_color[tile])
+        self.image = f"Games/AZUL/Image/{tile_color[tile]}.png"
+        self.set_image()
 
     def get_active(self):
         """Подсветка маркеров размещения плиток"""

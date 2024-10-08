@@ -34,5 +34,9 @@ class AzulGames(WrapperGames):
                 case 'post_floor':
                     self.scene.action_post_floor(
                         **split_game_command(value, sep1=',', sep2='.'))
+                case 'active_player':
+                    print(f'New active player: {value}'),
+                case 'change_first_player':
+                    print(f'New first player: {value}')
                 case _:
                     print(f'Unsupported command {key}: {value}')

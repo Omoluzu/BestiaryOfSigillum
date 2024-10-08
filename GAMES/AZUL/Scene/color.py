@@ -5,7 +5,7 @@ class Color:
     yellow = "yellow"
     red = "red"
     green = "green"
-    first_player = green
+    first_player = "first player"
 
 
 tile_color = {

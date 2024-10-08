@@ -9,9 +9,9 @@ class Tile(SquareElementScene):
         self.factory = factory
         self.type = type_tile
         self.color = tile_color[self.type]
-        super().__init__(scene=self.factory.scene, *args, **kwargs)
+        self.image = f"Games/AZUL/Image/{self.color}.png"
 
-        self.set_color(color=self.color)
+        super().__init__(scene=self.factory.scene, *args, **kwargs)
 
     def activated(self):
         """Активация тайла"""

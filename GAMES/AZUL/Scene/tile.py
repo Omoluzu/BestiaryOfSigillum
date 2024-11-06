@@ -15,6 +15,9 @@ class Tile(SquareElementScene):
 
     def activated(self):
         """Активация тайла"""
+        if self.scene.active_player != self.scene.user:
+            return
+
         if self.scene.active:
             self.scene.active.factory.deactivated_tile_by_color(
                 color=self.scene.active.color

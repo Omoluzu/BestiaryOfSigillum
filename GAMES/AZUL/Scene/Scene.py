@@ -35,6 +35,19 @@ class AzulScene(Scene):
 
         super().__init__(app=app, *args, **kwargs)
 
+        self.active_player = self.get_active_player
+
+    @property
+    def get_active_player(self) -> str:
+        """Получение активного игрока при инициализации сцены
+        :return: Имя активного игрока
+        """
+        kind = self.app.game_info['kind']
+        for k in kind.split(','):
+            position, name = k.split('.')
+            if self.app.game_info['active'] == position:
+                return name
+
     @property
     def kind(self) -> dict:
         """Форматирование игроков

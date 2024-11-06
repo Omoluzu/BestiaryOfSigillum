@@ -91,17 +91,19 @@ class PatternLine:
         for pattern in self.pattern_tiles:
             pattern.get_deactivate()
 
-    def action_pattern_line(self, tile: str, count: int) -> None:
+    def action_pattern_line(
+            self, tile: str, count: int, alien: bool = False) -> None:
         """Выставление плитки на планшет игрока
 
         Args:
             tile: Плитка которую необходимо выставить на планшет: r
             count: Количество плиток на выставление: 2
+            alien: Является ли ново выставленная плитка, плиткой противника?
         """
         n = 0
         for pattern in self.pattern_tiles:
             if not pattern:
-                pattern.action_pattern_line(tile=tile)
+                pattern.action_pattern_line(tile=tile, alien=alien)
                 n += 1
                 if n == count:
                     break

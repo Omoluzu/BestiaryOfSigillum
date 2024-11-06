@@ -144,7 +144,8 @@ class AzulScene(Scene):
         if self.position == player:
             self.tablet_your.action_pattern_line(line, tile, count)
         else:
-            self.tablet_alien_up.action_pattern_line(line, tile, count)
+            self.tablet_alien_up.action_pattern_line(
+                line, tile, count, alien=True)
 
     def action_post_floor(self, player: str, tile: str) -> None:
         """Выставление плиток на линию пола

@@ -1,6 +1,7 @@
 """
 Шаблон размещения плиток
 """
+from PyQt5.QtCore import QPointF
 
 from src.wrapper.element import SquareElementScene
 from GAMES.AZUL.Scene.color import tile_color_reverse, tile_color
@@ -30,15 +31,22 @@ class Pattern(SquareElementScene):
     def __bool__(self):
         return self.tile != '-'
 
-    def action_pattern_line(self, tile: str) -> None:
+    def action_pattern_line(self, tile: str, alien: bool = False) -> None:
         """Выставление плитки на планшет игрока
 
         Args:
             tile: Плитка которую необходимо выставить на планшет: r
+            alien: Является ли ново выставленная плитка, плиткой противника?
         """
         self.tile = tile
         self.image = f"Games/AZUL/Image/{tile_color[tile]}.png"
         self.set_image()
+        if alien:
+            self._pixmap.setPos(
+                self.mapToScene(QPointF(
+                    self.start_point_x + (self.size / 2),
+                    self.start_point_y + (self.size / 2)
+            )))
 
     def get_active(self):
         """Подсветка маркеров размещения плиток"""

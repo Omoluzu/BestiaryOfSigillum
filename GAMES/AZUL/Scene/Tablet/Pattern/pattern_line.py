@@ -56,12 +56,17 @@ class PatternLine:
                 tile=tile,
                 point=self.start_point,
                 bias=(bias_x[index], self.bias_y),
-                rotate=self.rotate
             )
             if self.rotate:
                 pattern.setTransformOriginPoint(
                     QPointF(*self.pattern_lines.tablet.start_point))
                 pattern.setRotation(self.rotate)
+                if pattern.image:
+                    pattern._pixmap.setPos(
+                        pattern.mapToScene(QPointF(
+                            pattern.start_point_x + (pattern.size / 2),
+                            pattern.start_point_y + (pattern.size / 2)
+                    )))
             self.pattern_tiles.append(pattern)
 
     def color(self) -> str:

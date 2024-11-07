@@ -1,5 +1,7 @@
 import random
 
+from PyQt5.QtCore import Qt
+
 from src.wrapper.element import CircleElementScene
 from .tile import Tile
 
@@ -15,6 +17,7 @@ class Factory(ABCFactory, CircleElementScene):
     Класс отвечающий за работу конкретной фабрики
     """
     size = 150
+    image = f"GAMES/AZUL/image/factory.png"
     tiles: [Tile, ...]
     number: int
 
@@ -30,6 +33,7 @@ class Factory(ABCFactory, CircleElementScene):
         super().__init__(*args, **kwargs)
 
         self.draw_element(element=element)
+        self.set_border(color=Qt.transparent)
 
     def __repr__(self):
         return f"<class={self.__class__.__name__} number={self.number}>"

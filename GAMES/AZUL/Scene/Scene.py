@@ -202,3 +202,18 @@ class AzulScene(Scene):
         """
         if self.position == player:
             self.floor.action_post_floor(tile)
+
+    def action_active_player(self, player: str) -> None:
+        """Смена активного игрока.
+
+        Args:
+            player: Игрок: one, two
+        """
+        self.active_player = self.kind_reverse.get(player)
+
+        if player == 'one':
+            self.player1.select()
+            self.player2.remove()
+        else:
+            self.player2.select()
+            self.player1.remove()

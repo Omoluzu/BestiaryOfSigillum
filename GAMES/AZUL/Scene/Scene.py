@@ -224,3 +224,11 @@ class AzulScene(Scene):
         else:
             self.player2.select()
             self.player1.remove()
+
+    def action_change_first_player(self, player: str) -> None:
+        """Смена первого игрока
+
+        Args:
+            player: Игрок: one, two
+        """
+        self.first_player.change(self.kind_reverse.get(player))

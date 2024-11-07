@@ -37,6 +37,6 @@ class AzulGames(WrapperGames):
                 case 'active_player':
                     self.scene.action_active_player(value)
                 case 'change_first_player':
-                    print(f'New first player: {value}')
+                    self.scene.action_change_first_player(value)
                 case _:
                     print(f'Unsupported command {key}: {value}')

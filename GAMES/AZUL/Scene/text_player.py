@@ -1,10 +1,8 @@
 from wrapperQWidget5.modules.scene import SquareScene
 
 from PyQt5.QtWidgets import QGraphicsTextItem
-from PyQt5.QtCore import QPointF
+from PyQt5.QtCore import QPointF, Qt
 from PyQt5.QtGui import QFont
-
-from PyQt5.QtCore import Qt
 
 from GAMES.IGNIS.Image import recource_ignis
 

@@ -4,6 +4,7 @@ from .Factories import Factories
 from .Table import Table
 from .floor import Floor
 from .text_player import TextPlayer
+from .text_first_player import TextFirstPlayer
 
 
 def split_game_command(info: str) -> dict:
@@ -24,6 +25,7 @@ class AzulScene(Scene):
     tablet_alien_up: Tablet
     player1: 'TextPlayer'
     player2: 'TextPlayer'
+    first_player: 'TextFirstPlayer'
 
     def __init__(self, app: 'AzulGames', *args, **kwargs):
         """
@@ -124,6 +126,11 @@ class AzulScene(Scene):
             self, point=(800, 35),
             text=f"Игрок 2: {self.kind_reverse['two']}"
         )
+
+        self.first_player = TextFirstPlayer(
+            self, point=(800, -105), name=self.get_active_player
+        )
+
 
         if self.app.game_info['active'] == 'one':
             self.player1.select()

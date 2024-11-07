@@ -3,6 +3,7 @@ from .Tablet.tablet import Tablet
 from .Factories import Factories
 from .Table import Table
 from .floor import Floor
+from .text_player import TextPlayer
 
 
 def split_game_command(info: str) -> dict:
@@ -21,6 +22,8 @@ def split_game_command(info: str) -> dict:
 class AzulScene(Scene):
     tablet_your: Tablet
     tablet_alien_up: Tablet
+    player1: 'TextPlayer'
+    player2: 'TextPlayer'
 
     def __init__(self, app: 'AzulGames', *args, **kwargs):
         """
@@ -64,6 +67,21 @@ class AzulScene(Scene):
         return data
 
     @property
+    def kind_reverse(self) -> dict:
+        """Форматирование игроков
+
+        Returns:
+             {position: name}
+        """
+        kind = self.app.game_info['kind']
+        data = {}
+        for k in kind.split(','):
+            position, name = k.split('.')
+            data[position] = name
+
+        return data
+
+    @property
     def position(self) -> str:
         """Получение позиции хода игрока
 
@@ -96,6 +114,21 @@ class AzulScene(Scene):
         """Отрисовка элементов сцены игры"""
         pattern = self.app.game_info[f'pattern{self.position}']
         pattern_up = self.app.game_info[f'pattern{self.alien_up}']
+
+        self.player1 = TextPlayer(
+            self, point=(800, -35),
+            text=f"Игрок 1: {self.kind_reverse['one']}"
+        )
+
+        self.player2 = TextPlayer(
+            self, point=(800, 35),
+            text=f"Игрок 2: {self.kind_reverse['two']}"
+        )
+
+        if self.app.game_info['active'] == 'one':
+            self.player1.select()
+        else:
+            self.player2.select()
 
         self.floor.draw(start_point=(60, 720))
         self.tablet_your = Tablet(

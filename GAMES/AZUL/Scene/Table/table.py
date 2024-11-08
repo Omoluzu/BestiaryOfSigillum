@@ -13,15 +13,19 @@ class Table(Scene.abc_factory.ABCFactory):
             Список генерируется с помощью метода .fill_free_point()
         number: Номер фабрики, так как это стол имеет порядковый номер 0
         scene: AzulScene
+        last_move: Список плиток которые использовал игрок
+            в своем последнем ходу
     """
-    tiles: [TableTile, ...]
-    free_point: [tuple[int, int], ...]
+    tiles: [TableTile]
+    free_point: [tuple[int, int]]
     number: int = 0
+    last_move: [TableTile]
 
     def __init__(self, scene: 'Scene.AzulScene'):
         self.scene = scene
         self.free_point = []
         self.tiles = []
+        self.last_move = []
 
     def get_free_point(self) -> tuple[int, int]:
         """Получить свободную точку для размещения плитки, и удаление её из
@@ -71,18 +75,28 @@ class Table(Scene.abc_factory.ABCFactory):
         self.fill_free_point(x=center_point[0], y=center_point[1], size=size)
 
         for element in elements:
-            self.draw_tile(tile=element)
+            self.draw_tile(tile=element, init=True)
 
-    def draw_tile(self, tile: str) -> None:
+    def draw_tile(self, tile: str, init: bool = False) -> None:
         """Отрисовка плитки на столе
 
         Args:
             tile: Плитка для отрисовки
+            init: Отрисовка плиток происходит при инициализации игры?
         """
         tile = TableTile(
             factory=self, type_tile=tile, point=self.get_free_point()
         )
+        if not init:
+            tile.set_border(color="orange", border=4)
+            self.last_move.append(tile)
         self.tiles.append(tile)
+
+    def clean_last_move(self) -> None:
+        """Очистка сохраненных плиток игрока"""
+        for tile in self.last_move:
+            tile.set_border()
+        self.last_move = []
 
     def action_clean_table(self, tiles: str) -> None:
         """Очистка плиток с игрового стола
@@ -103,5 +117,6 @@ class Table(Scene.abc_factory.ABCFactory):
             tiles: Плитки которые необходимо выложить на стол.
                 'bg'
         """
+        self.clean_last_move()
         for tile in tiles:
             self.draw_tile(tile=tile)

@@ -3,7 +3,7 @@ from .color import Color
 
 class ABCFactory:
     scene: 'Scene'
-    tiles: ['Tile', ...]
+    tiles: ['Tile']
 
     def deactivated_tile_by_color(self, color: str) -> None:
         """Деактивация плиток на фабрике определенного цвета

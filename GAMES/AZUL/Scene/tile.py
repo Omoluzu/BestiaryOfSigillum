@@ -12,6 +12,7 @@ class Tile(SquareElementScene):
         self.type = type_tile
         self.color = tile_color[self.type]
         self.image = f"Games/AZUL/Image/{self.color}.png"
+        self.last_border: str = Qt.transparent
 
         super().__init__(scene=self.factory.scene, *args, **kwargs)
         self.set_border()
@@ -29,6 +30,7 @@ class Tile(SquareElementScene):
 
     def select_tile(self):
         """Графическое указание о том что текущий тайл выбран"""
+        self.last_border = self.border_color
         self.set_border(color=Color.green, border=4)
 
     def deactivated(self):
@@ -37,3 +39,7 @@ class Tile(SquareElementScene):
 
     def set_border(self, color: str = Qt.transparent, border: int = 1) -> None:
         super().set_border(color, border)
+
+    @property
+    def border_color(self):
+        return self.pen().color().name()

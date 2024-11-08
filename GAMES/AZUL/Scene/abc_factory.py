@@ -12,7 +12,10 @@ class ABCFactory:
             color - Цвет который необходимо деактивировать.
         """
         for tile in self.get_tile(color=color):
-            tile.set_border()
+            tile.set_border(
+                color=tile.last_border,
+                border=1 if tile.last_border == '#000000' else 4
+            )
 
         self.scene.hide_put_tile()
 

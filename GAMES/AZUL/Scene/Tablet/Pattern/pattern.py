@@ -41,6 +41,7 @@ class Pattern(SquareElementScene):
         self.tile = tile
         self.image = f"Games/AZUL/Image/{tile_color[tile]}.png"
         self.set_image()
+        self.set_border(color='orange', border=4)
         if alien:
             self._pixmap.setPos(
                 self.mapToScene(QPointF(

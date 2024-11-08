@@ -104,6 +104,7 @@ class PatternLine:
         for pattern in self.pattern_tiles:
             if not pattern:
                 pattern.action_pattern_line(tile=tile, alien=alien)
+                self.pattern_lines.tablet.last_move.append(pattern)
                 n += 1
                 if n == count:
                     break

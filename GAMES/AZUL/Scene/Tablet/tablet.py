@@ -5,6 +5,7 @@
 from src.wrapper.element import RectangleElementScene
 
 from .Pattern.pattern_lines import PatternLines
+from GAMES.AZUL.Scene.tile import Tile
 
 
 class Tablet(RectangleElementScene):
@@ -17,6 +18,8 @@ class Tablet(RectangleElementScene):
         :param pattern_line: информация о линия размещения
             -.gg.---.----.-----
         """
+        self.last_move: list[Tile] = []
+
         super().__init__(*args, **kwargs)
         self.pattern_lines = PatternLines(
             tablet=self, point=self.start_point,
@@ -32,6 +35,12 @@ class Tablet(RectangleElementScene):
     def hide_put_tile(self):
         """Сокрытие маркеров размещение плиток"""
         self.pattern_lines.hide_put_tile()
+
+    def clean_last_move(self) -> None:
+        """Очистка сохраненных плиток игрока"""
+        for tile in self.last_move:
+            tile.set_border()
+        self.last_move = []
 
     def action_pattern_line(
             self, line: int, tile: str, count: int, alien: bool = False) -> None:

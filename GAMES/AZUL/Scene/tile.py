@@ -1,3 +1,5 @@
+from PyQt5.QtCore import Qt
+
 from src.wrapper.element import SquareElementScene
 from .color import tile_color, Color
 
@@ -12,6 +14,7 @@ class Tile(SquareElementScene):
         self.image = f"Games/AZUL/Image/{self.color}.png"
 
         super().__init__(scene=self.factory.scene, *args, **kwargs)
+        self.set_border()
 
     def activated(self):
         """Активация тайла"""
@@ -31,3 +34,6 @@ class Tile(SquareElementScene):
     def deactivated(self):
         self.scene.active = None
         self.factory.deactivated_tile_by_color(color=self.color)
+
+    def set_border(self, color: str = Qt.transparent, border: int = 1) -> None:
+        super().set_border(color, border)

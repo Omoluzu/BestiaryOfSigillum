@@ -200,14 +200,15 @@ class AzulScene(Scene):
             count: Количество плиток на выставление: 2
         """
         self.tablet_your.clean_last_move()
+        self.floor_your.clean_last_move()
         self.tablet_alien_up.clean_last_move()
+        self.floor_alien_up.clean_last_move()
 
         if self.position == player:
             self.tablet_your.action_pattern_line(line, tile, count)
         else:
             self.tablet_alien_up.action_pattern_line(
                 line, tile, count, alien=True)
-
 
     def action_post_floor(self, player: str, tile: str) -> None:
         """Выставление плиток на линию пола

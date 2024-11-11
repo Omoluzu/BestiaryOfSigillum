@@ -1,3 +1,5 @@
+"""Линия пола"""
+
 from src.wrapper.element import SquareElementScene
 from GAMES.AZUL.Scene.color import tile_color
 

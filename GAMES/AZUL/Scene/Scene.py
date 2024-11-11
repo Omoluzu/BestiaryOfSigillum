@@ -37,6 +37,8 @@ class AzulScene(Scene):
         """
         self.factories = Factories(self)
         self.table = Table(self)  # Стол
+        self.floor_your = Floor(self)
+        self.floor_alien_up = Floor(self)
         self.user = app.app.user
 
         super().__init__(app=app, *args, **kwargs)
@@ -139,13 +141,11 @@ class AzulScene(Scene):
 
         self.tablet_your = Tablet(
             scene=self, point=(330, 500), pattern_line=pattern)
-        self.floor_your = Floor(self)
         self.floor_your.draw(start_point=(140, 700))
 
         self.tablet_alien_up = Tablet(
             scene=self, point=(330, -300), pattern_line=pattern_up, rotate=180)
-        self.floor_alien_up = Floor(self)
-        self.floor_alien_up.draw(start_point=(140, -500))
+        self.floor_alien_up.draw(start_point=(140, -500), reverse=True)
 
         self.factories.init(elements=self.app.game_info['fact'])
         self.table.init(
@@ -217,7 +217,9 @@ class AzulScene(Scene):
             tile: Плитки которые необходимо выставить на линию пола: xb
         """
         if self.position == player:
-            self.floor.action_post_floor(tile)
+            self.floor_your.action_post_floor(tile)
+        else:
+            self.floor_alien_up.action_post_floor(tile)
 
     def action_active_player(self, player: str) -> None:
         """Смена активного игрока.

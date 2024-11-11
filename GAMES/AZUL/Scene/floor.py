@@ -27,13 +27,14 @@ class Floor:
         self.scene = scene
         self.tiles = []
 
-    def draw(self, start_point: tuple[int, int]) -> None:
+    def draw(self, start_point: tuple[int, int], reverse: bool = False) -> None:
         """Отрисовка элементов сцены
 
         Args:
             start_point: Стартовая позиция линии пола
+            reverse: Зеркалировать положение плиток.
         """
-        for index in range(7):
+        for index in range(7, 0, -1) if reverse else range(7):
             self.tiles.append(
                 Tile(self.scene, point=start_point, bias=(1.2 * index, 0)))
 

@@ -28,16 +28,27 @@ class Floor:
         self.tiles = []
         self.last_move: list[Tile] = []
 
-    def draw(self, start_point: tuple[int, int], reverse: bool = False) -> None:
-        """Отрисовка элементов сцены
+    def draw(
+            self, start_point: tuple[int, int],
+            tiles: str, reverse: bool = False
+    ) -> None:
+        """Отрисовка элементов линии пола
 
         Args:
             start_point: Стартовая позиция линии пола
-            reverse: Зеркалировать положение плиток.
+            tiles: Информация о плитках на линии пола
+                xrb
+            reverse: Зеркалировать положение плиток
         """
-        for index in range(7, 0, -1) if reverse else range(7):
-            self.tiles.append(
-                Tile(self.scene, point=start_point, bias=(1.2 * index, 0)))
+        tiles = tiles.rjust(7) if reverse else tiles.ljust(7)
+
+        for index in range(6, -1, -1) if reverse else range(7):
+            tile = Tile(self.scene, point=start_point, bias=(1.2 * index, 0))
+
+            if tiles[index] != ' ':
+                tile.post_tile(tiles[index])
+
+            self.tiles.append(tile)
 
     def clean_last_move(self) -> None:
         """Очистка сохраненных плиток игрока"""

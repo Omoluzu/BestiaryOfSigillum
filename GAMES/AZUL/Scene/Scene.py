@@ -141,11 +141,16 @@ class AzulScene(Scene):
 
         self.tablet_your = Tablet(
             scene=self, point=(330, 500), pattern_line=pattern)
-        self.floor_your.draw(start_point=(140, 700))
+        self.floor_your.draw(
+            start_point=(140, 700),
+            tiles=self.app.game_info[f'floor{self.position}'])
 
         self.tablet_alien_up = Tablet(
             scene=self, point=(330, -300), pattern_line=pattern_up, rotate=180)
-        self.floor_alien_up.draw(start_point=(140, -500), reverse=True)
+        self.floor_alien_up.draw(
+            start_point=(140, -500), reverse=True,
+            tiles=self.app.game_info[f'floor{self.alien_up}']
+        )
 
         self.factories.init(elements=self.app.game_info['fact'])
         self.table.init(
@@ -164,6 +169,7 @@ class AzulScene(Scene):
     def sent_post_tile(self, info):
         """Отправка команды на сервер о размещении плитки на планшет игрока"""
         self.app.send_data(command=info, test=True)
+        # self.app.send_data(command=info)
 
     def action_clean_fact(self, fact: int) -> None:
         """Очистка плиток с фабрики

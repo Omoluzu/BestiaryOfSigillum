@@ -11,7 +11,7 @@ from GAMES.AZUL.Scene.tile import Tile
 class Tablet(RectangleElementScene):
     height = 309
     width = 637.5
-    # image = f"GAMES/AZUL/image/tablet.png"
+    image = f"GAMES/AZUL/image/tablet.png"
 
     def __init__(self, pattern_line, *args, **kwargs):
         """Инициализация планшета игрока

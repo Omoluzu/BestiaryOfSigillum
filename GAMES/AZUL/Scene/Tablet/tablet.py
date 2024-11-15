@@ -5,13 +5,14 @@
 from src.wrapper.element import RectangleElementScene
 
 from .Pattern.pattern_lines import PatternLines
+from .Wall.wall import Wall
 from GAMES.AZUL.Scene.tile import Tile
 
 
 class Tablet(RectangleElementScene):
     height = 309
     width = 637.5
-    image = f"GAMES/AZUL/image/tablet.png"
+    # image = f"GAMES/AZUL/image/tablet.png"
 
     def __init__(self, pattern_line, *args, **kwargs):
         """Инициализация планшета игрока
@@ -25,6 +26,8 @@ class Tablet(RectangleElementScene):
             tablet=self, point=self.start_point,
             pattern_line=pattern_line, rotate=self.rotate,
         )
+
+        self.wall = Wall(tablet=self)
 
     def show_me_put_tile(self, color):
         """

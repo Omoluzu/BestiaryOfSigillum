@@ -38,5 +38,8 @@ class AzulGames(WrapperGames):
                     self.scene.action_active_player(value)
                 case 'change_first_player':
                     self.scene.action_change_first_player(value)
+                case 'post_wall':
+                    self.scene.action_post_wall(
+                        **split_game_command(value, sep1=',', sep2='.'))
                 case _:
                     print(f'Unsupported command {key}: {value}')

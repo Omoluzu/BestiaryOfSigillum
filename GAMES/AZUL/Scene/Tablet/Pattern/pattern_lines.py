@@ -11,7 +11,6 @@ from .pattern_line import PatternLine
 
 
 class PatternLines(RectangleElementScene):
-    width = 300
 
     def __init__(self, tablet, point, pattern_line, *args, **kwargs):
         self.height = tablet.height - 10

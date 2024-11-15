@@ -250,3 +250,12 @@ class AzulScene(Scene):
             player: Игрок: one, two
         """
         self.first_player.change(self.kind_reverse.get(player))
+
+    def action_post_wall(self, one: str, two: str) -> None:
+        """Выставление плиток на стену
+
+        Args:
+            one: Информация о плитках первого игрока
+            two: Информация о плитках второго игрока
+        """
+        print(one, two)

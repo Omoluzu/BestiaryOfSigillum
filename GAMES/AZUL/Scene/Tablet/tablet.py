@@ -27,7 +27,7 @@ class Tablet(RectangleElementScene):
             pattern_line=pattern_line, rotate=self.rotate,
         )
 
-        self.wall = Wall(tablet=self)
+        self.wall = Wall(tablet=self, rotate=self.rotate)
 
     def show_me_put_tile(self, color):
         """

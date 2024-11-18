@@ -1,4 +1,6 @@
 """Группа Линий стены"""
+from PyQt5.QtCore import QPointF
+
 from src.wrapper.element import RectangleElementScene, SquareElementScene
 from GAMES.AZUL.Scene.color import Color
 
@@ -45,9 +47,20 @@ class WallLine(RectangleElementScene):
         bias_x = [-2.4, -1.2, 0, 1.2, 2.4]
 
         for i in range(5):
-            Pattern(
+            pattern = Pattern(
                 scene=self.scene, point=self.start_point,
                 bias=(bias_x[i], 0), color=self.tile_number[i]
             )
+
+            if self.rotate:
+                pattern.setTransformOriginPoint(
+                    QPointF(*self.wall.tablet.start_point))
+                pattern.setRotation(self.rotate)
+                if pattern.image:
+                    pattern._pixmap.setPos(
+                        pattern.mapToScene(QPointF(
+                            pattern.start_point_x + (pattern.size / 2),
+                            pattern.start_point_y + (pattern.size / 2)
+                    )))
 
         # super().draw()

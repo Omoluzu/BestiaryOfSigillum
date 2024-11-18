@@ -25,10 +25,10 @@ class Wall(RectangleElementScene):
         )
 
 
-        line1 = WallLine(self, point=point, bias=(0, -2))
-        line2 = WallLine(self, point=point, bias=(0, -1))
-        line3 = WallLine(self, point=point)
-        line4 = WallLine(self, point=point, bias=(0, 1))
-        line5 = WallLine(self, point=point, bias=(0, 2))
+        line1 = WallLine(self, point=point, bias=(0, -2), number=1)
+        line2 = WallLine(self, point=point, bias=(0, -1), number=2)
+        line3 = WallLine(self, point=point, number=3)
+        line4 = WallLine(self, point=point, bias=(0, 1), number=4)
+        line5 = WallLine(self, point=point, bias=(0, 2), number=5)
 
         # super().draw()

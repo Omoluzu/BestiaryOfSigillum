@@ -119,6 +119,8 @@ class AzulScene(Scene):
         """Отрисовка элементов сцены игры"""
         pattern = self.app.game_info[f'pattern{self.position}']
         pattern_up = self.app.game_info[f'pattern{self.alien_up}']
+        wall = self.app.game_info[f'wall{self.position}']
+        wall_up = self.app.game_info[f'wall{self.alien_up}']
 
         self.player1 = TextPlayer(
             self, point=(800, -35),
@@ -140,13 +142,14 @@ class AzulScene(Scene):
             self.player2.select()
 
         self.tablet_your = Tablet(
-            scene=self, point=(330, 500), pattern_line=pattern)
+            scene=self, point=(330, 500), pattern_line=pattern, wall=wall)
         self.floor_your.draw(
             start_point=(140, 700),
             tiles=self.app.game_info[f'floor{self.position}'])
 
         self.tablet_alien_up = Tablet(
-            scene=self, point=(330, -300), pattern_line=pattern_up, rotate=180)
+            scene=self, point=(330, -300), pattern_line=pattern_up,
+            rotate=180, wall=wall_up)
         self.floor_alien_up.draw(
             start_point=(140, -500), reverse=True,
             tiles=self.app.game_info[f'floor{self.alien_up}']

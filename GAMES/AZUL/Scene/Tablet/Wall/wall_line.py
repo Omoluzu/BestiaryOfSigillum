@@ -1,66 +1,72 @@
 """Группа Линий стены"""
-from PyQt5.QtCore import QPointF
+from PyQt5.QtCore import QPointF, Qt
 
 from src.wrapper.element import RectangleElementScene, SquareElementScene
-from GAMES.AZUL.Scene.color import Color
+from GAMES.AZUL.Scene.color import tile_color
 
 
-class Pattern(SquareElementScene):
+class WallTile(SquareElementScene):
+    """Плитки стены. Имеют два статуса, выложены и свободны,
+        Статус определяется атрибутом draw_is_tile
+
+    """
     size = 50
-    # select = False
     color: str
 
-    def __init__(self, color: str, *args, **kwargs):
-        self.color = color
+    def __init__(self, tile: str, *args, **kwargs) -> None:
+        """Инициализация
+
+        Args:
+            tile: Содержит в себе информацию о цвете который должен быть
+                заполнен для текущей секции стены, и о факте заполненности
+                g+
+                r-
+        """
+        self.color = tile[0]
+        self.draw_is_tile = tile[1] == '+'
+
+        if self.draw_is_tile:
+            self.image = f"Games/AZUL/Image/{tile_color[self.color]}.png"
 
         super().__init__(*args, **kwargs)
 
-        self.set_border(color=self.color)
-
-
-
-NumberWallLine = {
-    1: [Color.dark_blue, Color.yellow, Color.red, Color.black, Color.blue],
-    2: [Color.blue, Color.dark_blue, Color.yellow, Color.red, Color.black],
-    3: [Color.black, Color.blue, Color.dark_blue, Color.yellow, Color.red],
-    4: [Color.red, Color.black, Color.blue, Color.dark_blue, Color.yellow],
-    5: [Color.yellow, Color.red, Color.black, Color.blue, Color.dark_blue],
-}
+        self.set_border(color=Qt.transparent)
 
 
 
 class WallLine(RectangleElementScene):
     width: int = 295  # Ширина прямоугольника
-    def __init__(self, wall, number, *args, **kwargs):
-        """
+
+    def __init__(self, wall, tiles, number, *args, **kwargs) -> None:
+        """Инициализация
 
         Args:
             wall - Стена игрока.
+            tiles - Плитки текущей линии стены
+                g-.y-.r-.d-.b-
             number - Номер позиции стены
         """
         self.wall = wall
-        self.tile_number = NumberWallLine[number]
+        self.tiles = tiles
         super().__init__(scene=self.wall.scene, *args, **kwargs)
 
     def draw(self) -> None:
-        # bias_x = [2.4, 1.2, 0, -1.2, -2.4]
+        """Отрисовка плиток текущей линии стены"""
         bias_x = [-2.4, -1.2, 0, 1.2, 2.4]
 
-        for i in range(5):
-            pattern = Pattern(
+        for i, tile in enumerate(self.tiles.split('.')):
+            wall_tile = WallTile(
                 scene=self.scene, point=self.start_point,
-                bias=(bias_x[i], 0), color=self.tile_number[i]
+                bias=(bias_x[i], 0), tile=tile
             )
 
             if self.rotate:
-                pattern.setTransformOriginPoint(
+                wall_tile.setTransformOriginPoint(
                     QPointF(*self.wall.tablet.start_point))
-                pattern.setRotation(self.rotate)
-                if pattern.image:
-                    pattern._pixmap.setPos(
-                        pattern.mapToScene(QPointF(
-                            pattern.start_point_x + (pattern.size / 2),
-                            pattern.start_point_y + (pattern.size / 2)
+                wall_tile.setRotation(self.rotate)
+                if wall_tile.image:
+                    wall_tile._pixmap.setPos(
+                        wall_tile.mapToScene(QPointF(
+                            wall_tile.start_point_x + (wall_tile.size / 2),
+                            wall_tile.start_point_y + (wall_tile.size / 2)
                     )))
-
-        # super().draw()

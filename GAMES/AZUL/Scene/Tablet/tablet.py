@@ -14,10 +14,14 @@ class Tablet(RectangleElementScene):
     width = 637.5
     # image = f"GAMES/AZUL/image/tablet.png"
 
-    def __init__(self, pattern_line, *args, **kwargs):
+    def __init__(self, pattern_line, wall, *args, **kwargs):
         """Инициализация планшета игрока
-        :param pattern_line: информация о линия размещения
-            -.gg.---.----.-----
+
+        Args:
+            pattern_line: информация о линия размещения
+                -.gg.---.----.-----
+            wall: Информация о плитках на стене.
+                g-.y-.r-.d-.b+,b-.g-.y+.r-.d-...,y-.r-.d-.b-.g-
         """
         self.last_move: list[Tile] = []
 
@@ -27,7 +31,7 @@ class Tablet(RectangleElementScene):
             pattern_line=pattern_line, rotate=self.rotate,
         )
 
-        self.wall = Wall(tablet=self, rotate=self.rotate)
+        self.wall = Wall(tablet=self, wall_line=wall, rotate=self.rotate)
 
     def show_me_put_tile(self, color):
         """

@@ -78,4 +78,6 @@ class Wall(RectangleElementScene):
                 dry--
         """
         for i, tile in enumerate(tiles):
-            getattr(self, f"line{i + 1}").action_post_wall(tile)
+            if tile != '-':
+                getattr(self, f"line{i + 1}").action_post_wall(tile)
+                self.tablet.pattern_lines.action_clean_pattern_line(line=i + 1)

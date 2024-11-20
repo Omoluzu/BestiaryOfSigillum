@@ -89,16 +89,15 @@ class WallLine(RectangleElementScene):
             tile: Плитка которую необходимо выставить
                 g
         """
-        if tile != '-':
-            wall_tile = self.wall_tile[tile]
-            wall_tile.post_tile()
+        wall_tile = self.wall_tile[tile]
+        wall_tile.post_tile()
 
-            if self.rotate:
-                wall_tile.setTransformOriginPoint(
-                    QPointF(*self.wall.tablet.start_point))
-                wall_tile.setRotation(self.rotate)
-                wall_tile._pixmap.setPos(
-                    wall_tile.mapToScene(QPointF(
-                        wall_tile.start_point_x + (wall_tile.size / 2),
-                        wall_tile.start_point_y + (wall_tile.size / 2)
-                )))
+        if self.rotate:
+            wall_tile.setTransformOriginPoint(
+                QPointF(*self.wall.tablet.start_point))
+            wall_tile.setRotation(self.rotate)
+            wall_tile._pixmap.setPos(
+                wall_tile.mapToScene(QPointF(
+                    wall_tile.start_point_x + (wall_tile.size / 2),
+                    wall_tile.start_point_y + (wall_tile.size / 2)
+            )))

@@ -6,7 +6,8 @@
 	- rotate
 	- [image](#image)
 -  Методы
-	- [remove_item](remove_item)
+	- [remove_item](#remove_item)
+	- [set_image](#set_image)
 
 
 ### Атрибуты

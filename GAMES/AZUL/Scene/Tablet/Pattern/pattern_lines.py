@@ -72,3 +72,12 @@ class PatternLines(RectangleElementScene):
         """
         pattern = getattr(self, f"lines_{line}")
         pattern.action_pattern_line(tile=tile, count=count, alien=alien)
+
+    def action_clean_pattern_line(self, line: int) -> None:
+        """Очистка плиток с планшета игрока после выставления их на стену.
+
+        Args:
+            line: Линия для очистки плиток: 3
+        """
+        pattern = getattr(self, f"lines_{line}")
+        pattern.action_clean_pattern_line()

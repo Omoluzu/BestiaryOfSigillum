@@ -108,3 +108,8 @@ class PatternLine:
                 n += 1
                 if n == count:
                     break
+
+    def action_clean_pattern_line(self) -> None:
+        """Очистка плиток с планшета игрока после выставления их на стену"""
+        for pattern in self.pattern_tiles:
+            pattern.action_clean_pattern_line()

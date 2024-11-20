@@ -70,3 +70,11 @@ class Pattern(SquareElementScene):
             info = f"command:post;fact:{factory};color:{color};line:{self.line};player:{self.scene.position}"
             self.scene.active.deactivated()
             self.scene.sent_post_tile(info=info)
+
+    def action_clean_pattern_line(self):
+        """Очистка плиток с планшета игрока после выставления их на стену"""
+        self.remove_item()
+
+    def remove_item(self):
+        """ Удаление текущего элемента """
+        self.scene.removeItem(self._pixmap)

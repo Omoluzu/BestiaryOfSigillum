@@ -50,7 +50,8 @@ class Tablet(RectangleElementScene):
         self.last_move = []
 
     def action_pattern_line(
-            self, line: int, tile: str, count: int, alien: bool = False) -> None:
+            self, line: int, tile: str, count: int, alien: bool = False
+    ) -> None:
         """Выставление плитки на планшет игрока
 
         Args:
@@ -61,3 +62,14 @@ class Tablet(RectangleElementScene):
         """
         self.pattern_lines.action_pattern_line(
             line=line, tile=tile, count=count, alien=alien)
+
+    def action_post_wall(self, tiles: str) -> None:
+        """Выставление плиток на стену игрока
+
+        Args:
+            tiles: Плитки которые необходимо выставить
+                grdd-
+                dry--
+        """
+        self.wall.action_post_wall(tiles)
+

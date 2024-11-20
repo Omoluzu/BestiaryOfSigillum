@@ -32,6 +32,11 @@ class WallTile(SquareElementScene):
 
         self.set_border(color=Qt.transparent)
 
+    def post_tile(self):
+        self.draw_is_tile = True
+        self.image = f"Games/AZUL/Image/{tile_color[self.color]}.png"
+        self.set_image()
+
 
 
 class WallLine(RectangleElementScene):
@@ -48,7 +53,11 @@ class WallLine(RectangleElementScene):
         """
         self.wall = wall
         self.tiles = tiles
+        self.wall_tile = {}
         super().__init__(scene=self.wall.scene, *args, **kwargs)
+
+    def __repr__(self):
+        return f"{self.__class__.__name__}(tiles={self.tiles})"
 
     def draw(self) -> None:
         """Отрисовка плиток текущей линии стены"""
@@ -70,3 +79,26 @@ class WallLine(RectangleElementScene):
                             wall_tile.start_point_x + (wall_tile.size / 2),
                             wall_tile.start_point_y + (wall_tile.size / 2)
                     )))
+
+            self.wall_tile[tile[:1]] = wall_tile
+
+    def action_post_wall(self, tile: str) -> None:
+        """Выставление плиток на стену игрока
+
+        Args:
+            tile: Плитка которую необходимо выставить
+                g
+        """
+        if tile != '-':
+            wall_tile = self.wall_tile[tile]
+            wall_tile.post_tile()
+
+            if self.rotate:
+                wall_tile.setTransformOriginPoint(
+                    QPointF(*self.wall.tablet.start_point))
+                wall_tile.setRotation(self.rotate)
+                wall_tile._pixmap.setPos(
+                    wall_tile.mapToScene(QPointF(
+                        wall_tile.start_point_x + (wall_tile.size / 2),
+                        wall_tile.start_point_y + (wall_tile.size / 2)
+                )))

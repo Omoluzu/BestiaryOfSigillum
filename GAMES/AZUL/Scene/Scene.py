@@ -261,4 +261,9 @@ class AzulScene(Scene):
             one: Информация о плитках первого игрока
             two: Информация о плитках второго игрока
         """
-        print(one, two)
+        if self.position == 'one':
+            self.tablet_your.action_post_wall(one)
+            self.tablet_alien_up.action_post_wall(two)
+        else:
+            self.tablet_your.action_post_wall(two)
+            self.tablet_alien_up.action_post_wall(one)

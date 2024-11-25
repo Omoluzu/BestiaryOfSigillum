@@ -13,9 +13,13 @@ class Factories:
         self.scene = scene
 
     def init(self, elements: str):
-        """
+        """Выставление плиток на фабрики
 
-        element (str) - rgyd.rygd.dggb.bygb.yrdr
+        Args:
+            elements:
+                Информация о плитках фабрик
+                'rgyd.rygd.dggb.bygb.yrdr'
+                '-.-.-.-.-'
         """
         elements = elements.split(".")
         self.count_factory = len(elements)
@@ -29,6 +33,22 @@ class Factories:
 
     def action_clean_fact(self, fact: int) -> None:
         """Очистка плиток с фабрики
-        :param fact: Номер фабрики
+
+        Args:
+            fact:
+                Номер фабрики
         """
         self.factory[fact - 1].clean()
+
+    def action_post_fact(self, tiles: str) -> None:
+        """Выставление новых плиток на фабрики
+
+        Args:
+            tiles:
+                Информация о выставляемых плитках
+                'grrr.dyyy.rbdg.brgr.dygb'
+        """
+        for i, _tiles in enumerate(tiles.split('.')):
+            self.factory[i].action_post_fact(tiles=_tiles)
+
+

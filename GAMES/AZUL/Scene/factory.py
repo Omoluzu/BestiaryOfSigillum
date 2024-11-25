@@ -21,8 +21,8 @@ class Factory(ABCFactory, CircleElementScene):
     tiles: [Tile, ...]
     number: int
 
-    def __init__(self, element: str, number: int, *args, **kwargs):
-        """
+    def __init__(self, element: str, number: int, *args, **kwargs) -> None:
+        """Инициализация фабрики
 
         Args:
             number - Порядковый номер Фабрики
@@ -40,17 +40,24 @@ class Factory(ABCFactory, CircleElementScene):
 
     def draw_element(self, element: str) -> None:
         """Отрисовка элементов фабрики
-        :param element: Элементы фабрики для отрисовки
-            'rgyd' - список плиток для отрисовки
-            '-' - Плитки на данной фабрике отсутствуют
+
+        Args:
+            element:
+                Элементы фабрики для отрисовки
+                'rgyd' - список плиток для отрисовки
+                '-' - Плитки на данной фабрике отсутствуют
         """
         if element == '-':
             return
         self.draw_tile(element)
 
     def draw_tile(self, element) -> None:
-        """
-        Отрисовка Тайлов на фабрике.
+        """Отрисовка Тайлов на фабрике.
+
+        Args:
+            element:
+                 Информация о выставляемых плитках
+                'grrr'
         """
         (
             tile_up,
@@ -86,3 +93,13 @@ class Factory(ABCFactory, CircleElementScene):
         """Очищение текущей фабрики от плиток"""
         for tile in self.tiles:
             tile.remove_item()
+
+    def action_post_fact(self, tiles: str) -> None:
+        """Выставление новых плиток на фабрики
+
+        Args:
+            tiles:
+                Информация о выставляемых плитках
+                'grrr'
+        """
+        self.draw_tile(element=tiles)

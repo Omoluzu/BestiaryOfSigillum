@@ -176,7 +176,8 @@ class AzulScene(Scene):
 
     def action_clean_fact(self, fact: int) -> None:
         """Очистка плиток с фабрики
-        :param fact: Номер фабрики
+        Args:
+            fact: Номер фабрики
         """
         self.factories.action_clean_fact(fact)
 
@@ -267,3 +268,13 @@ class AzulScene(Scene):
         else:
             self.tablet_your.action_post_wall(two)
             self.tablet_alien_up.action_post_wall(one)
+
+    def action_post_fact(self, tiles: str) -> None:
+        """Выставление новых плиток на фабрики
+
+        Args:
+            tiles:
+                Информация о выставляемых плитках
+                'grrr.dyyy.rbdg.brgr.dygb'
+        """
+        self.factories.action_post_fact(tiles)

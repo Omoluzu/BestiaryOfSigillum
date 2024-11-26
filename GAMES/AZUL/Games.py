@@ -43,5 +43,7 @@ class AzulGames(WrapperGames):
                         **split_game_command(value, sep1=',', sep2='.'))
                 case 'post_fact':
                     self.scene.action_post_fact(value)
+                case 'floor_clear':
+                    self.scene.action_floor_clear()
                 case _:
                     print(f'Unsupported command {key}: {value}')

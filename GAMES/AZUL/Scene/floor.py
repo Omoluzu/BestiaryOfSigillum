@@ -21,6 +21,10 @@ class Tile(SquareElementScene):
         self.image = f"Games/AZUL/Image/{tile_color[self.tile]}.png"
         self.set_image()
 
+    def remove_item(self):
+        """ Удаление текущего элемента """
+        self.scene.removeItem(self._pixmap)
+
 
 class Floor:
     def __init__(self, scene):
@@ -70,3 +74,8 @@ class Floor:
                 self.last_move.append(tile)
                 if not tiles:
                     break
+
+    def action_floor_clear(self) -> None:
+        """Очистка линии пола"""
+        for tile in self.tiles:
+            tile.remove_item()

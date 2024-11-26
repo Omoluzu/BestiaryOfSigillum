@@ -12,9 +12,11 @@
 - [**Methods**](#methods)
 	- [export](#export)
 	- [element_add](#element_add)
+	- [clear](#clear)
 - [**Logging**](#logging)
 	- [element_add](#element_add)
 	- [element_extra](#element_extra)
+	- [element_clear](#element_clear)
 
 ### Описание
 Базовый класс для упрощения первоначального взаимодействия с группой односимвольных элементов игры хранимых в cvs.
@@ -138,6 +140,18 @@ group = NameGroupElement.imports(elements="name_group:elements")
 **Args**:  
 	***element***(`str`): Элемент группы элементов который необходимо добавить в конец списка [elements](#elements)
 
+#### clear
+Удаление содержимого всех элементов
+
+```python
+base = models.BaseList(elements=['x', 'r', 'b', 'g'])  
+base.clear()  
+  
+assert base.elements == []  
+assert base.log.element_clear == ['x', 'r', 'b', 'g']  
+assert base.export() == 'base:'
+```
+
 ### Logging
 
 #### element_add
@@ -156,3 +170,8 @@ element_add(element='bb')
 
 #### element_extra
 Если установлено значение [cls.limit](#limit) отличное от нуля. То в данном атрибуте будет хранится список элементов которые не вошли в основной список [элементов](#element) из-за установленного лимита элементов.
+
+
+#### element_clear
+Вывод сколько было удаленно элементов после выполнения метода [clear](#clear)
+

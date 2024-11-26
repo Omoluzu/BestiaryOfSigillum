@@ -278,3 +278,9 @@ class AzulScene(Scene):
                 'grrr.dyyy.rbdg.brgr.dygb'
         """
         self.factories.action_post_fact(tiles)
+
+    def action_floor_clear(self) -> None:
+        """Очистка содержимое линии пола обоих игроков"""
+        self.floor_your.action_floor_clear()
+        self.floor_alien_up.action_floor_clear()
+

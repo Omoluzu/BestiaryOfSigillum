@@ -48,7 +48,9 @@ class AzulScene(Scene):
     @property
     def get_active_player(self) -> str:
         """Получение активного игрока при инициализации сцены
-        :return: Имя активного игрока
+
+        Returns:
+             Имя активного игрока
         """
         kind = self.app.game_info['kind']
         for k in kind.split(','):
@@ -124,12 +126,12 @@ class AzulScene(Scene):
 
         self.player1 = TextPlayer(
             self, point=(800, -35),
-            text=f"Игрок 1: {self.kind_reverse['one']}"
+            text=f"Игрок 1: {self.kind_reverse['one']} ({self.app.game_info['countone']})"
         )
 
         self.player2 = TextPlayer(
             self, point=(800, 35),
-            text=f"Игрок 2: {self.kind_reverse['two']}"
+            text=f"Игрок 2: {self.kind_reverse['two']} ({self.app.game_info['counttwo']})"
         )
 
         self.first_player = TextFirstPlayer(
@@ -283,4 +285,21 @@ class AzulScene(Scene):
         """Очистка содержимое линии пола обоих игроков"""
         self.floor_your.action_floor_clear()
         self.floor_alien_up.action_floor_clear()
+
+    def action_change_count(self, one: str, two: str) -> None:
+        """Вывод информации о количестве заработанных победных очках
+
+        Args:
+            one:
+                Информация о победных очках первого игрока
+                4|4
+            two:
+                Информация о победных очках второго игрока
+                5|5
+        """
+        self.player1.name.setPlainText(
+            f"Игрок 1: {self.kind_reverse['one']} ({one})")
+
+        self.player2.name.setPlainText(
+            f"Игрок 2: {self.kind_reverse['two']} ({two})")
 

@@ -50,3 +50,6 @@ class AzulGames(WrapperGames):
                         **split_game_command(value, sep1=',', sep2='.'))
                 case _:
                     print(f'Unsupported command {key}: {value}')
+
+        # В конце обновление сцены
+        self.scene.update()

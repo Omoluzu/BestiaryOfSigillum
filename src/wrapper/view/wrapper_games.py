@@ -1,4 +1,3 @@
-from abc import abstractmethod
 from PyQt5.QtWidgets import QMainWindow, QWidget
 
 __version__ = "1.0.3"
@@ -54,7 +53,6 @@ class WrapperGames(QMainWindow):
             self.get_data(data)
             self.get_commands(split_game_command(data['game_command']))
 
-    @abstractmethod
     def get_data(self, data: dict):
         pass
 

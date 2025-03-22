@@ -8,6 +8,7 @@ from .wall_line import WallLine
 
 
 class Wall(RectangleElementScene):
+    """СТЕНА"""
     line1: WallLine
     line2: WallLine
     line3: WallLine
@@ -81,3 +82,14 @@ class Wall(RectangleElementScene):
             if tile != '-':
                 getattr(self, f"line{i + 1}").action_post_wall(tile)
                 self.tablet.pattern_lines.action_clean_pattern_line(line=i + 1)
+
+    def get_wall_line(self, line_number: int) -> WallLine:
+        """Получение линии стены
+
+        Args:
+            line_number: Номер линии стены который необходимо ввернуть
+
+        Returns:
+            Возвращается необходимая линия стены.
+        """
+        return getattr(self, f'line{line_number}')

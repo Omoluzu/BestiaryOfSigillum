@@ -32,6 +32,11 @@ class WallTile(SquareElementScene):
 
         self.set_border(color=Qt.transparent)
 
+    def __repr__(self):
+        return (
+            f"{self.__class__.__name__}(color='{self.color}', "
+            f"draw_is_tile='{self.draw_is_tile}')")
+
     def post_tile(self):
         self.draw_is_tile = True
         self.image = f"Games/AZUL/Image/{tile_color[self.color]}.png"
@@ -53,11 +58,14 @@ class WallLine(RectangleElementScene):
         """
         self.wall = wall
         self.tiles = tiles
-        self.wall_tile = {}
+        self.wall_tile: dict[str, WallTile] = {}
         super().__init__(scene=self.wall.scene, *args, **kwargs)
 
     def __repr__(self):
         return f"{self.__class__.__name__}(tiles={self.tiles})"
+
+    def __contains__(self, item: str):
+        return self.wall_tile[item].draw_is_tile
 
     def draw(self) -> None:
         """Отрисовка плиток текущей линии стены"""

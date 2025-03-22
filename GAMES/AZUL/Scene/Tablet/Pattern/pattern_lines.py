@@ -43,18 +43,6 @@ class PatternLines(RectangleElementScene):
         for index in range(1, 6):
             yield getattr(self, f"lines_{index}")
 
-    def show_me_put_tile(self, color: str):
-        """Отрисовка плиток куда можно положить разместить тайл в Линии шаблона
-
-        Args:
-            color: Выбранный цвет тайла который планируется для размещения.
-                'blue'
-        """
-        for pattern_line in self.pattern_line:
-            pattern_color = pattern_line.color()
-            if pattern_color == '-' or pattern_color == tile_color_reverse[color]:
-                pattern_line.show_me_put_tile(color=color)
-
     def hide_put_tile(self):
         """Сокрытие маркеров размещение плиток"""
         for pattern_line in self.pattern_line:

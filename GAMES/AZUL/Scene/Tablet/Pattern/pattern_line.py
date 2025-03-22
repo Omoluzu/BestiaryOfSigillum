@@ -29,6 +29,9 @@ class PatternLine:
         return (f"{self.__class__.__name__}(pattern_lines={self.pattern_lines}, "
                 f"tiles={self.tiles})")
 
+    def __bool__(self) -> bool:
+        return self.color() != '-'
+
     @property
     def start_point(self) -> tuple:
         return (
@@ -71,18 +74,16 @@ class PatternLine:
 
     def color(self) -> str:
         """Получение использованного в линии цвета плиток
-        :returns: Цвет плитки или '-' если плитка еще не выставлена"""
+
+        Returns:
+            Цвет плитки или '-' если плитка еще не выставлена
+        """
         for pattern in self.pattern_tiles:
-            if pattern:
-                return pattern.tile
+            if pattern: return pattern.tile
         return '-'
 
-    def show_me_put_tile(self, color):
-        """Отображение маркеров размещения плиток.
-
-        Args:
-            color: Выбранный цвет тайла который планируется для размещения.
-        """
+    def show_me_put_tile(self):
+        """Отображение маркеров размещения плиток."""
         for pattern in self.pattern_tiles:
             pattern.get_active()
 

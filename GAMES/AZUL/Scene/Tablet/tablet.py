@@ -7,6 +7,7 @@ from src.wrapper.element import RectangleElementScene
 from .Pattern.pattern_lines import PatternLines
 from .Wall.wall import Wall
 from GAMES.AZUL.Scene.tile import Tile
+from ..color import tile_color_reverse, Color
 
 
 class Tablet(RectangleElementScene):
@@ -33,13 +34,27 @@ class Tablet(RectangleElementScene):
 
         self.wall = Wall(tablet=self, wall_line=wall, rotate=self.rotate)
 
-    def show_me_put_tile(self, color):
+    def show_me_put_tile(self, color: Color) -> None:
         """
         Отрисовка тайлов куда можно положить разместить тайл в Линии шаблона
-        """
-        self.pattern_lines.show_me_put_tile(color)
 
-    def hide_put_tile(self):
+        Args:
+            color: Цвет плитки, которую игрок планирует выставить на свой
+                планшет
+        """
+        put_tile = tile_color_reverse[color]
+
+        for index_line, pattern_line in enumerate(
+                self.pattern_lines.pattern_line, 1):
+
+            # TODO: Для чистоты проверки (Пригодится скоро) нужно считать кол-во элементов. Так как выбирает линию в которую я уже ничего не могу поставить, просто он не загарает тайлы. А мне нужно чтобы проверять кол-во возможных линий установки, и если их НЕТ то загорать спец кнопку
+            if not pattern_line or pattern_line.color() == put_tile:
+                wall = self.wall.get_wall_line(line_number=index_line)
+
+                if put_tile not in wall:
+                    pattern_line.show_me_put_tile()
+
+    def hide_put_tile(self) -> None:
         """Сокрытие маркеров размещение плиток"""
         self.pattern_lines.hide_put_tile()
 

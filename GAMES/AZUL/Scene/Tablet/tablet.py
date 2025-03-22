@@ -36,7 +36,7 @@ class Tablet(RectangleElementScene):
 
     def show_me_put_tile(self, color: Color) -> None:
         """
-        Отрисовка тайлов куда можно положить разместить тайл в Линии шаблона
+        Отрисовка плитки куда можно положить разместить тайл в Линии шаблона
 
         Args:
             color: Цвет плитки, которую игрок планирует выставить на свой
@@ -48,7 +48,7 @@ class Tablet(RectangleElementScene):
                 self.pattern_lines.pattern_line, 1):
 
             # TODO: Для чистоты проверки (Пригодится скоро) нужно считать кол-во элементов. Так как выбирает линию в которую я уже ничего не могу поставить, просто он не загарает тайлы. А мне нужно чтобы проверять кол-во возможных линий установки, и если их НЕТ то загорать спец кнопку
-            if not pattern_line or pattern_line.color() == put_tile:
+            if pattern_line and pattern_line.color() in [put_tile, '-']:
                 wall = self.wall.get_wall_line(line_number=index_line)
 
                 if put_tile not in wall:

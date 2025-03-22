@@ -13,6 +13,9 @@ class PatternLine:
 
         Args:
             tiles - Информация о плитках на планшете игрока
+                -yy,
+                ----,
+                ggggg
             pattern_tiles - Список шаблонов или плиток для размещения
                 или хранения информации о плитках.
         """
@@ -30,7 +33,8 @@ class PatternLine:
                 f"tiles={self.tiles})")
 
     def __bool__(self) -> bool:
-        return self.color() != '-'
+        """Проверка свободного места для размещения плиток"""
+        return '-' in self.tiles
 
     @property
     def start_point(self) -> tuple:

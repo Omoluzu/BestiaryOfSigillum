@@ -1,7 +1,7 @@
 """Линия пола"""
 
 from src.wrapper.element import SquareElementScene
-from GAMES.AZUL.Scene.color import tile_color
+from GAMES.AZUL.Scene.color import tile_color, tile_color_reverse
 
 
 class Tile(SquareElementScene):
@@ -26,7 +26,28 @@ class Tile(SquareElementScene):
         self.scene.removeItem(self._pixmap)
 
 
+class Trash(SquareElementScene):
+    size = 50
+    image = "GAMES/AZUL/image/krest.png"
+
+    def activated(self):
+        tile = self.scene.active
+        color = tile_color_reverse[tile.color]
+
+        send_data = f"command:trash;color:{color};player:{self.scene.position}"
+        tile.deactivated()
+        self.scene.sent_trash_tile(info=send_data)
+
+
 class Floor:
+    """Управление плитками линии пола
+
+    Attributes:
+        trash: Тайл обозначающий корзину. Появляется когда игроку некуда
+            выложить тайл.
+    """
+    trash: Trash
+
     def __init__(self, scene):
         self.scene = scene
         self.tiles = []
@@ -53,6 +74,11 @@ class Floor:
                 tile.post_tile(tiles[index])
 
             self.tiles.append(tile)
+
+        if not reverse:
+            self.trash = Trash(self.scene, point=start_point, bias=(8.4, 0))
+            self.trash.set_border(color='transparent')
+            self.trash.hide()
 
     def clean_last_move(self) -> None:
         """Очистка сохраненных плиток игрока"""

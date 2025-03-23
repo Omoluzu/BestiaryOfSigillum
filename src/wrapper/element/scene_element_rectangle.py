@@ -98,3 +98,11 @@ class RectangleElementScene(ElementScene, QGraphicsPolygonItem):
             self._pixmap.setTransformOriginPoint(
                 QPointF(self.width / 2, self.height / 2))
             self._pixmap.setRotation(self.rotate)
+
+    def hide(self):
+        self._pixmap.hide()
+        super().hide()
+        
+    def show(self):
+        self._pixmap.show()
+        super().show()

@@ -170,11 +170,15 @@ class AzulScene(Scene):
     def hide_put_tile(self):
         """Сокрытие маркеров размещение плиток"""
         self.tablet_your.hide_put_tile()
+        self.floor_your.trash.hide()
 
     def sent_post_tile(self, info):
         """Отправка команды на сервер о размещении плитки на планшет игрока"""
         self.app.send_data(command=info, test=True)
         # self.app.send_data(command=info)
+
+    def sent_trash_tile(self, info):
+        self.app.send_data(command=info, test=True)
 
     def action_clean_fact(self, fact: int) -> None:
         """Очистка плиток с фабрики

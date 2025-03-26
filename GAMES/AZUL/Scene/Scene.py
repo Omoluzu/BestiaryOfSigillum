@@ -178,7 +178,8 @@ class AzulScene(Scene):
         # self.app.send_data(command=info)
 
     def sent_trash_tile(self, info):
-        self.app.send_data(command=info, test=True)
+        # self.app.send_data(command=info, test=True)
+        self.app.send_data(command=info)
 
     def action_clean_fact(self, fact: int) -> None:
         """Очистка плиток с фабрики

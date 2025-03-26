@@ -91,4 +91,5 @@ class Tablet(RectangleElementScene):
                 dry--
         """
         self.wall.action_post_wall(tiles)
+        self.clean_last_move()
 

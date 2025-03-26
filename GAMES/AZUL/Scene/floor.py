@@ -34,7 +34,7 @@ class Trash(SquareElementScene):
         tile = self.scene.active
         color = tile_color_reverse[tile.color]
 
-        send_data = f"command:trash;color:{color};player:{self.scene.position}"
+        send_data = f"command:trash;fact:{tile.factory.number};color:{color};player:{self.scene.position}"
         tile.deactivated()
         self.scene.sent_trash_tile(info=send_data)
 
@@ -105,3 +105,4 @@ class Floor:
         """Очистка линии пола"""
         for tile in self.tiles:
             tile.remove_item()
+        self.clean_last_move()
